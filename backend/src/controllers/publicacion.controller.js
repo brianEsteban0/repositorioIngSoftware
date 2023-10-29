@@ -4,17 +4,26 @@ const {respondSuccess, respondError } = require("../utils/resHandler")
 const PublicacionService = require("../services/publicacion.service");
 const { handleError } = require("../utils/errorHandler");
 const Publicacion = require('../models/publicacion.model');
+const { respondInternalError} = require("../utils/resHandler");
 
+// Importa una librería para manejar fechas en formato 'dd/mm/aa'
+const { parse } = require('date-fns');
 /**
  * Crea un nuevo usuario
  * @param {Object} req - Objeto de petición
  * @param {Object} res - Objeto de respuesta
  */
 
-// funcion para mostrar la fecha en dd/mm/año
+// Función para mostrar la fecha en dd/mm/año
 function formatDateToDDMMYYYY(date) {
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   return date.toLocaleDateString('es-ES', options);
+}
+
+function validateFechas(fechaInicio, fechaTermino) {
+  const fechaInicioParsed = new Date(fechaInicio);
+  const fechaTerminoParsed = new Date(fechaTermino);
+  return fechaInicioParsed <= fechaTerminoParsed;
 }
 
 //funcion para obtener publicaciones
@@ -58,24 +67,46 @@ async function getPublicaciones(req, res) {
   }
 }
 
-//funcion para crear publicacion
+// Función para crear la publicación
 async function createPublicacion(req, res) {
-    try {
-        const { body } = req;
-        const [publicaciones, errorPublicaciones] = await PublicacionService.createPublicacion(body);
-        if (errorPublicaciones) return respondInternalError(req, res, 404, errorPublicaciones);
-  
-      if (errorPublicaciones) return respondError(req, res, 400, errorPublicaciones);
-      if (!publicaciones) {
-        return respondError(req, res, 400, "No se creo la rubrica");
-      }
-  
-      respondSuccess(req, res, 201, publicaciones);
-    } catch (error) {
-      handleError(error, "publicacion.controller -> createPublicacion");
-      respondError(req, res, 500, "No se creo la publicacion");
+  try {
+    const { body } = req;
+
+    // Formatea las fechas al formato adecuado
+    const fechaInicio = formatDateToDDMMYYYY(new Date(body.fecha_inicio));
+    const fechaTermino = formatDateToDDMMYYYY(new Date(body.fecha_termino));
+
+    // Valida que la fecha de inicio no sea mayor que la fecha de termino
+    if (!validateFechas(fechaInicio, fechaTermino)) {
+      // Avisa al usuario por mensaje del error
+      return respondError(req, res, 400, "La fecha de inicio no puede ser mayor que la fecha de termino");
     }
+
+    // Aquí continúa con la creación de la publicación
+
+    const publicacion = {
+      ...body,
+      fecha_inicio: fechaInicio,
+      fecha_termino: fechaTermino,
+    };
+
+    const [publicaciones, errorPublicaciones] = await PublicacionService.createPublicacion(publicacion);
+
+    if (errorPublicaciones) {
+      return respondInternalError(req, res, 404, errorPublicaciones);
+    }
+
+    if (!publicaciones) {
+      return respondError(req, res, 400, "No se creó la publicación");
+    }
+
+    respondSuccess(req, res, 201, publicaciones);
+  } catch (error) {
+    handleError(error, "publicacion.controller -> createPublicacion");
+    respondError(req, res, 500, "No se creó la publicación");
   }
+}
+
 
   //funcion para editar publicacion
   async function updatePublicacion(req, res) {

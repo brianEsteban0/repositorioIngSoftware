@@ -59,15 +59,15 @@ async function createPublicacion_resultados(req, res) {
 
 
 // Actualiza una publicación de resultados
-  async function updatePublicacion_resultados(req, res) {
+async function updatePublicacion_resultados(req, res) {
     try{
-      const { id } = req.params;
-      const updatePresults = req.body; // Los nuevos datos de la publicación
+        const { id } = req.params;
+        const updatePresults = req.body; // Los nuevos datos de la publicación
 
       // Busca la publicación por ID
-      const publicacion_resultados = await Publicacion_resultados.findById(id);
+        const publicacion_resultados = await Publicacion_resultados.findById(id);
 
-      if (!publicacion_resultados) {
+    if (!publicacion_resultados) {
         return res.status(404).json({ message: ' publicación no se pudo encontrar, intente nuevamente' });
     }
 

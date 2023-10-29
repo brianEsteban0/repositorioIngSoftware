@@ -43,33 +43,33 @@ async function createRubrics(rubric) {
   }
 }
 
-/**
- * Obtiene un usuario por su id de la base de datos
- * @param {string} Id de la Rubrica
- * @returns {Promise} Promesa con el objeto de usuario
- */
-async function getRubricById(id) {
-  try {
-    const rubric = await Rubric.findById({ _id: id })
-      .exec();
 
-    if (!rubric) return [null, "La rubrica no existe"];
+/**
+ * Obtiene una rúbrica por el ID de una publicación de la base de datos
+ * @param {string} postId - ID de la publicación
+ * @returns {Promise} Promesa con el objeto de la rúbrica
+ */
+async function getRubricById(postId) {
+  try {
+    const rubric = await Rubric.findOne({ publicacion: postId }).exec();
+
+    if (!rubric) return [null, "La rubrica no existe para esta publicación"];
 
     return [rubric, null];
   } catch (error) {
-    handleError(error, "rubric.service -> getrubricById");
+    handleError(error, "rubric.service -> getRubricByPostId");
   }
 }
 
 /**
  * Actualiza un usuario por su id en la base de datos
- * @param {string} id Id del usuario
- * @param {Object} rubric Objeto de usuario
- * @returns {Promise} Promesa con el objeto de usuario actualizado
+ * @param {string} id de la publicacion
+ * @param {Object} rubric Objeto de rubric
+ * @returns {Promise} Promesa con el objeto de rubrica actualizada
  */
 async function updateRubric(id, rubric) {
   try {
-    const rubricFound = await Rubric.findById(id);
+    const rubricFound = await Rubric.findById({ publicacion: id });
     if (!rubricFound) return [null, "La rubrica no existe"];
 
     const { name, contestType, criteria } = rubric;
@@ -85,7 +85,7 @@ async function updateRubric(id, rubric) {
     }
 
     const rubricUpdated = await Rubric.findByIdAndUpdate(
-      id,
+      { publicacion: id },
       {
         name,
         contestType,
@@ -101,13 +101,13 @@ async function updateRubric(id, rubric) {
 }
 
 /**
- * Elimina un usuario por su id de la base de datos
- * @param {string} id del usuario
+ * Elimina una rubrica por el id de la publicacion
+ * @param {string} id de la publicacion
  * @returns {Promise} Promesa con el objeto de usuario eliminado
  */
 async function deleteRubric(id) {
   try {
-    return await Rubric.findByIdAndDelete(id);
+    return await Rubric.findByIdAndDelete({ publicacion: id });
   } catch (error) {
     handleError(error, "rubric.service -> deleteRubric");
   }

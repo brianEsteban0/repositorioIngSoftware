@@ -30,6 +30,9 @@ async function createEvaluacion(evaluacion) {
 
 
     const newEvaluation = new Evaluacion({
+        postulanteRut,
+        rubric,
+        publicacion,
         scores,
         scoretotal,
     });
@@ -42,13 +45,13 @@ async function createEvaluacion(evaluacion) {
 }
 
 /**
- * Obtiene un usuario por su id de la base de datos
- * @param {string} id de la Rubrica
+ * Obtiene un postulante por el rut del representante
+ * @param {string} id rut de  la organizacion
  * @returns {Promise} Promesa con el objeto de usuario
  */
-async function getEvaluacionById(id) {
+async function getEvaluacionById(id ) {
   try {
-    const evaluacion = await Evaluacion.findById({ _id: id }).exec();
+    const evaluacion = await Evaluacion.findById({ postulanteRut: id }).exec();
 
     if (!evaluacion) return [null, "La evaluacion no existe"];
 
@@ -66,14 +69,17 @@ async function getEvaluacionById(id) {
  */
 async function updateEvaluacion(postulanteId, evaluacion) {
   try {
-    const evaluacionFound = await Evaluacion.findOne({ postulante: postulanteId });
+    const evaluacionFound = await Evaluacion.findOne({ postulanteRut: postulanteId });
     if (!evaluacionFound) return [null, "La evaluación no existe para este postulante"];
 
-    const { scores, scoretotal } = evaluacion;
+    const {postulanteRut,rubric,publicacion, scores, scoretotal } = evaluacion;
 
     const evaluacionUpdated = await Evaluacion.findOneAndUpdate(
-      { postulante: postulanteId },
+      { postulanteRut: postulanteId },
       {
+        postulanteRut,
+        rubric,
+        publicacion,
         scores,
         scoretotal,
       },

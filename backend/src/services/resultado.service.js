@@ -41,9 +41,72 @@ async function createResultado(resultado) {
     } catch (error) {
       handleError(error, "resultado.service -> createResultado");
     }
-  }
+}
+/**
+ * Obtener el resultado de una publicacion a travez de su id
+ * @param {Object} resultadoFound Objeto de resultado
+ * @param {Object} postId Objeto de publicacion
+ * @returns {Promise} Promesa con el objeto de usuario creado
+ */
+async function getResultadoPostulacion(postId) {
+    try {
+      const resultadoFound = await Resultado.find({ publicacion: postId }).exec();
+  
+      if (!resultadoFound) return [null, "los postulantes aun no tienen su resultado"];
+  
+      return [resultadoFound, null];
+    } catch (error) {
+      handleError(error, "resultado.service -> getResultadoPostulacion");
+    }
+}
 
+/**
+ * Actualiza un resultado por id
+ * @param {string} id del resultado
+ * @param {Object} resultado Objeto 
+ * @returns {Promise} Promesa con el objeto
+ */
+async function updateResultado(id, resultado) {
+  try {
+    const resultadoFound = await Resultado.findById({ _id: id });
+    if (!resultadoFound) return [null, "El resultado no existe"];
+
+    const { postulacion, postulante, rubrica ,puntaje_total ,ganador } = resultado;
+
+    const resultadoUpdated = await Resultado.findByIdAndUpdate(
+      id,
+      {
+        postulacion,
+        postulante,
+        rubrica,
+        puntaje_total,
+        ganador,
+      },
+      { new: true },
+    );
+
+    return [resultadoUpdated, null];
+  } catch (error) {
+    handleError(error, "resultado.service -> updateResultado");
+  }
+}
+
+/**
+ * Elimina un resultado por el id
+ * @param {string} id de resultado
+ * @returns {Promise} Promesa con el objeto
+ */
+async function deleteResultado(id) {
+  try {
+    return await Resultado.findByIdAndDelete({ _id: id });
+  } catch (error) {
+    handleError(error, "resultado.service -> deleteResultado");
+  }
+}
 module.exports = {
     createResultado,
     getResultado,
+    getResultadoPostulacion,
+    updateResultado,
+    deleteResultado,
 };

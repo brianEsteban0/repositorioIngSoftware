@@ -35,6 +35,10 @@ const postulanteSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    Publicacion: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Publicacion'
+    },
 });
 
 const Postulante = mongoose.model('Postulante', postulanteSchema);

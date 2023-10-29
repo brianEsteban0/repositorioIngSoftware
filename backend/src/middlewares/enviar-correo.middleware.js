@@ -15,11 +15,11 @@ const transporter = nodemailer.createTransport({
 
 
 const sendEmailMiddleware = async (req, res,) => {
-  const { to } = req.body;
+  const { correo } = req.body;
 
   const mailOptions = {
     from: "mensaje enviado por <admin@gmail.com>",
-    to: to.join(", "), //to es un array de destinatarios
+    correo: correo.join(", "), //correo es un array de destinatarios
     subject: "Resultados de Postulacion a proyecto",
     text: "Los resultados de tu postulacion se encuentran disponibles: ",
 };

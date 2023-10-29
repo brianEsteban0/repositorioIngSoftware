@@ -1,8 +1,9 @@
-# Template proyecto ingeniería de software
+# Postulacion Fondos Concursables
 
-## Descripción
+## Integrantes
+-Brian Alarcon
+-Brian Cabezas
+-Eduardo Rivera
+-Sebastian Gonzales
+-Ivan Perez
 
-- Esta es la base de codigo para el proyecto de ingeniería de software
-
-## [Ver el backend](./backend/Backend.md)
-## [Ver el frontend](./frontend/Frontend.md)

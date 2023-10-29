@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 // Importa el modelo de postulante
 const Postulante = require('../models/postulante.model');
 
-async function enviarCorreos() {
+async function enviarCorreos( ) {
   try {
     // Recibe todos los correos de los postulantes desde la base de datos
     const postulantes = await Postulante.find();
@@ -45,6 +45,7 @@ async function enviarCorreos() {
     }
   } catch (error) {
     console.log("Error al obtener los correos de los postulantes: " + error);
+    res.status(500).json({ message: "Error al enviar el correo" });
   }
 }
 

@@ -20,25 +20,35 @@ function formatDateToDDMMYYYY(date) {
 //funcion para obtener publicaciones
 async function getPublicaciones(req, res) {
   try {
-    const [publicaciones, errorPublicaciones] = await PublicacionService.getPublicaciones();
+    const currentDate = new Date(); // obtiene fecha actual
 
-    if (errorPublicaciones) {
-      return respondInternalError(req, res, 404, errorPublicaciones);
-    }
+    const publicaciones = await Publicacion.find()
+      .sort({ fecha_termino: 1 }) // lista las fechas mas cercanas a terminar segun la rubrica
+      .exec();
 
     if (publicaciones.length === 0) {
-      respondSuccess(req, res, 204); // No content
+      respondSuccess(req, res, 204); // No Content
     } else {
-      // formatea las fechas de las publicaciones
+      // sigue las fechas de dd/mm/año
       const publicacionesFormateadas = publicaciones.map((publicacion) => {
         const fechaInicioFormateada = formatDateToDDMMYYYY(publicacion.fecha_inicio);
-        const fechaTerminoFormateada = formatDateToDDMMYYYY(publicacion.fecha_termino);
+        const fechaTermino = publicacion.fecha_termino;
+        const fechaTerminoFormateada = formatDateToDDMMYYYY(fechaTermino);
 
-        return {
-          ...publicacion.toObject(),
-          fecha_inicio: fechaInicioFormateada,
-          fecha_termino: fechaTerminoFormateada,
-        };
+        if (fechaTermino < currentDate) {
+          // muestra plazo vencido si la fecha de termino es menor a la fecha actual
+          return {
+            ...publicacion.toObject(),
+            fecha_inicio: fechaInicioFormateada,
+            fecha_termino: "Plazo vencido",
+          };
+        } else {
+          return {
+            ...publicacion.toObject(),
+            fecha_inicio: fechaInicioFormateada,
+            fecha_termino: fechaTerminoFormateada,
+          };
+        }
       });
 
       respondSuccess(req, res, 200, publicacionesFormateadas);

@@ -24,7 +24,7 @@ async function getRubrics() {
  */
 async function createRubrics(rubric) {
   try {
-    const {name, contestType, criteria} = rubric;
+    const {name, contestType, criteria, publicacion} = rubric;
 
     const rubricFound = await Rubric.findOne({ name: rubric.name });
     if (rubricFound) return [null, "La rubrica ya existe"];
@@ -34,6 +34,7 @@ async function createRubrics(rubric) {
         name,
         contestType,
         criteria,
+        publicacion,
     });
     await newRubric.save();
 
@@ -46,18 +47,18 @@ async function createRubrics(rubric) {
 
 /**
  * Obtiene una rúbrica por el ID de una publicación de la base de datos
- * @param {string} postId - ID de la publicación
+ * @param {string} id - ID de la publicación
  * @returns {Promise} Promesa con el objeto de la rúbrica
  */
-async function getRubricById(postId) {
+async function getRubricById(id) {
   try {
-    const rubric = await Rubric.findOne({ publicacion: postId }).exec();
+    const rubric = await Rubric.findById(id).exec();
 
-    if (!rubric) return [null, "La rubrica no existe para esta publicación"];
+    if (!rubric) return [null, "La rubrica no existe "];
 
     return [rubric, null];
   } catch (error) {
-    handleError(error, "rubric.service -> getRubricByPostId");
+    handleError(error, "rubric.service -> getRubricById");
   }
 }
 
@@ -69,23 +70,15 @@ async function getRubricById(postId) {
  */
 async function updateRubric(id, rubric) {
   try {
-    const rubricFound = await Rubric.findById({ publicacion: id });
+    const rubricFound = await Rubric.findById(id);
     if (!rubricFound) return [null, "La rubrica no existe"];
 
     const { name, contestType, criteria } = rubric;
 
-    const publicacion = await Publicaciones.findById(rubric.publicacion);
-    if (!publicacion) return [null, "La publicacion no existe"];
-    const { fecha_termino } = publicacion;
-
-    const today = new Date();
-
-    if (new Date(fecha_termino) > today) {
-      return [null, "La fecha de termino debe ser menor a la fecha de hoy"];
-    }
+    
 
     const rubricUpdated = await Rubric.findByIdAndUpdate(
-      { publicacion: id },
+      id,
       {
         name,
         contestType,
@@ -107,7 +100,7 @@ async function updateRubric(id, rubric) {
  */
 async function deleteRubric(id) {
   try {
-    return await Rubric.findByIdAndDelete({ publicacion: id });
+    return await Rubric.findByIdAndDelete(id);
   } catch (error) {
     handleError(error, "rubric.service -> deleteRubric");
   }

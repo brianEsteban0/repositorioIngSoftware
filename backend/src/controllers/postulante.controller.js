@@ -11,16 +11,17 @@ const Postulante = require("../models/postulante.model.js");
  * @returns [postulantes, error]
  */
 async function getPostulantes(req, res) {
-    try {
-        const postulantes = await Postulante.find().exec();
-        if (!postulantes) {
-            return [null, "No hay postulantes"];
+  try {
+    const [postulantes, errorPostulante] = await PostulanteService.getPostulantes();
+    if (errorPostulante) return respondError(req, res, 404, errorPostulante);
 
-        }
-        return [postulantes, null];
-    } catch (error) {
-        handleError(error, "postulante.service -> getPostulantes");
-    }
+    postulantes.length === 0
+      ? respondSuccess(req, res, 204)
+      : respondSuccess(req, res, 200, postulantes);
+  } catch (error) {
+    handleError(error, "rubric.controller -> getRubrics");
+    respondError(req, res, 400, error.message);
+  }
 }
 
 /**

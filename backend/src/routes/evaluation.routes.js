@@ -14,7 +14,7 @@ const authenticationMiddleware = require("../middlewares/authentication.middlewa
 const comprobarFecha =  require("../middlewares/comprobarfecha.middlewere.js");
 
 const calcularPuntaje =  require("../middlewares/calcularpuntaje.middleware.js");
-
+const crearResultadoMiddleware = require("../middlewares/crearResultado.middlewares.js");
 
 /** Instancia del enrutador */
 const router = express.Router();
@@ -25,8 +25,8 @@ router.use(authenticationMiddleware);
 // Define las rutas para los usuarios
 router.get("/",evaluacionController.getEvaluacion);
 router.post("/", calcularPuntaje, evaluacionController.createEvaluacion);
-router.get("/:id", authorizationMiddleware.isEvalAdmin,evaluacionController.getEvaluacionById);
-router.put("/:id", [authorizationMiddleware.isEvaluador,comprobarFecha] ,evaluacionController.updateEvaluacion);
+router.get("/:postulanteRut", authorizationMiddleware.isEvalAdmin,evaluacionController.getEvaluacionById);
+router.put("/:id", [authorizationMiddleware.isEvalAdmin,comprobarFecha,calcularPuntaje,crearResultadoMiddleware] ,evaluacionController.updateEvaluacion);
 router.delete("/:id",authorizationMiddleware.isAdmin,evaluacionController.deleteEvaluacion,);
 
 //Obtener a el/los postulantes con el maximo puntaje

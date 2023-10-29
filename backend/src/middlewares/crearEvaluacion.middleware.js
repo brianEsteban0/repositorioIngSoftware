@@ -7,7 +7,7 @@ const buscarPorIdPublicacion = async (publicId) => {
         const rubric = await Rubric.findOne({ publicacion: publicId }).exec();
         if (!rubric) return [0, "No hay rubrica"];
 
-        return [rubric._id, null];
+        return rubric._id;
     } catch (error) {
         handleError(error, "crearEvaluacion.middleware -> buscarPorIdPublicacion");
         return [0, "Ha ocurrido un error al buscar la rúbrica por ID de publicación"];
@@ -22,16 +22,17 @@ const largoRubrica = async (rubId) => {
 const crearEvaluacion = async (req, res, next) => {
     try {
         const { publicacion } = req.body;
-        //const rubricId = await buscarPorIdPublicacion(publicacion);
-        //const criteriaLength = await largoRubrica(rubric);
+        const rubricId = await buscarPorIdPublicacion(publicacion);
 
-        //const scoresIniciales = new Array(criteriaLength).fill(0);
+        const criteriaLength = await largoRubrica(rubricId);
+
+        const scoresIniciales = new Array(criteriaLength).fill(0);
 
         const nuevaEvaluacion = new Evaluacion({
             postulanteRut: req.body.Rut_Representante,
-            rubric: null,
+            rubric: rubricId,
             publicacion: publicacion,
-            scores: [0],
+            scores: scoresIniciales,
             scoretotal: 0,
         });
 

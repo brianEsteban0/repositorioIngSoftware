@@ -51,7 +51,7 @@ async function createEvaluacion(evaluacion) {
  */
 async function getEvaluacionById(id ) {
   try {
-    const evaluacion = await Evaluacion.findById({ postulanteRut: id }).exec();
+    const evaluacion = await Evaluacion.findOne({ postulanteRut: id }).exec();
 
     if (!evaluacion) return [null, "La evaluacion no existe"];
 

@@ -49,7 +49,7 @@ async function createEvaluacion(req, res) {
 async function getEvaluacionById(req, res) {
   try {
     const { params} = req;
-    const [evaluacion, errorEvaluacion] = await EvaluacionService.getEvaluacionById(params.id);
+    const [evaluacion, errorEvaluacion] = await EvaluacionService.getEvaluacionById(params.postulanteRut);
 
     if (errorEvaluacion) return respondError(req, res, 404, errorEvaluacion);
 
@@ -68,7 +68,7 @@ async function getEvaluacionById(req, res) {
 async function updateEvaluacion(req, res) {
   try {
     const { params, body } = req;
-    const [evaluacion, errorEvaluacion] = await RubricService.updateRubric(params.id, body);
+    const [evaluacion, errorEvaluacion] = await EvaluacionService.updateEvaluacion(params.id, body);
     
     if (errorEvaluacion) return respondError(req, res, 400, errorEvaluacion);
 

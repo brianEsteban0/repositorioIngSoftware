@@ -72,8 +72,31 @@ async function isEvalAdmin(req, res, next) {
     handleError(error, "authorization.middleware -> evaluador o administrador");
   }
 }
+
+async function isUser(req, res, next) {
+  try {
+    const user = await User.findOne({ email: req.email });
+    const roles = await Role.find({ _id: { $in: user.roles } });
+    for (let i = 0; i < roles.length; i++) {
+      if (roles[i].name === "user") {
+        next();
+        return;
+      }
+    }
+    return respondError(
+      req,
+      res,
+      401,
+      "Se requiere un rol de usuario para realizar esta acción",
+    );
+  } catch (error) {
+    handleError(error, "authorization.middleware -> isUser");
+  }
+}
+
 module.exports = {
   isAdmin,
   isEvaluador,
   isEvalAdmin,
+  isUser,
 };

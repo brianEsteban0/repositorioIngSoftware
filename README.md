@@ -1,10 +1,10 @@
 ## Postulacion Fondos Concursables
--Grupo:4 /n
+-Grupo:4 
 -Tema :5
 # Integrantes
--Brian Alarcon /n
--Brian Cabezas /n
--Eduardo Rivera /n
--Sebastian Gonzales /n
+-Brian Alarcon 
+-Brian Cabezas 
+-Eduardo Rivera 
+-Sebastian Gonzales 
 -Ivan Perez
 

@@ -90,7 +90,7 @@ async function updateRubric(req, res) {
 async function deleteRubric(req, res) {
   try {
     const { params} = req;
-    const rubric = await RubricServiceService.deleteRubric(params.id);
+    const rubric = await RubricService.deleteRubric(params.id);
     !rubric
       ? respondError(
           req,

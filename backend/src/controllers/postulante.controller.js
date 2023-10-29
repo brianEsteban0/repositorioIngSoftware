@@ -61,7 +61,7 @@ async function getPostulantesBypostulacionId(req, res) {
       handleError(error, "postulante.controller -> getPostulanteById");
       respondError(req, res, 500, "No se pudo obtener los postulantes");
     }
-  }
+}
 
 module.exports = {
     createPostulantes,

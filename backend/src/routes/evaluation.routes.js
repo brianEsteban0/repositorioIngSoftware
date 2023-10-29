@@ -29,5 +29,8 @@ router.get("/:id", authorizationMiddleware.isEvalAdmin,evaluacionController.getE
 router.put("/:id", [authorizationMiddleware.isEvaluador,comprobarFecha] ,evaluacionController.updateEvaluacion);
 router.delete("/:id",authorizationMiddleware.isAdmin,evaluacionController.deleteEvaluacion,);
 
+//Obtener a el/los postulantes con el maximo puntaje
+router.get("/maxScore/:idpostulacion",authorizationMiddleware.isEvaluador,);
+
 // Exporta el enrutador
 module.exports = router;

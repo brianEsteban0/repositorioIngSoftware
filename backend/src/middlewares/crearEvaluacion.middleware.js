@@ -3,12 +3,12 @@ const Rubric = require("../models/rubric.model.js");
 const buscarPorIdPublicacion = async (publicId) => {
     try {
         const rubric = await Rubric.findOne({ publicacion: publicId }).exec();
-        if (!rubric) return [null, "No hay rubrica"];
+        if (!rubric) return [0, "No hay rubrica"];
 
         return [rubric._id, null];
     } catch (error) {
         handleError(error, "crearEvaluacion.middleware -> buscarPorIdPublicacion");
-        return [null, "Ha ocurrido un error al buscar la rúbrica por ID de publicación"];
+        return [0, "Ha ocurrido un error al buscar la rúbrica por ID de publicación"];
     }
 };
 

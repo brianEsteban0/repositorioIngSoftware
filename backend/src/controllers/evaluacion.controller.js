@@ -26,7 +26,7 @@ async function getEvaluacion(req, res) {
  */
 async function createEvaluacion(req, res) {
   try {
-    const { body } = req;   
+    const { body } = req;
     const [newEvaluacion, evaluacionError] = await EvaluacionService.createEvaluacion(body);
 
     if (evaluacionError) return respondError(req, res, 400, evaluacionError);

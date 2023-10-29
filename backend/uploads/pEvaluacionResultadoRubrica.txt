@@ -1,0 +1,69 @@
+//Publicacion
+
+{
+  "titulo": "Concurso de Proyectos",
+  "descripcion": "Convocatoria para el desarrollo de proyectos innovadores",
+  "objetivo": "Promover la creatividad y la innovación en el campo de la tecnología",
+  "fecha_inicio": "2023-11-01",
+  "fecha_termino": "2023-12-01",
+  "monto": 10000,
+  "cupos": 5
+}
+//Postulante
+{
+    "Organizacion": "Mi Organización",
+    "descripcion": "Descripción de mi organización",
+    "Ubicación": "Ubicación de mi organización",
+    "Representante": "Nombre del representante",
+    "Rut_Representante": "123456789",
+    "Rut_Organizacion": "987654321",
+    "Telefono": "1234567890",
+    "Correo": "miorganizacion@ejemplo.com",
+    "rubrics": [
+        {
+            "rubricId": "6135b6d8f27684331ab9a6b1"
+        },
+        {
+            "rubricId": "6135b6d8f27684331ab9a6b2"
+        }
+    ],
+    "contests": [
+        {
+            "contestId": "6135b6d8f27684331ab9a6c1"
+        },
+        {
+            "contestId": "6135b6d8f27684331ab9a6c2"
+        }
+    ]
+}
+//Rubrica
+{
+    "name": "Mi Rubrica",
+    "contestType": "Concurso Especifico",
+    "criteria": [
+        {
+            "name": "Criterio 1",
+            "Score": 100
+        },
+        {
+            "name": "Criterio 2",
+            "Score": 100
+        }
+    ],
+    "publicacion": "6135b6d8f27684331ab9a6c1"
+}
+resultado
+{
+    "postulacion": "6135b6d8f27684331ab9a6c1",
+    "postulante": "6135b6d8f27684331ab9a6c2",
+    "rubrica": "6135b6d8f27684331ab9a6c3",
+    "puntaje_total": 85,
+    "ganador": true
+}
+//evaluacion
+{
+    "postulante": "6135b6d8f27684331ab9a6c2",
+    "rubric": "6135b6d8f27684331ab9a6c3",
+    "scores": [80, 85, 90],
+    "scoretotal": 255
+}

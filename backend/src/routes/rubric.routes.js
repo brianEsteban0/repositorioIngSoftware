@@ -3,7 +3,7 @@
 const express = require("express");
 
 /** Controlador de usuarios */
-const usuarioController = require("../controllers/user.controller.js");
+const rubricaController = require("../controllers/rubric.controller.js");
 
 /** Middlewares de autorización */
 const authorizationMiddleware = require("../middlewares/authorization.middleware.js");
@@ -18,22 +18,11 @@ const router = express.Router();
 router.use(authenticationMiddleware);
 
 // Define las rutas para los usuarios
-router.get(
-  "/",
-  usuarioController.getUsers,
-  );
-router.post("/", authorizationMiddleware.isAdmin, usuarioController.createUser);
-router.get("/:id", usuarioController.getUserById);
-router.put(
-  "/:id",
-  authorizationMiddleware.isAdmin,
-  usuarioController.updateUser,
-);
-router.delete(
-  "/:id",
-  authorizationMiddleware.isAdmin,
-  usuarioController.deleteUser,
-);
+router.get("/",authorizationMiddleware.isEvalAdmin,rubricaController.getRubric);
+router.post("/", authorizationMiddleware.isAdmin, rubricaController.createRubric);
+router.get("/:id", authorizationMiddleware.isAdmin,rubricaController.getRubricById);
+router.put("/:id",authorizationMiddleware.isAdmin,rubricaController.updateRubric);
+router.delete("/:id",authorizationMiddleware.isAdmin,rubricaController.deleteRubric);
 
 // Exporta el enrutador
 module.exports = router;

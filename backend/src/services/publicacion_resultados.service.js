@@ -22,14 +22,13 @@ async function getPublicacion_resultados(){
 
 async function createPublicacion_resultados(publicacion_resultados) {
     try {//
-        const {titulo, cuerpo, fecha, resultados} = publicacion_resultados;
+        const {titulo, cuerpo, resultados} = publicacion_resultados;
         const publicacion_resultadosFound = await Publicacion_resultados.findOne({titulo: publicacion_resultados.titulo})
         if (publicacion_resultadosFound) return [null, "Publicacion de resultados ya existente"];
         const newPublicacion_resultados = new Publicacion_resultados({
             titulo,
             cuerpo,
             resultados,
-            fecha,
         });
 
         const publicaciones_resultados = await newPublicacion_resultados.save();

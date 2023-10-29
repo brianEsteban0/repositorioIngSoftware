@@ -1,6 +1,5 @@
 "use strict";
 
-const { date } = require("joi");
 const mongoose = require("mongoose");
 
 //esquema de las publucaciones resultados
@@ -20,11 +19,6 @@ const Publicacion_resultadosSchema = new mongoose.Schema(
     Resultados: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Resultado",
-      required: true,
-    },
-    //fecha de la publicacion
-    fecha: {
-      type: Date,
       required: true,
     },
   },

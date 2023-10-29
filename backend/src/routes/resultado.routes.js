@@ -20,7 +20,7 @@ router.use(authenticationMiddleware);
 // Define las rutas para los usuarios
 router.get("/",authorizationMiddleware.isEvalAdmin,resultadoController.getResultado);
 router.post("/",authorizationMiddleware.isEvalAdmin,resultadoController.createResultado);
-router.update("/id:",authorizationMiddleware.isAdmin,resultadoController.updateResultado);
+router.put("/id:",authorizationMiddleware.isAdmin,resultadoController.updateResultado);
 router.delete("/id:",authorizationMiddleware.isAdmin,resultadoController.deleteResultado);
 //selecciona a los ganadores
 //router.post("/seleccionadosPostulacion/:idPostulacion",resultadoController.createResultadoPostulacion);

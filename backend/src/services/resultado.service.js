@@ -32,8 +32,12 @@ async function createResultado(resultado) {
   
   
       const newResultado = new Resultado({
-          puntaje_total,
-          ganador
+        postulacion,
+        postulante,
+        rubrica,
+        puntaje_total,
+        ganador,
+        estadoEvaluacion,
       });
       await newResultado.save();
   
@@ -81,6 +85,7 @@ async function updateResultado(id, resultado) {
         rubrica,
         puntaje_total,
         ganador,
+        estadoEvaluacion,
       },
       { new: true },
     );

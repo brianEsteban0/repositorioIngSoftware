@@ -21,8 +21,11 @@ const resultadoSchema = new mongoose.Schema({
         required: true
     },
     ganador:{
-        type: Boolean,
-        requiered: true
+        type: Boolean
+    },
+    estadoEvaluacion:{
+        type: String,
+        required: true
     }
 });
 

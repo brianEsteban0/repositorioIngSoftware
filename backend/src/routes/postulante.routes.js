@@ -4,11 +4,20 @@ const express = require('express');
 
 const authorizationMiddleware = require("../middlewares/authorization.middleware.js");
 const PostulanteController = require('../controllers/postulante.controller.js');
-const crearEvaluacionMiddleware = require("../middlewares/crearEvaluacion.middleware.js");
+const cupos = require("../middlewares/cupos.middleware.js");
+const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
+const checkfecha = require("../middlewares/checkfecha.middleware.js").default;
+const crearEvaluacion = require("../middlewares/crearEvaluacion.middleware.js");
 
 const router = express.Router();
 
-router.get('/', PostulanteController.getPostulantes);
-router.post('/', crearEvaluacionMiddleware,PostulanteController.createPostulantes);
+router.use(authenticationMiddleware);
+
+
+router.get('/',authorizationMiddleware.isUsuario,PostulanteController.getPostulantes);
+router.post('/',[checkfecha,cupos,crearEvaluacion,authorizationMiddleware.isUsuario],PostulanteController.createPostulantes);
+router.put('/:id',[checkfecha,authorizationMiddleware.isUsuario],PostulanteController.updatePostulantes);
+router.delete('/:id',[checkfecha,authorizationMiddleware.isUsuario],PostulanteController.deletePostulantes);
+
 
 module.exports = router;

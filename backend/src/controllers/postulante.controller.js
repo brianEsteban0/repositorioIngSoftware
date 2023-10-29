@@ -13,8 +13,10 @@ const Postulante = require("../models/postulante.model.js");
 async function getPostulantes(req, res) {
     try {
         const postulantes = await Postulante.find().exec();
-        if (!postulantes) return [null, "No hay postulantes"];
+        if (!postulantes) {
+            return [null, "No hay postulantes"];
 
+        }
         return [postulantes, null];
     } catch (error) {
         handleError(error, "postulante.service -> getPostulantes");
@@ -44,8 +46,50 @@ async function createPostulantes(req, res) {
     }
 }
 
+async function updatePostulantes(req, res) {
+    try {
+      const { id } = req.params;
+      const updateData = req.body; // Los nuevos datos del postulante
+  
+      // Busca el postulante por ID
+      const postulante = await Postulante.findById(id);
+  
+      if (!postulante) {
+        return res.status(404).json({ message: 'Postulante no encontrado' });
+      }
+  
+      // Actualiza el postulante con los nuevos datos
+      postulante.set(updateData);
+      const updatedPostulante = await postulante.save();
+  
+      return res.status(200).json(updatedPostulante);
+    } catch (error) {
+      handleError(error, "postulante.controller -> updatePostulante");
+      return res.status(500).json({ message: 'Error al actualizar el postulante' });
+    }
+}
+  
+async function deletePostulantes(req, res) {
+    try {
+      const { id } = req.params; // Obtén el ID de la URL
+  
+      // Busca el postulante por ID y elimínalo
+      const postulante = await Postulante.findByIdAndRemove(id);
+  
+      if (!postulante) {
+        return res.status(404).json({ message: 'Postulante no encontrado' });
+      }
+  
+      return res.status(204).send();
+    } catch (error) {
+      handleError(error, "postulante.controller -> deletePostulante");
+      return res.status(500).json({ message: 'Error al eliminar el postulante' });
+    }
+}
 
 module.exports = {
     createPostulantes,
     getPostulantes,
+    updatePostulantes,
+    deletePostulantes,
 };

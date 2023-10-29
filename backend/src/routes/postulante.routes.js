@@ -13,8 +13,8 @@ const router = express.Router();
 router.use(authenticationMiddleware);
 
 
-//router.get('/',authorizationMiddleware.isUsuario,PostulanteController.getPostulantes);
-//router.post('/',[checkfecha,cupos,authorizationMiddleware.isUsuario,crearEvaluacion],PostulanteController.createPostulantes);
+router.get('/',/*authorizationMiddleware.isUsuario,*/PostulanteController.getPostulantes);
+router.post('/',[/*checkfecha,cupos,authorizationMiddleware.isUsuario,*/crearEvaluacion],PostulanteController.createPostulantes);
 //router.put('/:id',[checkfecha,authorizationMiddleware.isUsuario],PostulanteController.updatePostulantes);
 //router.delete('/:id',[checkfecha,authorizationMiddleware.isUsuario],PostulanteController.deletePostulantes);
 

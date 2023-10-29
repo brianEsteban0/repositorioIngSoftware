@@ -10,8 +10,9 @@ const { handleError } = require("../utils/errorHandler");
 async function getPostulantes() {
     try {
         const postulantes = await Postulante.find().exec();
-        if (!postulantes) return [null, "No hay postulantes"];
-
+        if (!postulantes) {
+            return [null, "No hay postulantes"];
+        }
         return [postulantes, null];
 
     } catch (error) {
@@ -25,7 +26,7 @@ async function getPostulantes() {
  */
 async function createPostulantes(postulante) {
     try {
-        const { Organizacion, descripcion, Ubicación, Representante, Rut_Representante, Rut_Organizacion, Telefono, Correo } = postulante;
+        const { Organizacion, descripcion, Ubicación, Representante, Rut_Representante, Rut_Organizacion, Telefono, Correo, Publicacion } = postulante;
         const postulanteFound = await Postulante.findOne({ Rut_Organizacion: postulante.Rut_Organizacion });
         if (postulanteFound) return [null, "El postulante ya existe"];
 
@@ -37,7 +38,8 @@ async function createPostulantes(postulante) {
             Rut_Representante,
             Rut_Organizacion,
             Telefono,
-            Correo
+            Correo,
+            Publicacion,
         });
 
         const myPostulante = await newPostulante.save();
@@ -57,10 +59,41 @@ async function getPostulantesByIdpostulacion(postId) {
     } catch (error) {
       handleError(error, "postulante.service -> getPostulantesByIdpostulacion");
     }
+  }
+async function updatePostulantes(id, newData) {
+    try {
+      const postulante = await Postulante.findByIdAndUpdate(id, newData, { new: true });
+  
+      if (!postulante) {
+        return [null, "Postulante no encontrado"];
+      }
+  
+      return [postulante, null];
+    } catch (error) {
+      handleError(error, "postulante.service -> updatePostulante");
+      return [null, "Error al actualizar el postulante"];
+    }
+}
+  
+async function deletePostulantes(id) {
+    try {
+      const postulante = await Postulante.findByIdAndRemove(id);
+  
+      if (!postulante) {
+        return [null, "Postulante no encontrado"];
+      }
+  
+      return [postulante, null];
+    } catch (error) {
+      handleError(error, "postulante.service -> deletePostulante");
+      return [null, "Error al eliminar el postulante"];
+    }
 }
 
 module.exports = {
     getPostulantes,
     createPostulantes,
     getPostulantesByIdpostulacion,
+    updatePostulantes,
+    deletePostulantes,
 };

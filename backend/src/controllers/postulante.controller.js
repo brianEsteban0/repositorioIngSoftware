@@ -40,6 +40,9 @@ async function createPostulantes(req, res) {
         if (!postulante) {
             return respondError(req, res, 400, "No se pudo crear el postulante");
         }
+        
+        publicacion.cupos -= 1;
+        await publicacion.save(); 
         respondSuccess(req, res, 201, postulante);
     } catch (error) {
         handleError(error, "postulante.controller -> createPostulantes");
@@ -100,7 +103,9 @@ async function deletePostulantes(req, res) {
       if (!postulante) {
         return res.status(404).json({ message: 'Postulante no encontrado' });
       }
-  
+
+      publicacion.cupos += 1;
+      await publicacion.save(); 
       return res.status(204).send();
     } catch (error) {
       handleError(error, "postulante.controller -> deletePostulante");

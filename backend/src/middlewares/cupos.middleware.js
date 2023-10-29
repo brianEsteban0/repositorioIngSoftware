@@ -14,8 +14,6 @@ const checkCupos = async (req, res, next) =>  {
       return respondError(req, res, 403, "No hay cupos disponibles en esta publicación");
     }
     
-    publicacion.cupos -= 1;
-    await publicacion.save(); 
     next();
   } catch (error) {
     respondError(req, res, 500, "Error al verificar cupos disponibles");

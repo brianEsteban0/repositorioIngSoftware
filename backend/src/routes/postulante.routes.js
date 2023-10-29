@@ -13,11 +13,11 @@ const router = express.Router();
 router.use(authenticationMiddleware);
 
 
-router.get('/',authorizationMiddleware.isUser,PostulanteController.getPostulantes);
-router.post('/',[checkfecha,authorizationMiddleware.isUser,crearEvaluacion],PostulanteController.createPostulantes,checkCupos);
-router.put('/:id',[checkfecha,authorizationMiddleware.isUser],PostulanteController.updatePostulantes);
-router.delete('/:id',[checkfecha,authorizationMiddleware.isUser],PostulanteController.deletePostulantes);
+router.get('/',[authorizationMiddleware.isUser,checkfecha],PostulanteController.getPostulantes);
+router.post('/',[authorizationMiddleware.isUser,checkfecha,checkCupos,crearEvaluacion],PostulanteController.createPostulantes);
+router.put('/:id',[authorizationMiddleware.isUser,checkfecha],PostulanteController.updatePostulantes);
+router.delete('/:id',[authorizationMiddleware.isUser,checkfecha],PostulanteController.deletePostulantes);
 
-router.get('/:id',checkfecha,authorizationMiddleware.isUser,PostulanteController.getPostulantes);
+router.get('/:id',[authorizationMiddleware.isUser,checkfecha],PostulanteController.getPostulantes);
 
 module.exports = router;

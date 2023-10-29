@@ -14,7 +14,6 @@ async function getResultado() {
         } catch (error) {
         handleError(error, "resultado.service -> getResultado");
         }
-    
 }
 
 /**
@@ -26,11 +25,9 @@ async function getResultado() {
 async function createResultado(resultado) {
     try {
       const {id} = resultado;
-  
       const resultadoFound = await Resultado.findOne({ _id: id });
       if (resultadoFound) return [null, "La evaluacion ya existe"];
-  
-  
+
       const newResultado = new Resultado({
         postulacion,
         postulante,
@@ -40,7 +37,6 @@ async function createResultado(resultado) {
         estadoEvaluacion,
       });
       await newResultado.save();
-  
       return [newResultado, null];
     } catch (error) {
       handleError(error, "resultado.service -> createResultado");
@@ -55,9 +51,7 @@ async function createResultado(resultado) {
 async function getResultadoPostulacion(postId) {
     try {
       const resultadoFound = await Resultado.find({ publicacion: postId }).exec();
-  
       if (!resultadoFound) return [null, "los postulantes aun no tienen su resultado"];
-  
       return [resultadoFound, null];
     } catch (error) {
       handleError(error, "resultado.service -> getResultadoPostulacion");

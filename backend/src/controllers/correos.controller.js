@@ -1,17 +1,15 @@
 "use strict";
-
 const nodemailer = require("nodemailer");
 const Postulante = require("../models/postulante.model");
 
-async function notificarPostulantesSeleccionados(req, res) {
+async function notificarPostulantes(req, res) {
   try {
-    // Obtén los postulantes seleccionados
-    const postulantesSeleccionados = await Postulante.find({ esGanador: true });
+    // Obtén los postulantes
+    const notificarPostulantes = await Postulante.find();
 
-    if (postulantesSeleccionados.length === 0) {
-      return res.status(204).json({ message: "No hay postulantes seleccionados" });
+    if (notificarPostulantes.length === 0) {
+      return res.status(204).json({ message: "No hay postulantes para notificar" });
     }
-
     // Crea el Objeto transporter
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -23,19 +21,18 @@ async function notificarPostulantesSeleccionados(req, res) {
       },
     });
 
-    // Envia los correos a los postulantes seleccionados
-    const emailAddresses = postulantesSeleccionados.map(postulante => postulante.Correo);
+    // Envia los correo de notificacion a los postulantes
+    const emailAddresses = notificarPostulantes.map(postulante => postulante.Correo);
 
     const mailOptions = {
       from: "admin@gmail.com",
       to: emailAddresses.join(", "),
-      subject: "¡Felicidades! Has sido seleccionado",
-      text: "¡Has sido seleccionado para el proyecto! Consulta los detalles en nuestra plataforma.",
+      subject: "Resultados de postulacion a proyecto, concursos y financiamiento",
+      text: "Los resultados de tu postulacion se encuentran disponibles",
     };
 
     const info = await transporter.sendMail(mailOptions);
     console.log("Correos enviados exitosamente: " + info.response);
-
     return res.status(200).json({ message: "Correos enviados a los postulantes seleccionados" });
   } catch (error) {
     console.error("Error al notificar a los postulantes: " + error);
@@ -43,5 +40,5 @@ async function notificarPostulantesSeleccionados(req, res) {
   }
 }
 
-module.exports = { notificarPostulantesSeleccionados };
+module.exports = { notificarPostulantes };
 

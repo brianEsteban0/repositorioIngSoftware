@@ -16,7 +16,7 @@ const Publicacion_resultadosSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    //id resultado
+    //resultado
     Resultados: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Resultado",

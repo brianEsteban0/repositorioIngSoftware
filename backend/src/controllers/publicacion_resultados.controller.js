@@ -1,43 +1,44 @@
 "use strict";
 
-const { respondSuccess, respondError, } = require("../utils/resHandler");
+const { respondSuccess, respondError } = require("../utils/resHandler");
 const Publicacion_resultados_service = require("../services/publicacion_resultados.service.js");
-const {handleError} = require("../utils/errorHandler");
+const { handleError } = require("../utils/errorHandler");
 const Publicacion_resultados = require('../models/publicacion_resultados.model');
+const ResultadoService = require("../services/resultado.service.js"); // Importa el servicio de resultados
 
-  async function getPublicacion_resultados(req, res) {
+// Obtiene una publicación de resultados
+async function getPublicacion_resultados(req, res) {
     try {
-        const [Publicacion_resultados, error_publicacion_resultados] = await Publicacion_resultados_service.getPublicacion_resultados();//cambiar por el servicio de resultados
-        if (error_publicacion_resultados) return respondInternalError(req, res, 404, error_publicacion_resultados);//Error en el servicio de resultados
-    
-        if (Publicacion_resultados.length === 0) {
-            respondSuccess(req, res, 204, "No hay resultados ingresados");//El largo de resultados es 0 por ende no hay resultados que mostrar
+        // Obtiene los resultados de los participantes
+        const [resultado, errorResultado] = await ResultadoService.getResultado();
+        if (errorResultado) {
+            return respondError(req, res, 404, errorResultado);
+        }
+
+        if (resultado.length === 0) {
+            respondSuccess(req, res, 204, "No hay resultados ingresados");
         } else {
-            respondSuccess(req, res, 200, Publicacion_resultados);//Se envian los resultados
+            // Combina los resultados de los participantes con los resultados de la publicación
+            const publicacionResultados = { publicacion: Publicacion_resultados, resultados: resultado };
+            respondSuccess(req, res, 200, publicacionResultados);
         }
     } catch (error) {
         handleError(error, "publicacion_resultados.controller -> getPublicacion_resultados");
-
     }
 }
 
-/**
- * Crea un nuevo usuario
- * @param {Object} req - Objeto de petición
- * @param {Object} res - Objeto de respuesta
- */
-
+// Crea una nueva publicación de resultados
   async function createPublicacion_resultados(req, res) {
     try {
         const { body } = req;
         const [Publicacion_resultados, error_publicacion_resultados] = await PublicacionService.createPublicacion_resultados(body);
         if (error_publicacion_resultados) return respondInternalError(req, res, 404, error_publicacion_resultados);
-  
+
       if (error_publicacion_resultados) return respondError(req, res, 400, error_publicacion_resultados);
       if (!Publicacion_resultados) {
         return respondError(req, res, 400, "No se entregaran los resultados");
       }
-  
+
       respondSuccess(req, res, 201, Publicacion_resultados);
     } catch (error) {
       handleError(error, "publicacion_resultados.controller -> createPublicacion_resultados");
@@ -45,6 +46,7 @@ const Publicacion_resultados = require('../models/publicacion_resultados.model')
     }
   }
 
+// Actualiza una publicación de resultados
   async function updatePublicacion_resultados(req, res) {
     try{
       const { id } = req.params;
@@ -68,6 +70,7 @@ const Publicacion_resultados = require('../models/publicacion_resultados.model')
   }
 }
 
+// Elimina una publicación de resultados
   async function deletePublicacion_resultados(req, res) {
     try{
       const { id } = req.params;
@@ -92,3 +95,35 @@ module.exports = {
     updatePublicacion_resultados,
     deletePublicacion_resultados,
 };
+
+/**
+async function createPublicacion_resultados(req, res) {
+    try {
+        const { body } = req;
+        const [Publicacion_resultados, error_publicacion_resultados] = await Publicacion_resultados_service.createPublicacion_resultados(body);
+        if (error_publicacion_resultados) {
+            return respondError(req, res, 400, error_publicacion_resultados);
+        }
+        if (!Publicacion_resultados) {
+            return respondError(req, res, 400, "No se entregaran los resultados");
+        }
+
+        // Después de crear la publicación, obtén los resultados de getPublicacion_resultados
+        const [resultado, errorResultado] = await ResultadoService.getResultado();
+        if (errorResultado) {
+            return respondError(req, res, 404, errorResultado);
+        }
+
+        if (resultado.length === 0) {
+            respondSuccess(req, res, 204, "No hay resultados ingresados");
+        } else {
+            // Combina los resultados de la publicación con los resultados de getPublicacion_resultados
+            const publicacionResultados = { publicacion: Publicacion_resultados, resultados: resultado };
+            respondSuccess(req, res, 201, publicacionResultados);
+        }
+    } catch (error) {
+        handleError(error, "publicacion_resultados.controller -> createPublicacion_resultados");
+        respondError(req, res, 500, "No se creo la publicacion de resultados");
+    }
+}
+ */

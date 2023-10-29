@@ -1,97 +1,480 @@
 //Publicacion
-
 {
-  "titulo": "Concurso de Proyectos",
-  "descripcion": "Convocatoria para el desarrollo de proyectos innovadores",
-  "objetivo": "Promover la creatividad y la innovación en el campo de la tecnología",
-  "fecha_inicio": "2023-11-01",
-  "fecha_termino": "2023-12-01",
-  "monto": 10000,
-  "cupos": 5
-}
-{
-  "titulo": "Título de la publicación",
-  "descripcion": "Descripción de la publicación",
-  "objetivo": "Objetivo de la publicación",
-  "fecha_inicio": "2023-10-01T00:00:00.000Z",
-  "fecha_termino": "2023-10-31T00:00:00.000Z",
-  "monto": 1000,
-  "cupos": 50
-}
-{
-  "titulo": "Evento futuro",
-  "descripcion": "Descripción del evento que ocurrirá en el futuro",
-  "objetivo": "Objetivo del evento futuro",
-  "fecha_inicio": "2024-01-01T00:00:00.000Z",
-  "fecha_termino": "2024-01-10T00:00:00.000Z",
-  "monto": 1500,
-  "cupos": 100
-}
-{
-  "titulo": "Evento pasado",
-  "descripcion": "Descripción del evento que ya ha ocurrido en el pasado",
-  "objetivo": "Objetivo del evento pasado",
-  "fecha_inicio": "2022-06-01T00:00:00.000Z",
-  "fecha_termino": "2022-06-10T00:00:00.000Z",
-  "monto": 800,
-  "cupos": 30
-}
+      "_id": "653e06ee0935274273edfef7",
+      "titulo": "Evento pasado",
+      "descripcion": "Descripción del evento que ya ha ocurrido en el pasado",
+      "objetivo": "Objetivo del evento pasado",
+      "fecha_inicio": "31/05/2022",
+      "fecha_termino": "Plazo vencido",
+      "monto": 800,
+      "cupos": 30,
+      "__v": 0
+    },
+    {
+      "_id": "653eb5628ebcde5950dc133f",
+      "titulo": "Prueba 522",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "10/10/2023",
+      "fecha_termino": "Plazo vencido",
+      "monto": 5000000,
+      "cupos": 30,
+      "__v": 0
+    },
+    {
+      "_id": "653e06b40935274273edfee8",
+      "titulo": "Prueba 48",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "25/10/2023",
+      "fecha_termino": "30/10/2023",
+      "monto": 5000000,
+      "cupos": 5,
+      "__v": 0
+    },
+    {
+      "_id": "653e06d40935274273edfeed",
+      "titulo": "Título de la publicación",
+      "descripcion": "Descripción de la publicación",
+      "objetivo": "Objetivo de la publicación",
+      "fecha_inicio": "30/09/2023",
+      "fecha_termino": "30/10/2023",
+      "monto": 1000,
+      "cupos": 50,
+      "__v": 0
+    },
+    {
+      "_id": "653eae712828b19c9e08f704",
+      "titulo": "Prueba 24",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "10/10/2023",
+      "fecha_termino": "31/10/2023",
+      "monto": 5000000,
+      "cupos": 30,
+      "__v": 0
+    },
+    {
+      "_id": "653e1398be1ec790318a7ee1",
+      "titulo": "Prueba 45",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "10/10/2023",
+      "fecha_termino": "10/12/2023",
+      "monto": 5000000,
+      "cupos": 50,
+      "__v": 0
+    },
+    {
+      "_id": "653eb02bdf9defb0469c239f",
+      "titulo": "Prueba 27",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "10/10/2023",
+      "fecha_termino": "10/12/2023",
+      "monto": 5000000,
+      "cupos": 30,
+      "__v": 0
+    },
+    {
+      "_id": "653eb310c9f849341f0ba42e",
+      "titulo": "Prueba 52",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "10/10/2023",
+      "fecha_termino": "10/12/2023",
+      "monto": 5000000,
+      "cupos": 30,
+      "__v": 0
+    },
+    {
+      "_id": "653e06e00935274273edfef2",
+      "titulo": "Evento futuro",
+      "descripcion": "Descripción del evento que ocurrirá en el futuro",
+      "objetivo": "Objetivo del evento futuro",
+      "fecha_inicio": "31/12/2023",
+      "fecha_termino": "09/01/2024",
+      "monto": 1500,
+      "cupos": 100,
+      "__v": 0
+    },
+    {
+      "_id": "653eac9dbafd7b74128d89c3",
+      "titulo": "Prueba 40",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "10/10/2023",
+      "fecha_termino": "10/12/2024",
+      "monto": 5000000,
+      "cupos": 30,
+      "__v": 0
+    },
+    {
+      "_id": "653e1727c506455a0a4c9ea6",
+      "titulo": "Prueba 46",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "10/10/2023",
+      "fecha_termino": "10/12/2026",
+      "monto": 5000000,
+      "cupos": 30,
+      "__v": 0
+    },
+    {
+      "_id": "653eb76be942062d3e5e322c",
+      "titulo": "Prueba 245",
+      "descripcion": "Esta es otra prueba!",
+      "objetivo": "Seguir probando la creacion de publicaciones!",
+      "fecha_inicio": "10/10/2023",
+      "fecha_termino": "12/10/2042",
+      "monto": 5000000,
+      "cupos": 30,
+      "__v": 0
+    }
 
 //Postulante
 {
-    "Organizacion": "Mi Organización",
-    "descripcion": "Descripción de mi organización",
-    "Ubicación": "Ubicación de mi organización",
-    "Representante": "Nombre del representante",
-    "Rut_Representante": "123456789",
-    "Rut_Organizacion": "987654321",
-    "Telefono": "1234567890",
-    "Correo": "miorganizacion@ejemplo.com",
-    "rubrics": [
-        {
-            "rubricId": "6135b6d8f27684331ab9a6b1"
-        },
-        {
-            "rubricId": "6135b6d8f27684331ab9a6b2"
-        }
-    ],
-    "contests": [
-        {
-            "contestId": "6135b6d8f27684331ab9a6c1"
-        },
-        {
-            "contestId": "6135b6d8f27684331ab9a6c2"
-        }
-    ]
-}
+      "_id": "653e197a338b96c0067787a5",
+      "Organizacion": "Ejemplo Org 1",
+      "descripcion": "Descripción de la organización 1",
+      "Ubicación": "Ubicación 1",
+      "Representante": "Representante 1",
+      "Rut_Representante": "123456789",
+      "Rut_Organizacion": "987654321",
+      "Telefono": "1234567890",
+      "Correo": "ejemplo1@example.com",
+      "Publicacion": "653e06b40935274273edfee8",
+      "__v": 0
+    },
+    {
+      "_id": "653e19a8338b96c0067787aa",
+      "Organizacion": "Ejemplo Org 2",
+      "descripcion": "Descripción de la organización 2",
+      "Ubicación": "Ubicación 2",
+      "Representante": "Representante 2",
+      "Rut_Representante": "987654321",
+      "Rut_Organizacion": "123456789",
+      "Telefono": "9876543210",
+      "Correo": "ejemplo2@example.com",
+      "Publicacion": "653e06b40935274273edfee8",
+      "__v": 0
+    },
+    {
+      "_id": "653e19c3338b96c0067787af",
+      "Organizacion": "Ejemplo Org 3",
+      "descripcion": "Descripción de la organización 3",
+      "Ubicación": "Ubicación 3",
+      "Representante": "Representante 3",
+      "Rut_Representante": "135792468",
+      "Rut_Organizacion": "246813579",
+      "Telefono": "1357924680",
+      "Correo": "ejemplo3@example.com",
+      "Publicacion": "653e06d40935274273edfeed",
+      "__v": 0
+    },
+    {
+      "_id": "653e19f9338b96c0067787b4",
+      "Organizacion": "Ejemplo Org 4",
+      "descripcion": "Descripción de la organización 4",
+      "Ubicación": "Ubicación 4",
+      "Representante": "Representante 4",
+      "Rut_Representante": "864213579",
+      "Rut_Organizacion": "975318642",
+      "Telefono": "8642135790",
+      "Correo": "ejemplo4@example.com",
+      "Publicacion": "653e06d40935274273edfeed",
+      "__v": 0
+    },
+    {
+      "_id": "653e1a45338b96c0067787b9",
+      "Organizacion": "Ejemplo Org 5",
+      "descripcion": "Descripción de la organización 5",
+      "Ubicación": "Ubicación 5",
+      "Representante": "Representante 5",
+      "Rut_Representante": "567891234",
+      "Rut_Organizacion": "432198765",
+      "Telefono": "5678912340",
+      "Correo": "ejemplo5@example.com",
+      "Publicacion": "653e06e00935274273edfef2",
+      "__v": 0
+    },
+    {
+      "_id": "653e1a67338b96c0067787be",
+      "Organizacion": "Ejemplo Org 6",
+      "descripcion": "Descripción de la organización 6",
+      "Ubicación": "Ubicación 6",
+      "Representante": "Representante 6",
+      "Rut_Representante": "345678912",
+      "Rut_Organizacion": "789123456",
+      "Telefono": "3456789120",
+      "Correo": "ejemplo6@example.com",
+      "Publicacion": "653e06e00935274273edfef2",
+      "__v": 0
+    },
+    {
+      "_id": "653e1ac2338b96c0067787c9",
+      "Organizacion": "Ejemplo Org 8",
+      "descripcion": "Descripción de la organización 8",
+      "Ubicación": "Ubicación 8",
+      "Representante": "Representante 8",
+      "Rut_Representante": "1234567898",
+      "Rut_Organizacion": "9876543218",
+      "Telefono": "12345678980",
+      "Correo": "ejemplo8@example.com",
+      "Publicacion": "653e06ee0935274273edfef7",
+      "__v": 0
+    },
+    {
+      "_id": "653e9deaf75ff81a60b6d5d3",
+      "Organizacion": "Ejemplo Org 9",
+      "descripcion": "Descripción de la organización 9",
+      "Ubicación": "Ubicación 9",
+      "Representante": "Representante 9",
+      "Rut_Representante": "1234567899",
+      "Rut_Organizacion": "9876543219",
+      "Telefono": "12345678989",
+      "Correo": "ejemplo9@example.com",
+      "__v": 0
+    },
 //Rubrica
 {
-    "name": "Mi Rubrica",
-    "contestType": "Concurso Especifico",
-    "criteria": [
+      "_id": "653e0950e314fa11127b4ba7",
+      "name": "Mi Rubrica",
+      "contestType": "Concurso Especifico",
+      "criteria": [
         {
-            "name": "Criterio 1",
-            "Score": 100
+          "name": "Criterio 1",
+          "Score": 100,
+          "_id": "653e0950e314fa11127b4ba8"
         },
         {
-            "name": "Criterio 2",
-            "Score": 100
+          "name": "Criterio 2",
+          "Score": 100,
+          "_id": "653e0950e314fa11127b4ba9"
         }
-    ],
-    "publicacion": "6135b6d8f27684331ab9a6c1"
-}
-resultado
+      ],
+      "__v": 0
+    },
+    {
+      "_id": "653e0a176b03968c63024f33",
+      "name": "Mi Rubrica2",
+      "contestType": "Concurso Especifico2",
+      "criteria": [
+        {
+          "name": "Criterio 12",
+          "Score": 100,
+          "_id": "653e0a176b03968c63024f34"
+        },
+        {
+          "name": "Criterio 22",
+          "Score": 100,
+          "_id": "653e0a176b03968c63024f35"
+        }
+      ],
+      "publicacion": "653e06d40935274273edfeed",
+      "__v": 0
+    },
+    {
+      "_id": "653e0a3e6b03968c63024f3a",
+      "name": "Mi Rubrica3",
+      "contestType": "Concurso Especifico3",
+      "criteria": [
+        {
+          "name": "Criterio 13",
+          "Score": 100,
+          "_id": "653e0a3e6b03968c63024f3b"
+        },
+        {
+          "name": "Criterio 23",
+          "Score": 100,
+          "_id": "653e0a3e6b03968c63024f3c"
+        }
+      ],
+      "publicacion": "653e06e00935274273edfef2",
+      "__v": 0
+    },
+    {
+      "_id": "653e1166db6070f43773752b",
+      "name": "Mi Rubrica2mod",
+      "contestType": "Concurso Especifico2mod",
+      "criteria": [
+        {
+          "name": "Criterio 12mod",
+          "Score": 100,
+          "_id": "653e1166db6070f43773752c"
+        },
+        {
+          "name": "Criterio 22mod",
+          "Score": 100,
+          "_id": "653e1166db6070f43773752d"
+        }
+      ],
+      "publicacion": "653e06ee0935274273edfef7",
+      "__v": 0
+    }
+//Evaluacion
 {
-    "postulacion": "6135b6d8f27684331ab9a6c1",
-    "postulante": "6135b6d8f27684331ab9a6c2",
-    "rubrica": "6135b6d8f27684331ab9a6c3",
-    "puntaje_total": 85,
-    "ganador": true
+      "_id": "653e197a338b96c0067787a2",
+      "postulanteRut": "123456789",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e19a8338b96c0067787a7",
+      "postulanteRut": "987654321",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e19c3338b96c0067787ac",
+      "postulanteRut": "135792468",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e19f9338b96c0067787b1",
+      "postulanteRut": "864213579",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e1a45338b96c0067787b6",
+      "postulanteRut": "567891234",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e1a67338b96c0067787bb",
+      "postulanteRut": "345678912",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e1a89338b96c0067787c0",
+      "postulanteRut": "987654321",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e1aaa338b96c0067787c3",
+      "postulanteRut": "123456789",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e1ac2338b96c0067787c6",
+      "postulanteRut": "1234567898",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653e9deaf75ff81a60b6d5d0",
+      "postulanteRut": "1234567899",
+      "rubric": "653e1166db6070f43773752b",
+      "publicacion": "653e06ee0935274273edfef7",
+      "scores": [
+        98,
+        98
+      ],
+      "scoretotal": 196,
+      "__v": 0
+    },
+    {
+      "_id": "653ebc22c36ec3fc774577e5",
+      "postulanteRut": "20122222-2",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653ebc34c36ec3fc774577ea",
+      "postulanteRut": "20122222-5",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653ebc3cc36ec3fc774577ef",
+      "postulanteRut": "20122222-5",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
+    },
+    {
+      "_id": "653ebc47c36ec3fc774577f4",
+      "postulanteRut": "20122222-5",
+      "rubric": null,
+      "scores": [
+        0
+      ],
+      "scoretotal": 0,
+      "__v": 0
 }
-//evaluacion
+//Resultado 
 {
-    "postulante": "6135b6d8f27684331ab9a6c2",
-    "rubric": "6135b6d8f27684331ab9a6c3",
-    "scores": [80, 85, 90],
-    "scoretotal": 255
+  "_id": "653eb688fceeff9e0e29c6fb",
+  "postulacion": "653e06ee0935274273edfef7",
+  "postulante": "653e9deaf75ff81a60b6d5d3",
+  "rubrica": "653e1166db6070f43773752b",
+  "puntaje_total": 196,
+  "ganador": null,
+  "__v": 0,
+  "estadoEvaluacion": "Pendiente"
+},
+{
+  "_id": "653eba7f4e7cf69082107ca1",
+  "postulacion": "653e06ee0935274273edfef7",
+  "postulante": "653e9deaf75ff81a60b6d5d3",
+  "rubrica": "653e1166db6070f43773752b",
+  "puntaje_total": 197,
+  "ganador": null,
+  "estadoEvaluacion": "Pendiente",
+  "__v": 0
 }
+
+

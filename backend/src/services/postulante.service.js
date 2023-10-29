@@ -47,7 +47,20 @@ async function createPostulantes(postulante) {
     }
 }
 
+async function getPostulantesByIdpostulacion(postId) {
+    try {
+      const postulantes = await Postulante.find({ publicacion: postId }).exec();
+  
+      if (!postulantes) return [null, "los postulantes no existen en esta publicacion"];
+  
+      return [rubric, null];
+    } catch (error) {
+      handleError(error, "postulante.service -> getPostulantesByIdpostulacion");
+    }
+}
+
 module.exports = {
     getPostulantes,
     createPostulantes,
+    getPostulantesByIdpostulacion,
 };

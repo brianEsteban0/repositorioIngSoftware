@@ -11,4 +11,5 @@ const router = express.Router();
 router.get('/', PostulanteController.getPostulantes);
 router.post('/', crearEvaluacionMiddleware,PostulanteController.createPostulantes);
 
+router.get('/postulacion/:postulacionId',PostulanteController.getPostulantesBypostulacionId);
 module.exports = router;

@@ -44,8 +44,27 @@ async function createPostulantes(req, res) {
     }
 }
 
+/**
+ * Obtiene un usuario por su id
+ * @param {Object} req - Objeto de petición
+ * @param {Object} res - Objeto de respuesta
+ */
+async function getPostulantesBypostulacionId(req, res) {
+    try {
+      const { params} = req;
+      const [postulantes, errorPostulante] = await PostulanteService.getPostulantesByIdpostulacion(params.id);
+  
+      if (errorPostulante) return respondError(req, res, 404, errorPostulante);
+  
+      respondSuccess(req, res, 200, postulantes);
+    } catch (error) {
+      handleError(error, "postulante.controller -> getPostulanteById");
+      respondError(req, res, 500, "No se pudo obtener los postulantes");
+    }
+  }
 
 module.exports = {
     createPostulantes,
     getPostulantes,
+    getPostulantesBypostulacionId,
 };

@@ -42,8 +42,8 @@ async function createEvaluacion(evaluacion) {
 }
 
 /**
- * Obtiene un usuario por su id de la base de datos
- * @param {string} id de la Rubrica
+ * Obtiene un postulante por el rut del representante
+ * @param {string} id rut de  la organizacion
  * @returns {Promise} Promesa con el objeto de usuario
  */
 async function getEvaluacionById(id) {

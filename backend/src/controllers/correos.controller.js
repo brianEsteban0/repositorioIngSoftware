@@ -1,20 +1,15 @@
 "use strict";
-// Importa el módulo nodemailer
+
 const nodemailer = require("nodemailer");
-// Importa el modelo de postulante
-const Postulante = require('../models/postulante.model');
+const Postulante = require("../models/postulante.model");
 
-async function enviarCorreos( ) {
+async function notificarPostulantesSeleccionados(req, res) {
   try {
-    // Recibe todos los correos de los postulantes desde la base de datos
-    const postulantes = await Postulante.find();
-    const emailAddresses = postulantes.map(postulante => postulante.Correo); // Asegúrate de que el campo del correo sea el correcto
+    // Obtén los postulantes seleccionados
+    const postulantesSeleccionados = await Postulante.find({ esGanador: true });
 
-    // Verifica que haya al menos un postulante
-    if (emailAddresses.length === 0) {
-      console.log('No hay postulantes para enviar correos electrónicos');
-      return;
-
+    if (postulantesSeleccionados.length === 0) {
+      return res.status(204).json({ message: "No hay postulantes seleccionados" });
     }
 
     // Crea el Objeto transporter
@@ -28,25 +23,25 @@ async function enviarCorreos( ) {
       },
     });
 
-    // Envia los correos a los postulantes
+    // Envia los correos a los postulantes seleccionados
+    const emailAddresses = postulantesSeleccionados.map(postulante => postulante.Correo);
+
     const mailOptions = {
       from: "admin@gmail.com",
-      // emailAddresses es un array de destinatarios
       to: emailAddresses.join(", "),
-      subject: "Resultados de Postulacion a proyecto",
-      text: "Los resultados de tu postulacion se encuentran disponibles: ",
+      subject: "¡Felicidades! Has sido seleccionado",
+      text: "¡Has sido seleccionado para el proyecto! Consulta los detalles en nuestra plataforma.",
     };
 
-    try {
-      const info = await transporter.sendMail(mailOptions);
-      console.log("Correos enviados exitosamente: " + info.response);
-    } catch (error) {
-      console.log("Error al enviar el correo: " + error);
-    }
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Correos enviados exitosamente: " + info.response);
+
+    return res.status(200).json({ message: "Correos enviados a los postulantes seleccionados" });
   } catch (error) {
-    console.log("Error al obtener los correos de los postulantes: " + error);
-    res.status(500).json({ message: "Error al enviar el correo" });
+    console.error("Error al notificar a los postulantes: " + error);
+    return res.status(500).json({ message: "Error al enviar los correos" });
   }
 }
 
-module.exports = { enviarCorreos };
+module.exports = { notificarPostulantesSeleccionados };
+

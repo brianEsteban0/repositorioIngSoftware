@@ -18,7 +18,7 @@ const Publicacion_resultadosSchema = new mongoose.Schema(
     //resultado
     Resultados: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Resultado",
+      ref: ResultadoService.getResultado(),
       required: true,
     },
   },

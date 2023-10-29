@@ -7,7 +7,14 @@ const authorizationMiddleware = require("../middlewares/authorization.middleware
 
 const Publicacion_resultadosController = require("../controllers/publicacion_resultados.controller.js");
 
+/** Middlewares de autenticación */
+const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
+
 const router = express.Router();
+
+// Define el middleware de autenticación para todas las rutas
+router.use(authenticationMiddleware);
+
 
 //define rutas para entregar los resultados de las postulaciones
 router.get("/", authorizationMiddleware.isAdmin,Publicacion_resultadosController.getPublicacion_resultados);

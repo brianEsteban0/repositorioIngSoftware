@@ -11,7 +11,7 @@
     "backend",
     "http"
   ],
-  "author": "Brian Alarcon, Brian Cabezas, Eduardo Rivera, Sebsrtian Gonzales e Ivan Pérez",
+  "author": "Brian Alarcon, Brian Cabezas, Eduardo Rivera, Sebastian Gonzales e Ivan Pérez",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "2.4.3",

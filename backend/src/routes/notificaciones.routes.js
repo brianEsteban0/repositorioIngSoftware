@@ -20,6 +20,6 @@ app.use(bodyParser.json());
 // Define el middleware de autenticación para todas las rutas
 router.use(authenticationMiddleware);
 //Ruta para enviar correos
-router.post("/enviar",authorizationMiddleware.isAdmin, require("../controllers/correos.controller.js").enviarCorreos);
+router.get("/enviar-correos-seleccionados",authorizationMiddleware.isAdmin, require("../controllers/correos.controller.js").notificarPostulantesSeleccionados);
 //exporta el modulo router
 module.exports = router;

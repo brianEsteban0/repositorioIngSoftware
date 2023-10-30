@@ -4,7 +4,6 @@ const { respondSuccess, respondError, respondInternalError } = require("../utils
 const PostulanteService = require("../services/postulante.service.js");
 const { handleError } = require("../utils/errorHandler.js");
 const Postulante = require("../models/postulante.model.js");
-const Publicacion = require("../models/publicacion.model.js");
 
 /**
  * Obtiene todos los postulantes.
@@ -19,7 +18,7 @@ async function getPostulantes(req, res) {
       ? respondSuccess(req, res, 204)
       : respondSuccess(req, res, 200, postulantes);
   } catch (error) {
-    handleError(error, "rubric.controller -> getRubrics");
+    handleError(error, "postulante.controller -> getPostulantes");
     respondError(req, res, 400, error.message);
   }
 }
@@ -33,17 +32,14 @@ async function createPostulantes(req, res) {
   try {
     const { body } = req;
     const [postulante, errorPostulante] = await PostulanteService.createPostulantes(body);
-    const publicacionId = req.params.publicacionId;
-    const publicacion = await Publicacion.findById(publicacionId);
-
+    
     if (errorPostulante) {
       return respondInternalError(req, res, 404, errorPostulante);
     }
     if (!postulante) {
       return respondError(req, res, 400, "No se pudo crear el postulante");
     }
-    publicacion.cupos -= 1;
-    await publicacion.save(); 
+
     respondSuccess(req, res, 201, postulante);
   } catch (error) {
     handleError(error, "postulante.controller -> createPostulantes");
@@ -98,12 +94,7 @@ async function deletePostulantes(req, res) {
     
     if (!postulante) {
       return res.status(404).json({ message: 'Postulante no encontrado' });
-    }
-    const publicacionId = req.params.publicacionId;
-    const publicacion = await Publicacion.findById(publicacionId);
-    
-    publicacion.cupos += 1;
-    await publicacion.save(); 
+    } 
     return res.status(204).send();
   
   } catch (error) {
@@ -111,6 +102,7 @@ async function deletePostulantes(req, res) {
     return res.status(500).json({ message: 'Error al eliminar el postulante' });
   }
 }
+
 
 module.exports = {
     createPostulantes,

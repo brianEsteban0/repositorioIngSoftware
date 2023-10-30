@@ -84,6 +84,7 @@ async function deletePostulantes(id) {
       }
   
       return [postulante, null];
+      
     } catch (error) {
       handleError(error, "postulante.service -> deletePostulante");
       return [null, "Error al eliminar el postulante"];

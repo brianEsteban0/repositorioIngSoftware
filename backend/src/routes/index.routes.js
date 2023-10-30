@@ -19,6 +19,7 @@ const evaluacionRoutes = require("./evaluation.routes.js");
 const publicacionRoutes = require("./publicacion.routes.js");
 /** Enrutador de publicaciones resultados */
 const publicacion_resultadosRoutes = require("./publicacion_resultados.routes.js");
+const notificacionRoutes = require("./notificaciones.routes.js");
 
 /** Middleware de autenticación */
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
@@ -45,8 +46,11 @@ router.use("/evaluacion",evaluacionRoutes);
 // Define las rutas para las publicaciones de resultados
 router.use("/publicacion_resultados",publicacion_resultadosRoutes);
 
+router.use("/notificaciones", notificacionRoutes);
+
 // Importa las rutas específicas de postulantes
 const postulanteRoutes = require('./postulante.routes.js');
+const { not } = require("joi");
 // Utiliza las rutas de postulantes
 router.use('/postulante', postulanteRoutes);
 

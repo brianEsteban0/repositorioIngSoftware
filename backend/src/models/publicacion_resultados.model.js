@@ -9,16 +9,18 @@ const Publicacion_resultadosSchema = new mongoose.Schema(
     Titulo:{
         type: String,
         required: true,
+        unique: true,
     },
     //Cuerpo de la publicacion
-    Cuerpo:{
+    Ganadores:{
         type: String,
         required: true,
     },
 },
-    {
+{
     timestamps: true,
-    },
+    versionKey: false,
+}
 );
 
 const Publicacion_resultados = mongoose.model("Publicacion_resultados", Publicacion_resultadosSchema);

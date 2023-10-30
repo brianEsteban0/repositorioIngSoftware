@@ -1,10 +1,9 @@
 const Rubric = require("../models/rubric.model.js");
 const { handleError } = require("../utils/errorHandler");
-const Publicaciones = require("../models/publicacion.model.js"); // Importa el modelo de postulaciones
 
 /**
- * Obtiene todos las  de la base de datos
- * @returns {Promise} Promesa con el objeto de los usuarios
+ * Obtiene todos las rubricas de la base de datos
+ * @returns {Promise} Promesa con el objeto 
  */
 async function getRubrics() {
   try {
@@ -18,7 +17,7 @@ async function getRubrics() {
 }
 
 /**
- * Crea un nuevo usuario en la base de datos
+ * Crea una nueva rubrica en la base de datos
  * @param {Object} rubric Objeto de usuario
  * @returns {Promise} Promesa con el objeto de usuario creado
  */
@@ -47,7 +46,7 @@ async function createRubrics(rubric) {
 
 /**
  * Obtiene una rúbrica por el ID de una publicación de la base de datos
- * @param {string} id - ID de la publicación
+ * @param {string} id - ID de la rubrica
  * @returns {Promise} Promesa con el objeto de la rúbrica
  */
 async function getRubricById(id) {
@@ -63,8 +62,8 @@ async function getRubricById(id) {
 }
 
 /**
- * Actualiza un usuario por su id en la base de datos
- * @param {string} id de la publicacion
+ * Actualiza una rubrica por su id en la base de datos
+ * @param {string} id de la rubrica
  * @param {Object} rubric Objeto de rubric
  * @returns {Promise} Promesa con el objeto de rubrica actualizada
  */
@@ -96,7 +95,7 @@ async function updateRubric(id, rubric) {
 /**
  * Elimina una rubrica por el id de la publicacion
  * @param {string} id de la publicacion
- * @returns {Promise} Promesa con el objeto de usuario eliminado
+ * @returns {Promise} Promesa con el objeto eliminado
  */
 async function deleteRubric(id) {
   try {

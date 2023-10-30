@@ -23,14 +23,14 @@ const router = express.Router();
 router.use(authenticationMiddleware);
 
 // Define las rutas para los usuarios
-router.get("/",evaluacionController.getEvaluacion);
-router.post("/", calcularPuntaje, evaluacionController.createEvaluacion);
+router.get("/",authorizationMiddleware.isEvalAdmin,evaluacionController.getEvaluacion);
+router.post("/", [authorizationMiddleware.isEvalAdmin,calcularPuntaje], evaluacionController.createEvaluacion);
 router.get("/:postulanteRut", authorizationMiddleware.isEvalAdmin,evaluacionController.getEvaluacionById);
-router.put("/:id", [authorizationMiddleware.isEvalAdmin,comprobarFecha,calcularPuntaje,crearResultadoMiddleware] ,evaluacionController.updateEvaluacion);
-router.delete("/:id",authorizationMiddleware.isAdmin,evaluacionController.deleteEvaluacion,);
+router.put("/:postulanteRut", [authorizationMiddleware.isEvalAdmin,comprobarFecha,calcularPuntaje,crearResultadoMiddleware] ,evaluacionController.updateEvaluacion);
+router.delete("/:postulanteRut",authorizationMiddleware.isAdmin,evaluacionController.deleteEvaluacion,);
 
 //Obtener a el/los postulantes con el maximo puntaje
-router.get("/maxScore/:idpostulacion",authorizationMiddleware.isEvaluador,);
+//router.get("/maxScore/:idpostulacion",authorizationMiddleware.isEvaluador,);
 
 // Exporta el enrutador
 module.exports = router;

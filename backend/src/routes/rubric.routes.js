@@ -20,7 +20,7 @@ router.use(authenticationMiddleware);
 // Define las rutas para los usuarios
 router.get("/",authorizationMiddleware.isEvalAdmin,rubricaController.getRubric);
 router.post("/", authorizationMiddleware.isAdmin, rubricaController.createRubric);
-router.get("/:id", authorizationMiddleware.isAdmin,rubricaController.getRubricById);
+router.get("/:id", authorizationMiddleware.isEvalAdmin,rubricaController.getRubricById);
 router.put("/:id",authorizationMiddleware.isAdmin,rubricaController.updateRubric);
 router.delete("/:id",authorizationMiddleware.isAdmin,rubricaController.deleteRubric);
 

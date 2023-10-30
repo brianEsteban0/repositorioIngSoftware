@@ -68,7 +68,7 @@ async function getEvaluacionById(req, res) {
 async function updateEvaluacion(req, res) {
   try {
     const { params, body } = req;
-    const [evaluacion, errorEvaluacion] = await EvaluacionService.updateEvaluacion(params.id, body);
+    const [evaluacion, errorEvaluacion] = await EvaluacionService.updateEvaluacion(params.postulanteRut, body);
     
     if (errorEvaluacion) return respondError(req, res, 400, errorEvaluacion);
 
@@ -87,7 +87,7 @@ async function updateEvaluacion(req, res) {
 async function deleteEvaluacion(req, res) {
   try {
     const {params} = req;
-    const evaluacion = await EvaluacionService.deleteEvaluacion(params.id);
+    const evaluacion = await EvaluacionService.deleteEvaluacion(params.postulanteRut);
     !evaluacion
       ? respondError(
           req,

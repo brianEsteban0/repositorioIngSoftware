@@ -2,8 +2,8 @@ const Evaluacion = require('../models/puntajePost.model.js'); // Importa el mode
 const { handleError } = require("../utils/errorHandler");
 
 /**
- * Obtiene todos las  de la base de datos
- * @returns {Promise} Promesa con el objeto de los usuarios
+ * Obtiene todos las evaluaciones existentes en la base de datos
+ * @returns {Promise} Promesa con el objeto
  */
 async function getEvaluaciones() {
   try {
@@ -16,10 +16,10 @@ async function getEvaluaciones() {
 }
 
 /**
- * Crea un nuevo usuario en la base de datos
- * @param {Object} evaluacion Objeto de usuario
- * @param {Object} id Objeto de usuario
- * @returns {Promise} Promesa con el objeto de usuario creado
+ * Crea una nueva evaluacion en la base de datos
+ * @param {Object} evaluacion Objeto
+ * @param {Object} id Objeto 
+ * @returns {Promise} Promesa con el objeto
  */
 async function createEvaluacion(evaluacion) {
   try {
@@ -45,7 +45,7 @@ async function createEvaluacion(evaluacion) {
 }
 
 /**
- * Obtiene un postulante por el rut del representante
+ * Obtiene una evaluacion por el rut del representante
  * @param {string} id rut de  la organizacion
  * @returns {Promise} Promesa con el objeto de usuario
  */
@@ -94,9 +94,9 @@ async function updateEvaluacion(postulanteId, evaluacion) {
 
 
 /**
- * Elimina un usuario por su id de la base de datos
- * @param {string} id del usuario
- * @returns {Promise} Promesa con el objeto de usuario eliminado
+ * Elimina una evaluacion por el rut del representante del los postulantes
+ * @param {string} id Rut del repersentante
+ * @returns {Promise} Promesa con el objeto 
  */
 async function deleteEvaluacion(id) {
   try {

@@ -94,12 +94,13 @@ async function deletePostulantes(req, res) {
   try {
     const { id } = req.params; // Obtén el ID de la URL
     const postulante = await Postulante.findByIdAndRemove(id);
-    const publicacionId = req.params.publicacionId;
-    const publicacion = await Publicacion.findById(publicacionId);
+
     
     if (!postulante) {
       return res.status(404).json({ message: 'Postulante no encontrado' });
     }
+    const publicacionId = req.params.publicacionId;
+    const publicacion = await Publicacion.findById(publicacionId);
     
     publicacion.cupos += 1;
     await publicacion.save(); 

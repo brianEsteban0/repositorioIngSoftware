@@ -5,10 +5,11 @@ const express = require("express");
 /** Middlewares de autorización */
 const authorizationMiddleware = require("../middlewares/authorization.middleware.js");
 
-const Publicacion_resultadosController = require("../controllers/publicacion_resultados.controller.js");
-
 /** Middlewares de autenticación */
 const authenticationMiddleware = require("../middlewares/authentication.middleware.js");
+
+// Importa el controlador de publicacion_resultados
+const Publicacion_resultadosController = require("../controllers/publicacion_resultados.controller.js");
 
 const router = express.Router();
 

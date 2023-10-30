@@ -4,8 +4,6 @@
 const express = require("express");
 // constante router para crear rutas
 const router = express.Router();
-// crea la variable app para utilizar express
-const app = express();
 
 //Importa el controlador de correos
 const notificacionResultados = require("../controllers/correos.controller.js")

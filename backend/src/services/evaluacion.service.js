@@ -23,9 +23,9 @@ async function getEvaluaciones() {
  */
 async function createEvaluacion(evaluacion) {
   try {
-    const {scores , scoretotal} = evaluacion;
+    const {postulanteRut,rubric,publicacion,scores , scoretotal} = evaluacion;
 
-    const evaluationFound = await Evaluacion.findOne({ _id: id });
+    const evaluationFound = await Evaluacion.findOne({ postulanteRut: evaluacion.postulanteRut});
     if (evaluationFound) return [null, "La evaluacion ya existe"];
 
 
@@ -100,7 +100,7 @@ async function updateEvaluacion(postulanteId, evaluacion) {
  */
 async function deleteEvaluacion(id) {
   try {
-    return await Evaluacion.findByIdAndDelete(id);
+    return await Evaluacion.findOneAndDelete({ postulanteRut: id });
   } catch (error) {
     handleError(error, "evaluacion.service -> deleteEvaluacion");
   }

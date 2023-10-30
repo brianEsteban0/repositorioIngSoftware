@@ -1,7 +1,7 @@
 const Publicacion = require('../models/publicacion.model.js');
 const verificarFechaTermino = async (req, res, next) => {
     try {
-        const publicacionId = req.body.publicacion; // Asegúrate de obtener el ID de la publicación correctamente
+        const publicacionId = req.body.publicacion; 
         const public = await Publicacion.findById(publicacionId);
     
 

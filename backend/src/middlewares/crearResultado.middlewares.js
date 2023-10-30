@@ -57,7 +57,7 @@ const crearResultado = async (req, res, next) => {
         next();
     } catch (error) {
         handleError(error, "crearResultado.middleware");
-        res.status(500).json({ error: 'No se pudo crear el Resultado'});
+        next();
     }
 };
 

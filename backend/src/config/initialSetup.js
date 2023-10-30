@@ -51,7 +51,7 @@ async function createUsers() {
       }).save(),
       new User({
         username: "admin",
-        email: "admin@gmail.com",
+        email: "brayanhd98@gmail.com",
         password: await User.encryptPassword("admin123"),
         roles: admin._id,
       }).save(),

@@ -16,8 +16,8 @@ async function notificarPostulantes(req, res) {
       port: 587,
       secure: false,
       auth: {
-        user: "admin@gmail.com",
-        pass: "admin123",
+        user: "brayanhd98@gmail.com",
+        pass: "fxdf zqrp oywq hunq",
       },
     });
 

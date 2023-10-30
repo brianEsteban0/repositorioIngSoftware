@@ -4,7 +4,7 @@ const { respondSuccess, respondError, respondInternalError } = require("../utils
 const PostulanteService = require("../services/postulante.service.js");
 const { handleError } = require("../utils/errorHandler.js");
 const Postulante = require("../models/postulante.model.js");
-
+const Publicacion = require("../models/publicacion.model.js");
 
 /**
  * Obtiene todos los postulantes.
@@ -30,24 +30,25 @@ async function getPostulantes(req, res) {
  * @param {Object} res - Objeto de respuesta
  */
 async function createPostulantes(req, res) {
-    try {
-        const { body } = req;
-        const [postulante, errorPostulante] = await PostulanteService.createPostulantes(body);
-        
-        if (errorPostulante) {
-            return respondInternalError(req, res, 404, errorPostulante);
-        }
-        if (!postulante) {
-            return respondError(req, res, 400, "No se pudo crear el postulante");
-        }
-        
-        publicacion.cupos -= 1;
-        await publicacion.save(); 
-        respondSuccess(req, res, 201, postulante);
-    } catch (error) {
-        handleError(error, "postulante.controller -> createPostulantes");
-        respondError(req, res, 500, "Error al crear el postulante");
+  try {
+    const { body } = req;
+    const [postulante, errorPostulante] = await PostulanteService.createPostulantes(body);
+    const publicacionId = req.params.publicacionId;
+    const publicacion = await Publicacion.findById(publicacionId);
+
+    if (errorPostulante) {
+      return respondInternalError(req, res, 404, errorPostulante);
     }
+    if (!postulante) {
+      return respondError(req, res, 400, "No se pudo crear el postulante");
+    }
+    publicacion.cupos -= 1;
+    await publicacion.save(); 
+    respondSuccess(req, res, 201, postulante);
+  } catch (error) {
+    handleError(error, "postulante.controller -> createPostulantes");
+    respondError(req, res, 500, "Error al crear el postulante");
+  }
 }
 
 
@@ -58,59 +59,56 @@ async function createPostulantes(req, res) {
  * @param {Object} res - Objeto de respuesta
  */
 async function getPostulantesBypostulacionId(req, res) {
-    try {
-      const { params} = req;
-      const [postulantes, errorPostulante] = await PostulanteService.getPostulantesByIdpostulacion(params.id);
-  
-      if (errorPostulante) return respondError(req, res, 404, errorPostulante);
-  
-      respondSuccess(req, res, 200, postulantes);
-    } catch (error) {
-      handleError(error, "postulante.controller -> getPostulanteById");
-      respondError(req, res, 500, "No se pudo obtener los postulantes");
-    }
+  try {
+    const { params} = req;
+    const [postulantes, errorPostulante] = await PostulanteService.getPostulantesByIdpostulacion(params.id);
+    
+    if (errorPostulante) return respondError(req, res, 404, errorPostulante);
+    respondSuccess(req, res, 200, postulantes);
+  } catch (error) {
+    handleError(error, "postulante.controller -> getPostulanteById");
+    respondError(req, res, 500, "No se pudo obtener los postulantes");
+  }
 }
+
 async function updatePostulantes(req, res) {
-    try {
-      const { id } = req.params;
-      const updateData = req.body; // Los nuevos datos del postulante
-  
-      // Busca el postulante por ID
-      const postulante = await Postulante.findById(id);
-  
-      if (!postulante) {
-        return res.status(404).json({ message: 'Postulante no encontrado' });
-      }
-  
-      // Actualiza el postulante con los nuevos datos
-      postulante.set(updateData);
-      const updatedPostulante = await postulante.save();
-  
-      return res.status(200).json(updatedPostulante);
-    } catch (error) {
-      handleError(error, "postulante.controller -> updatePostulante");
-      return res.status(500).json({ message: 'Error al actualizar el postulante' });
+  try {
+    const { id } = req.params;
+    const updateData = req.body; // Los nuevos datos del postulante
+    const postulante = await Postulante.findById(id);
+    
+    if (!postulante) {
+      return res.status(404).json({ message: 'Postulante no encontrado' });
     }
+    
+    postulante.set(updateData);
+    const updatedPostulante = await postulante.save();
+    return res.status(200).json(updatedPostulante);
+  } catch (error) {
+    handleError(error, "postulante.controller -> updatePostulante");
+    return res.status(500).json({ message: 'Error al actualizar el postulante' });
+  }
 }
   
 async function deletePostulantes(req, res) {
-    try {
-      const { id } = req.params; // Obtén el ID de la URL
-  
-      // Busca el postulante por ID y elimínalo
-      const postulante = await Postulante.findByIdAndRemove(id);
-  
-      if (!postulante) {
-        return res.status(404).json({ message: 'Postulante no encontrado' });
-      }
-
-      publicacion.cupos += 1;
-      await publicacion.save(); 
-      return res.status(204).send();
-    } catch (error) {
-      handleError(error, "postulante.controller -> deletePostulante");
-      return res.status(500).json({ message: 'Error al eliminar el postulante' });
+  try {
+    const { id } = req.params; // Obtén el ID de la URL
+    const postulante = await Postulante.findByIdAndRemove(id);
+    const publicacionId = req.params.publicacionId;
+    const publicacion = await Publicacion.findById(publicacionId);
+    
+    if (!postulante) {
+      return res.status(404).json({ message: 'Postulante no encontrado' });
     }
+    
+    publicacion.cupos += 1;
+    await publicacion.save(); 
+    return res.status(204).send();
+  
+  } catch (error) {
+    handleError(error, "postulante.controller -> deletePostulante");
+    return res.status(500).json({ message: 'Error al eliminar el postulante' });
+  }
 }
 
 module.exports = {

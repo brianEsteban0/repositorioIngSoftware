@@ -3,8 +3,8 @@ const { handleError } = require("../utils/errorHandler");
 
 
 /**
- * Obtiene todos las  de la base de datos
- * @returns {Promise} Promesa con el objeto de los usuarios
+ * Obtiene todos los resultados de la base de datos
+ * @returns {Promise} Promesa con el objeto
  */
 async function getResultado() {
     try {
@@ -17,10 +17,10 @@ async function getResultado() {
 }
 
 /**
- * Crea un nuevo usuario en la base de datos
- * @param {Object} resultado Objeto de usuario
- * @param {Object} id Objeto de usuario
- * @returns {Promise} Promesa con el objeto de usuario creado
+ * Crea un nuevo resultado en la base de datos
+ * @param {Object} resultado Objeto 
+ * @param {Object} id Objeto 
+ * @returns {Promise} Promesa con el objeto 
  */
 async function createResultado(resultado) {
     try {
@@ -46,7 +46,7 @@ async function createResultado(resultado) {
  * Obtener el resultado de una publicacion a travez de su id
  * @param {Object} resultadoFound Objeto de resultado
  * @param {Object} postId Objeto de publicacion
- * @returns {Promise} Promesa con el objeto de usuario creado
+ * @returns {Promise} Promesa con el objeto 
  */
 async function getResultadoPostulacion(postId) {
     try {

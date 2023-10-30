@@ -37,7 +37,7 @@ const crearResultado = async (req, res, next) => {
     
             await newResultados.save();
         }else{
-            console.log("La evaluacion ya existe y se actualizara");
+            console.log("El resultado ya existe, se actualizara");
             const resultadoUpdated = await Resultado.findByIdAndUpdate(
                 resultadoFound._id,
                 {

@@ -8,12 +8,11 @@ const verificarFechaTermino = async (req, res, next) => {
         if (!public) {
             return res.status(404).json({ error: 'La publicación no existe' });
         }
-
+        console.log();
         const fechaTermino = new Date(public.fecha_termino);
         const today = new Date();
-
-        if (fechaTermino.toDateString() < today.toDateString()) {
-            return res.status(400).json({ error: 'La fecha de postulacion no ah acabado. No se puede actualizar.' });
+        if (fechaTermino.toDateString() > today.toDateString()) {
+            return res.status(400).json({ error: 'La fecha de postulacion no termino. No se puede actualizar.' });
         }
 
         next();

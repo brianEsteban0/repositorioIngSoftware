@@ -75,7 +75,7 @@ async function updateResultado(id, resultado) {
     const resultadoFound = await Resultado.findById({ _id: id });
     if (!resultadoFound) return [null, "El resultado no existe"];
 
-    const { postulacion, postulante, rubrica ,puntaje_total ,ganador } = resultado;
+    const { postulacion, postulante, rubrica ,puntaje_total ,ganador, estadoEvaluacion } = resultado;
 
     const resultadoUpdated = await Resultado.findByIdAndUpdate(
       id,

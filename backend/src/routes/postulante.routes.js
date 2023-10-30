@@ -14,7 +14,7 @@ router.use(authenticationMiddleware);
 
 
 router.get('/',[authorizationMiddleware.isUser,checkfecha],PostulanteController.getPostulantes);
-router.post('/',[authorizationMiddleware.isUser,checkfecha,checkCupos,crearEvaluacion],PostulanteController.createPostulantes);
+router.post('/',[authorizationMiddleware.isUser,checkfecha,/*checkCupos,*/crearEvaluacion],PostulanteController.createPostulantes);
 router.put('/:id',[authorizationMiddleware.isUser,checkfecha],PostulanteController.updatePostulantes);
 router.delete('/:id',[authorizationMiddleware.isUser,checkfecha],PostulanteController.deletePostulantes);
 

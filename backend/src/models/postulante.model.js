@@ -37,8 +37,7 @@ const postulanteSchema = new mongoose.Schema({
     },
     publicacion: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Publicacion',
-        required: true,
+        ref: 'Publicacion'
     },
 });
 

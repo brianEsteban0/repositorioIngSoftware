@@ -89,7 +89,7 @@ async function updatePostulantes(req, res) {
 async function deletePostulantes(req, res) {
   try {
     const { id } = req.params; // Obtén el ID de la URL
-    const postulante = await Postulante.findByIdAndRemove(id);
+    const postulante = await Postulante.findByIdAndDelete(id);
 
     
     if (!postulante) {

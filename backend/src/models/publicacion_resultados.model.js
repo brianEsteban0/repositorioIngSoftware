@@ -5,21 +5,27 @@ const mongoose = require("mongoose");
 //esquema de las publucaciones resultados
 const Publicacion_resultadosSchema = new mongoose.Schema(
 {
-  //Titulo de la publicacion
     Titulo:{
         type: String,
         required: true,
         unique: true,
     },
-    //Cuerpo de la publicacion
-    Ganadores:{
+    Descripcion:{
         type: String,
         required: true,
     },
-},
-{
-    timestamps: true,
-    versionKey: false,
+    Organizacion: {
+        type: String,
+        required: true
+    },
+    Representante:{
+        type: String,
+        required: true,
+    },
+    Rut_Representante:{
+        type: String,
+        required: true,
+    },
 }
 );
 

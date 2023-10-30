@@ -18,7 +18,7 @@ async function getEvaluaciones() {
 /**
  * Crea una nueva evaluacion en la base de datos
  * @param {Object} evaluacion Objeto
- * @param {Object} id Objeto 
+ * @param {Object} id Objeto
  * @returns {Promise} Promesa con el objeto
  */
 async function createEvaluacion(evaluacion) {

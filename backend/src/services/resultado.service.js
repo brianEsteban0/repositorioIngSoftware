@@ -27,7 +27,7 @@ async function createResultado(resultado) {
       const {id} = resultado;
       const resultadoFound = await Resultado.findOne({ _id: id });
       if (resultadoFound) return [null, "La evaluacion ya existe"];
-
+      if(!(estadoEvaluacion == "Pendiente" || estadoEvaluacion == "Finalizada" || estadoEvaluacion == "Revision")) return [null, "estado no aceptado por el sistema"];
       const newResultado = new Resultado({
         postulacion,
         postulante,
@@ -70,6 +70,8 @@ async function updateResultado(id, resultado) {
     if (!resultadoFound) return [null, "El resultado no existe"];
 
     const { postulacion, postulante, rubrica ,puntaje_total ,ganador, estadoEvaluacion } = resultado;
+
+    if(!(estadoEvaluacion == "Pendiente" || estadoEvaluacion == "Finalizada" || estadoEvaluacion == "Revision")) return [null, "estado no aceptado por el sistema"];
 
     const resultadoUpdated = await Resultado.findByIdAndUpdate(
       id,

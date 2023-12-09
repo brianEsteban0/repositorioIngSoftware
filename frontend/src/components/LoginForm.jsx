@@ -17,21 +17,32 @@ function LoginForm() {
     });
   };
 
+  const handleGuestLogin = () => {
+    // Lógica para ingresar como visitante
+    // Los visitantes únicamente pueden ver las publicaciones
+    navigate('/guest');
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        name="email"
-        type="email"
-        {...register('email', { required: true })}
-      />
-      <input
-        type="password"
-        name="password"
-        {...register('password', { required: true })}
-      />
-      {errors.exampleRequired && <span>This field is required</span>}
-      <input type="submit" />
-    </form>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          name="email"
+          type="email"
+          {...register('email', { required: true })}
+        />
+        <input
+          type="password"
+          name="password"
+          {...register('password', { required: true })}
+        />
+        {errors.exampleRequired && <span>This field is required</span>}
+        <input type="submit" />
+      </form>
+      
+      {/* Botón para ingresar como visitante */}
+      <button onClick={handleGuestLogin}>Ingresar como visitante</button>
+    </div>
   );
 }
 

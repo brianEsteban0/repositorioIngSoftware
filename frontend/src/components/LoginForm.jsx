@@ -19,11 +19,13 @@ function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      Email
       <input
+        title='Correo'
         name="email"
         type="email"
         {...register('email', { required: true })}
-      />
+      />Password
       <input
         type="password"
         name="password"

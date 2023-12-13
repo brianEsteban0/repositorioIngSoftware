@@ -33,8 +33,7 @@ export const test = async () => {
     const response = await axios.get('/publicaciones');
     const { status, data } = response;
 
-    if (status === 200) {
-      console.log(data.data); // Puedes dejar este console.log para verificar la estructura de los datos
+    if (status === 200) { 
       return data.data; // Devuelve la respuesta directamente
     }
   } catch (error) {

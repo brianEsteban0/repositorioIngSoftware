@@ -1,6 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import { test } from '../services/auth.service';
 import React, { useEffect, useState } from 'react';
+import Opciones from '../components/Opciones';
 
 function App() {
   
@@ -13,7 +14,6 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await test();
-        // Actualiza el estado con los datos devueltos por la función test
         setDatos(response);
       } catch (error) {
         console.error('Error al obtener datos:', error);
@@ -25,11 +25,12 @@ function App() {
 
   return (
     <>
-      <h1>Pagina principal</h1>
+      <h4>Opciones</h4>
+      <Opciones />
       <h1>Datos de Publicaciones:</h1>
       <ul>
         {datos.map((item) => (
-          <li key={item.id}>{item.titulo}</li>
+          <li key={item._id}>{item.titulo}</li>
         ))}
       </ul>
     </>

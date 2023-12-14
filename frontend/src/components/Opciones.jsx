@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';  
 
+
 function Opciones() {
   const { user } = useAuth();
   const navigate = useNavigate();

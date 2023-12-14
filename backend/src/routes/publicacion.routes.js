@@ -14,11 +14,11 @@ const authenticationMiddleware = require("../middlewares/authentication.middlewa
 
 const router = express.Router();
 
+//define rutas para las publicaciones
+router.get("/", publicacionController.getPublicaciones);
+
 // Define el middleware de autenticación para todas las rutas
 router.use(authenticationMiddleware);
-
-//define rutas para las publicaciones
-router.get("/", authorizationMiddleware.isAdmin,publicacionController.getPublicaciones);
 
 //define rutas para crear publicaciones
 router.post("/", authorizationMiddleware.isAdmin,publicacionController.createPublicacion);

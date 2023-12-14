@@ -1,6 +1,7 @@
 import { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../services/root.service';
+import './CrearRubrica.css';
 const RubricForm = () => {
   const [rubricData, setRubricData] = useState({
     name: '',

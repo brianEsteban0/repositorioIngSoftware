@@ -1,4 +1,4 @@
-// Publicaciones.jsx
+import axios from './root.service';
 import React, { useState, useEffect } from 'react';
 import { fetchPublicaciones } from './services/VerPublicaciones.service';
 

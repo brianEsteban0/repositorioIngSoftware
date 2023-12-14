@@ -15,7 +15,9 @@ function Opciones() {
         >Rubricas</button>
       ) : (<></>)}
         <div>
-          <button key={"publicacion"} className='options'>Publicaciones</button>
+          <button key={"publicacion"} className='options'
+          onClick={() => navigate('/publicaciones')}
+          >Publicaciones</button>
           <button key={"evaluacion"} className='options'>Evaluacion</button>
           <button key={"postular"} className='options'>Postular</button>
         </div>

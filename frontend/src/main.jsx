@@ -7,6 +7,7 @@ import Root from './routes/Root.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
 import RubricForm from './routes/rubricas/CrearRubricas.jsx';
+import Publicaciones from './routes/Publicaciones.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <Login />,
+  },
+  {
+    path: '/publicaciones',
+    element: <Publicaciones />,
   },
 ]);
 

@@ -27,12 +27,6 @@ function App() {
     <>
       <h4>Opciones</h4>
       <Opciones />
-      <h1>Datos de Publicaciones:</h1>
-      <ul>
-        {datos.map((item) => (
-          <li key={item._id}>{item.titulo}</li>
-        ))}
-      </ul>
     </>
   );
 }

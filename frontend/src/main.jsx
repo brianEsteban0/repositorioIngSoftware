@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import App from './routes/App.jsx';
+import Rubricas from './routes/Rubricas.jsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root.jsx';
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <App />,
+      },
+      {
+        path: '/rubricas',
+        element: <Rubricas />,
       },
     ],
   },

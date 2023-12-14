@@ -3,10 +3,9 @@ import axios from './root.service';
 export const getRubricas = async () => {
     try {
       const response = await axios.get('/rubric');
-      const { status, data } = response;
   
-      if (status === 200) { 
-        return data.data; // Devuelve la respuesta directamente
+      if (response.status === 200) { 
+        return response.data; // Devuelve la respuesta directamente
       }
     } catch (error) {
       console.error(error);

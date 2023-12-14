@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
+import RubricForm from './routes/rubricas/CrearRubricas.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/rubricas',
         element: <Rubricas />,
+      },
+      {
+        path: '/rubricas/generar',
+        element: <RubricForm/>,
       },
     ],
   },

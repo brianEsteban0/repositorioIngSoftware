@@ -17,6 +17,8 @@ const router = express.Router();
 //define rutas para las publicaciones
 router.get("/", publicacionController.getPublicaciones);
 
+router.get("/:id", publicacionController.getPublicacionById);
+
 // Define el middleware de autenticación para todas las rutas
 router.use(authenticationMiddleware);
 

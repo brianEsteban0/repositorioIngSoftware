@@ -13,7 +13,7 @@ export const getRubricas = async () => {
     }
 };
   
-export const getRubrica = async (id) => {
+export const getRubricaById = async (id) => {
     try {
       const response = await axios.get(`/rubric/${id}`);
   

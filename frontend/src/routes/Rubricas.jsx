@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getRubricas } from '../services/rubrics.service'; 
 import { useEffect, useState } from 'react';
+import { deleteRubrica } from '../services/rubrics.service';
 
 const Rubricas = () => {
     const [data, setData] = useState([]);
@@ -12,6 +13,16 @@ const Rubricas = () => {
         });
     }, []);
     const navigate = useNavigate();
+
+    const handleDelete = (id) => {
+        deleteRubrica(id).then((response) => {
+            console.log(response);
+            getRubricas().then((response) => {
+                setData(response.data);
+                console.log(response.data);
+            });
+        });
+    }
 
     return (
         <div>
@@ -42,7 +53,7 @@ const Rubricas = () => {
           <td>
                 <button className="btn btn-primary" onClick={()=>{}}>Editar</button>
                 {"   "}
-                <button className="btn btn-danger" onClick={()=>{}}>Eliminar</button>
+                <button className="btn btn-danger" onClick={()=>{handleDelete(rubrica._id)}}>Eliminar</button>
           </td>
           </tr>
           )

@@ -30,12 +30,14 @@ export const logout = () => {
 
 export const test = async () => {
   try {
-    const response = await axios.get('/users');
+    const response = await axios.get('/publicaciones');
     const { status, data } = response;
-    if (status === 200) {
-      console.log(data.data);
+
+    if (status === 200) { 
+      return data.data; // Devuelve la respuesta directamente
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw error; // Lanza el error nuevamente para que pueda ser manejado por el código que llama a la función
   }
 };

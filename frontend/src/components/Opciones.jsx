@@ -2,6 +2,7 @@ import './EstilosOPciones.css';
 import { useAuth } from '../context/AuthContext';
 import React from 'react';
 
+
 function Opciones() {
   const { user } = useAuth();
   return (

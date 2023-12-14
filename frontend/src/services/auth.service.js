@@ -34,10 +34,10 @@ export const test = async () => {
     const { status, data } = response;
 
     if (status === 200) { 
-      return data.data; // Devuelve la respuesta directamente
+      return data.data;
     }
   } catch (error) {
     console.error(error);
-    throw error; // Lanza el error nuevamente para que pueda ser manejado por el código que llama a la función
+    throw error;
   }
 };

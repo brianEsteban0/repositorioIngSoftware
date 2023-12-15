@@ -3,17 +3,31 @@ import { useAuth } from '../../context/AuthContext';
 import { getRubricas } from '../../services/rubrics.service'; 
 import { useEffect, useState } from 'react';
 import { deleteRubrica } from '../../services/rubrics.service';
-import { obtenerPublicacionById } from '../../services/VerPublicaciones.service';
+import axios from '../../services/root.service';
 
 const Rubricas = () => {
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         getRubricas().then((response) => {
             setData(response.data);
             console.log(response.data);
         });
     }, []);
-    const navigate = useNavigate();
+
+    const [publicaciones, setPublicaciones] = useState([]);
+    useEffect(() => {
+      const fetchPublicaciones = async () => {
+        try {
+          const response = await axios.get('/publicaciones');
+          setPublicaciones(response.data.data);
+        } catch (error) {
+          console.error('Error al obtener las publicaciones', error);
+        }
+      };
+      fetchPublicaciones();
+    }, []);
+    
 
     const handleDelete = (id) => {
       const shouldDelete = window.confirm('¿Estás seguro de que deseas eliminar esta rubrica?');
@@ -23,31 +37,14 @@ const Rubricas = () => {
               console.log(response);
               getRubricas().then((response) => {
                   setData(response.data);
-                  console.log(response.data);
               });
           });
       }
   }
-    const obtenerPublicacion = async (id) => {
-      try {
-          console.log(id);
-          if (id === undefined) {
-              return 'No asignado';
-          }
-          const response = await obtenerPublicacionById(id);
-          console.log(response.data);
-          return response.data.titulo;
-      } catch (error) {
-          console.error('Error al obtener la publicacion', error);
-      }
-    }
 
     return (
         <div>
         <h1>Rubricas</h1>
-        <div>
-         
-        </div>
         <label>
             <button key={"rubrica"} 
           onClick={() => navigate('/rubricas/generar')}
@@ -70,7 +67,9 @@ const Rubricas = () => {
             <tr key={rubrica._id}>
           <td>{rubrica.name}</td>
           <td>{rubrica.criteria.length}</td>
-          <td>{rubrica.publicacion}</td>
+          <td>{publicaciones.map(publicacion =>{if (rubrica.publicacion === publicacion._id) 
+            return(publicacion.titulo)
+          })}</td>
           <td>
                 <button className="btn btn-primary" onClick={()=>{navigate(`/rubricas/editar/${rubrica._id}`)}}>Editar</button>
                 {"   "}

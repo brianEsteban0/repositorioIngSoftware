@@ -9,6 +9,8 @@ import Login from './routes/Login.jsx';
 import RubricForm from './routes/rubricas/CrearRubricas.jsx';
 import Publicaciones from './routes/Publicaciones.jsx'
 import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
+import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
+import EvalPosPPublicaion from './routes/evaluacion/EvalPosPPublicaion.jsx';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
         path: '/rubricas/editar/:id',
         element: <EditarRubrica/>,
       },
+      {
+        path: '/evaluacion',
+        element: <EvaluarPostulante/>,
+      },
+      {
+        path: '/evaluacion/postulantes/:id',
+        element: <EvalPosPPublicaion/>,
+      }
     ],
   },
   {

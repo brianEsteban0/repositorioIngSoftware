@@ -11,7 +11,6 @@ const Rubricas = () => {
     useEffect(() => {
         getRubricas().then((response) => {
             setData(response.data);
-            console.log(response.data);
         });
     }, []);
 

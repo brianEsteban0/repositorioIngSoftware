@@ -33,4 +33,20 @@ export async function fetchPublicaciones() {
       return null;
     }
   }
+
+  export const getPublicacion = async () =>{
+    try {
+      const response = await axios.get(`/publicaciones`);
+      console.log(response.status);
+  
+      if (response.status === 200) {
+        return response.data.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  }
   

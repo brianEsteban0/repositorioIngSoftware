@@ -48,11 +48,11 @@ function PublicacionResultados() {
                 <ul>
                 {data.map((publicacionresultado) => (
                     <li key={publicacionresultado._id}>
-                    <h3>{publicacionresultado.titulo}</h3>
-                    <p>Descripción: {publicacionresultado.descripcion}</p>
-                    <p>Organización: {publicacionresultado.organizacion}</p>
-                    <p>Nombre de representante: {publicacionresultado.representante}</p>
-                    <p>Rut de representante: {publicacionresultado.rut_representante}</p>
+                    <h3>{publicacionresultado.Titulo}</h3>
+                    <p>Descripción: {publicacionresultado.Descripcion}</p>
+                    <p>Organización: {publicacionresultado.Organizacion}</p>
+                    <p>Nombre de representante: {publicacionresultado.Representante}</p>
+                    <p>Rut de representante: {publicacionresultado.Rut_Representante}</p>
                     {/* Agrega aquí los demás campos del modelo */}
                     <button key={"publicacionresultado"}
                     onClick={() => navigate(`/publicacion_resultados/editar/${publicacionresultado._id}`)}

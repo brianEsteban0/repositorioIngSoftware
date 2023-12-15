@@ -1,6 +1,8 @@
+/* eslint-disable max-len */
 const EvaluacionService = require("../services/evaluacion.service.js");
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const { handleError } = require("../utils/errorHandler");
+const Evaluacion = require("../models/puntajePost.model.js");
 
 
 
@@ -103,10 +105,25 @@ async function deleteEvaluacion(req, res) {
   }
 }
 
+// eslint-disable-next-line require-jsdoc
+async function getEvaluacionByPostulacion(req, res) {
+  try {
+    const { params } = req;
+    const evaluacion = await Evaluacion.find({ publicacion: params.idpostulacion }).exec();
+
+
+    respondSuccess(req, res, 200, evaluacion);
+  } catch (error) {
+    handleError(error, "evaluacion.controller -> getEvaluacionByPostulacion");
+    respondError(req, res, 500, "No se pudo obtener la evaluacion");
+  }
+}
+
 module.exports = {
   getEvaluacion,
   createEvaluacion,
   getEvaluacionById,
   updateEvaluacion,
   deleteEvaluacion,
+  getEvaluacionByPostulacion,
 };

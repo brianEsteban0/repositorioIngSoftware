@@ -7,8 +7,8 @@ const PublicacionForm = () => {
   const [publicacionData, setPublicacionData] = useState({
     descripcion: '',
     objetivo: '',
-    fechaInicio: '',
-    fechaTermino: '',
+    fecha_inicio: '',
+    fecha_termino: '',
     monto: '',
     cupos: '',
   });
@@ -21,9 +21,19 @@ const PublicacionForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const url = 'http://localhost:3000/api/publicaciones';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(publicacionData),
+    };
+  
     try {
-      const response = await axios.post('http://localhost:3000/api/publicaciones', publicacionData);
-      if (response.status === 200) {
+      const response = await fetch(url, options);
+      if (response.ok) {
         alert('Publicación creada con éxito');
         navigate('/publicaciones');
       } else {
@@ -34,6 +44,7 @@ const PublicacionForm = () => {
       console.error('Error:', error);
     }
   };
+  
 
   return (
     <div>
@@ -66,21 +77,21 @@ const PublicacionForm = () => {
           />
         </div>
         <div>
-          <label htmlFor="fechaInicio">Fecha de Inicio:</label>
+          <label htmlFor="fecha_inicio">Fecha de Inicio:</label>
           <input
             type="date"
-            id="fechaInicio"
-            value={publicacionData.fechaInicio}
-            onChange={(e) => handleInputChange('fechaInicio', e.target.value)}
+            id="fecha_inicio"
+            value={publicacionData.fecha_inicio}
+            onChange={(e) => handleInputChange('fecha_inicio', e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor="fechaTermino">Fecha de Término:</label>
+          <label htmlFor="fecha_termino">Fecha de Término:</label>
           <input
             type="date"
-            id="fechaTermino"
-            value={publicacionData.fechaTermino}
-            onChange={(e) => handleInputChange('fechaTermino', e.target.value)}
+            id="fecha_termino"
+            value={publicacionData.fecha_termino}
+            onChange={(e) => handleInputChange('fecha_termino', e.target.value)}
           />
         </div>
         <div>

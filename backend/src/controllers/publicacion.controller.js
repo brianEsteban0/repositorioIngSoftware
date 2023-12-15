@@ -1,3 +1,7 @@
+/* eslint-disable max-len */
+/* eslint-disable quotes */
+/* eslint-disable eol-last */
+/* eslint-disable require-jsdoc */
 "use strict";
 
 const {respondSuccess, respondError } = require("../utils/resHandler")
@@ -26,7 +30,7 @@ function validateFechas(fechaInicio, fechaTermino) {
   return fechaInicioParsed <= fechaTerminoParsed;
 }
 
-//funcion para obtener publicaciones
+// funcion para obtener publicaciones
 async function getPublicaciones(req, res) {
   try {
     const currentDate = new Date(); // obtiene fecha actual
@@ -116,11 +120,11 @@ async function createPublicacion(req, res) {
 }
 
 
-  //funcion para editar publicacion
+  // funcion para editar publicacion
   async function updatePublicacion(req, res) {
     try {
       const { id } = req.params;
-      const updateData = req.body; //nuevos datos de la pub
+      const updateData = req.body; // nuevos datos de la pub
   
       // busca publicaciobn por id
       const publicacion = await Publicacion.findById(id);
@@ -129,7 +133,7 @@ async function createPublicacion(req, res) {
         return res.status(404).json({ message: 'Publicación no encontrada' });
       }
   
-      //se actualiza la publicacion
+      // se actualiza la publicacion
       publicacion.set(updateData);
       const updatedPublicacion = await publicacion.save();
   
@@ -140,6 +144,7 @@ async function createPublicacion(req, res) {
     }
   }
 
+  // eslint-disable-next-line spaced-comment
   //funcion para eliminar publicacion
   async function deletePublicacion(req, res) {
     try {
@@ -159,10 +164,28 @@ async function createPublicacion(req, res) {
     }
   }
 
+  async function getPublicacionById(req, res) {
+    try {
+      const { id } = req.params; // Obtén el ID de la URL
+  
+      // Busca la publicación por ID
+      const publicacion = await Publicacion.findById(id);
+  
+      if (!publicacion) {
+        return res.status(404).json({ message: 'Publicación no encontrada' });
+      }
+  
+      return res.status(200).json(publicacion);
+    } catch (error) {
+      handleError(error, "publicacion.controller -> getPublicacionById");
+      return res.status(500).json({ message: 'Error al obtener la publicación' });
+    }
+  }
 
 module.exports = {
     getPublicaciones,
     createPublicacion,
     updatePublicacion,
     deletePublicacion,
+    getPublicacionById,
   };

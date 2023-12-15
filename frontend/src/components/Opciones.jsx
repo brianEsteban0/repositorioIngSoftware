@@ -10,15 +10,11 @@ function Opciones() {
   return (
     <div>
       {user.roles[0].name === 'admin' ? (
-        <button key={"rubrica"} className='options'
-          onClick={() => navigate('/rubricas')}
-        >Rubricas</button>
+        <button key={"rubrica"} className='options' onClick={() => navigate('/rubricas')}>Rubricas</button>
       ) : (<></>)}
 
-          <button key={"publicacion"} className='options'
-          onClick={() => navigate('/publicaciones')}
-          >Publicaciones</button>
-          <button key={"evaluacion"} className='options'>Evaluacion</button>
+          <button key={"publicacion"} className='options' onClick={() => navigate('/publicaciones')}>Publicaciones</button>
+          <button key={"evaluacion"} className='options' onClick={() => navigate('/evaluacion')}>Evaluacion</button>
           <button key={"postular"} className='options'>Postular</button>
     
     </div>

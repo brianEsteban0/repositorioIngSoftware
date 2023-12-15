@@ -1,3 +1,5 @@
+/* eslint-disable spaced-comment */
+/* eslint-disable max-len */
 // Importa el modulo 'express' para crear las rutas
 const express = require("express");
 
@@ -28,6 +30,7 @@ router.post("/", [authorizationMiddleware.isEvalAdmin,calcularPuntaje], evaluaci
 router.get("/:postulanteRut", authorizationMiddleware.isEvalAdmin,evaluacionController.getEvaluacionById);
 router.put("/:postulanteRut", [authorizationMiddleware.isEvalAdmin,comprobarFecha,calcularPuntaje,crearResultadoMiddleware] ,evaluacionController.updateEvaluacion);
 router.delete("/:postulanteRut",authorizationMiddleware.isAdmin,evaluacionController.deleteEvaluacion,);
+router.get("/publicacion/:idpostulacion",authorizationMiddleware.isEvalAdmin,evaluacionController.getEvaluacionByPostulacion);
 
 //Obtener a el/los postulantes con el maximo puntaje
 //router.get("/maxScore/:idpostulacion",authorizationMiddleware.isEvaluador,);

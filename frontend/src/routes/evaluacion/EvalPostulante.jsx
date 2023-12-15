@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostulanteByRut } from "../../services/Evaluacion.service";
 import { useNavigate } from 'react-router-dom';
-import { response } from "express";
 function EvalPostulante() {
     const { rut } = useParams();
     const navigate = useNavigate();

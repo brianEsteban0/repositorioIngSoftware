@@ -56,8 +56,10 @@ export const getEvaluacionByPostulacion = async (id) => {
 
 export const getPostulanteByRut = async (rut) => {
     try {
-        const response = await axios.get(`/evaluacion/postulante/${rut}`);
+        const response = await axios.get(`/postulante/publicacion/${rut}`);
+        console.log(response.data);
         return response.data;
+
     } catch (error) {
         console.error(error);
     }

@@ -11,6 +11,7 @@ import Publicaciones from './routes/Publicaciones.jsx'
 import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
 import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
 import EvalPosPPublicaion from './routes/evaluacion/EvalPosPPublicaion.jsx';
+import EvalPostulante from './routes/evaluacion/EvalPostulante.jsx';
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,11 @@ const router = createBrowserRouter([
       {
         path: '/evaluacion/postulantes/:id',
         element: <EvalPosPPublicaion/>,
-      }
+      },
+      {
+        path: '/evaluacion/evaluar/:rut',
+        element: <EvalPostulante/>,
+      },
     ],
   },
   {

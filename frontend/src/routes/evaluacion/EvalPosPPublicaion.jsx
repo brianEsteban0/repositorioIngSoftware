@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getEvaluacionByPostulacion } from "../../services/Evaluacion.service";
+import { useNavigate } from 'react-router-dom';
 function EvalPosPPublicaion() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [evaluaciones, setEvaluaciones] = useState([]);
     useEffect(() => {
         getEvaluacionByPostulacion(id).then((response) => {
@@ -33,13 +35,14 @@ function EvalPosPPublicaion() {
           <td></td>
           <td></td>
           <td>
-                <button className="btn btn-primary" >Evaluar</button>
+                <button className="btn btn-primary" onClick={()=>{navigate(`/evaluacion/evaluar/${evaluacion.postulanteRut}`)}}>Evaluar</button>
           </td>
           </tr>
           )
         })}
       </tbody>
     </table>
+    <button className="btn btn-primary" onClick={() => window.history.back()}>Volver atras</button>
     </div>
   );
 }

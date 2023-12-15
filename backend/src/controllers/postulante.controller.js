@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 "use strict";
 
 const { respondSuccess, respondError, respondInternalError } = require("../utils/resHandler");
@@ -103,6 +104,16 @@ async function deletePostulantes(req, res) {
   }
 }
 
+async function getPostulanteByRut(req, res) {
+  try {
+    const { params } = req;
+    const postulante = await Postulante.findOne({ Rut_Representante: params.postulanteRut});
+    respondSuccess(req, res, 200, postulante);
+  } catch (error) {
+    handleError(error, "postulante.controller -> getPostulanteByRut");
+    respondError(req, res, 500, "No se pudo obtener el postulante");
+  }
+}
 
 module.exports = {
     createPostulantes,
@@ -110,4 +121,5 @@ module.exports = {
     updatePostulantes,
     deletePostulantes,
     getPostulantesBypostulacionId,
+    getPostulanteByRut,
 };

@@ -3,7 +3,6 @@ import axios from './root.service';
 export const getRubricas = async () => {
     try {
       const response = await axios.get('/rubric');
-  
       if (response.status === 200) { 
         return response.data; 
       }
@@ -42,7 +41,7 @@ export const createRubrica = async (rubrica) => {
 export const updateRubrica = async (id, rubrica) => {
     try {
       const response = await axios.put(`/rubric/${id}`, rubrica);
-  
+      console.log(response);
       if (response.status === 200) {
         return response.data;
       }

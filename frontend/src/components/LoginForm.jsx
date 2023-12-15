@@ -46,24 +46,9 @@ function LoginForm() {
       />
       {errors.exampleRequired && <span>This field is required</span>}
       <input type="submit" />
-      <button onClick={obtenerPublicaciones}>Ingresar como Visitante</button>
+      <button onClick={() => navigate('/publicaciones/ver')}>Ingresar como Visitante</button>
       {/* Mostrar las publicaciones */}
       <div>
-        <h1>Publicaciones</h1>
-        <ul>
-          {publicaciones.map((publicacion) => (
-            <li key={publicacion._id}>
-              <h3>{publicacion.titulo}</h3>
-              <p>Descripción: {publicacion.descripcion}</p>
-              <p>Objetivo: {publicacion.objetivo}</p>
-              <p>Fecha de inicio: {publicacion.fecha_inicio}</p>
-              <p>Fecha de término: {publicacion.fecha_termino}</p>
-              <p>Monto: {publicacion.monto}</p>
-              <p>Cupos: {publicacion.cupos}</p>
-              {/* Agrega aquí los demás campos del modelo */}
-            </li>
-          ))}
-        </ul>
       </div>
     </form>
   );

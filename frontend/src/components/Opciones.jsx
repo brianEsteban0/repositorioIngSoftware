@@ -1,7 +1,7 @@
 import './EstilosOPciones.css';
 import { useAuth } from '../context/AuthContext';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';  
+import { useNavigate } from 'react-router-dom';
 
 
 function Opciones() {
@@ -16,7 +16,8 @@ function Opciones() {
           <button key={"publicacion"} className='options' onClick={() => navigate('/publicaciones')}>Publicaciones</button>
           <button key={"evaluacion"} className='options' onClick={() => navigate('/evaluacion')}>Evaluacion</button>
           <button key={"postular"} className='options'>Postular</button>
-    
+          <button key={"publicacion_resultados"} className='options'onClick={() => navigate('/publicacion_resultados')}>Publicacion de Resultados</button>
+
     </div>
   );
 }

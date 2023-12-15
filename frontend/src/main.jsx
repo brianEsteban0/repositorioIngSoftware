@@ -11,6 +11,7 @@ import Publicaciones from './routes/Publicaciones.jsx'
 import VerPublicaciones from './routes/verPublicaciones.jsx';
 import PublicacionForm from './routes/AgregarPublicacion.jsx';
 import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
+import PublicacionResultados from './routes/publicacion_resultados/PublicacionResultado.jsx';
 import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
 import EvalPosPPublicaion from './routes/evaluacion/EvalPosPPublicaion.jsx';
 import EvalPostulante from './routes/evaluacion/EvalPostulante.jsx';
@@ -72,6 +73,9 @@ const router = createBrowserRouter([
     path: '/publicaciones/ver',
     element: <VerPublicaciones />,
   },
+  {
+    path: '/publicacion_resultados',
+    element: <PublicacionResultados />,}
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -70,8 +70,9 @@ async function getPublicaciones(req, res) {
 // Función para crear la publicación
 async function createPublicacion(req, res) {
   try {
+    
     const { body } = req;
-
+    const currentDate = new Date(); // obtiene fecha actual
     // Formatea las fechas al formato adecuado
     const fechaInicio = formatDateToDDMMYYYY(new Date(body.fecha_inicio));
     const fechaTermino = formatDateToDDMMYYYY(new Date(body.fecha_termino));
@@ -80,6 +81,13 @@ async function createPublicacion(req, res) {
     if (!validateFechas(fechaInicio, fechaTermino)) {
       // Avisa al usuario por mensaje del error
       return respondError(req, res, 400, "La fecha de inicio no puede ser mayor que la fecha de termino");
+    }
+    if (new Date(fechaInicio) < currentDate) {
+      return respondError(req, res, 400, "La fecha de inicio debe ser igual o posterior a la fecha actual");
+    }
+    
+    if (new Date(fechaInicio) > '31/12/2150') {
+      return respondError(req, res, 400, "La fecha de inicio no puede ser mayor al 31/12/2150");
     }
 
     // Aquí continúa con la creación de la publicación

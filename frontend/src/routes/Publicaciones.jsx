@@ -9,7 +9,8 @@ function Publicaciones() {
     useEffect(() => {
       obtenerPublicaciones();
     }, []);
-  
+    const navigate = useNavigate();
+    
     const obtenerPublicaciones = () => {
       fetchPublicaciones()
         .then((data) => {
@@ -23,19 +24,19 @@ function Publicaciones() {
     return (
       <div>
         <h1>Publicaciones</h1>
+        <label>
+            <button key={"publicaciones"} 
+          onClick={() => navigate('/publicaciones/ver')}
+            >Ver publicaciones</button>
+            <button key={"publicaciones"} 
+          onClick={() => navigate('/publicaciones/agregar')}
+            >Agregar publicaciones</button>
+          <button key={"publicaciones"} 
+          onClick={() => navigate('/publicaciones/modificar')}
+            >Modificar publicaciones</button>
+            
+        </label>
         <ul>
-        {publicaciones.map((publicacion) => (
-              <li key={publicacion._id}>
-                <h3>{publicacion.titulo}</h3>
-                <p>Descripción: {publicacion.descripcion}</p>
-                <p>Objetivo: {publicacion.objetivo}</p>
-                <p>Fecha de inicio: {publicacion.fecha_inicio}</p>
-                <p>Fecha de término: {publicacion.fecha_termino}</p>
-                <p>Monto: {publicacion.monto}</p>
-                <p>Cupos: {publicacion.cupos}</p>
-                {/* Agrega aquí los demás campos del modelo */}
-              </li>
-            ))}
         </ul>
       </div>
     );

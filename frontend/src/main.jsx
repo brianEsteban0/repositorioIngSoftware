@@ -8,6 +8,8 @@ import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
 import RubricForm from './routes/rubricas/CrearRubricas.jsx';
 import Publicaciones from './routes/Publicaciones.jsx'
+import VerPublicaciones from './routes/verPublicaciones.jsx';
+import PublicacionForm from './routes/AgregarPublicacion.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +27,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/rubricas/generar',
-        element: <RubricForm/>,
+        element: <RubricForm />,
+      },
+      {
+        path: '/publicaciones/agregar',
+        element: <PublicacionForm />,
+      },
+      {
+        path: '/publicaciones/modificar',
+        element: <modificarPublicaciones />,
       },
     ],
   },
@@ -36,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: '/publicaciones',
     element: <Publicaciones />,
+  },
+  {
+    path: '/publicaciones/ver',
+    element: <VerPublicaciones />,
   },
 ]);
 

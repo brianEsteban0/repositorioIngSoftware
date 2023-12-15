@@ -9,6 +9,7 @@ import Login from './routes/Login.jsx';
 import RubricForm from './routes/rubricas/CrearRubricas.jsx';
 import Publicaciones from './routes/Publicaciones.jsx'
 import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
+import PublicacionResultados from './routes/publicacion_resultados/PublicacionResultado.jsx';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,9 @@ const router = createBrowserRouter([
     path: '/publicaciones',
     element: <Publicaciones />,
   },
+  {
+    path: '/publicacion_resultados',
+    element: <PublicacionResultados />,}
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

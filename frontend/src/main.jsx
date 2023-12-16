@@ -15,13 +15,32 @@ import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
 import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
 import EvalPosPPublicaion from './routes/evaluacion/EvalPosPPublicaion.jsx';
 import EvalPostulante from './routes/evaluacion/EvalPostulante.jsx';
-
+import Postulacion from './routes/postulacion/postulacion.jsx';
 import PublicacionResultado from './routes/publicacion_resultados/PublicacionResultado.jsx';
 import PublicacionResultadoForm from './routes/publicacion_resultados/CrearPublicacionResultados.jsx';
 import EditarPublicacionResultados from './routes/publicacion_resultados/EditarPublicacionResultados.jsx';
 import VerPublicacionesResultados from './routes/publicacion_resultados/VerPublicacionesResultados.jsx';
+import Resultados from './routes/ganadores/Resultados.jsx';
 
 import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
+const publicacionesRoutes = [
+  {
+    path: '/publicaciones/ver',
+    element: <VerPublicaciones />,
+  },
+];
+
+const adminRoutes = [
+  {
+    path: '/publicaciones/agregar',
+    element: <PublicacionForm />,
+  },
+  {
+    path: '/publicaciones/modificar',
+    element: <ModificarPublicacion />,
+  },
+  // ... Otras rutas específicas del administrador
+];
 
 const router = createBrowserRouter([
   {
@@ -70,12 +89,20 @@ const router = createBrowserRouter([
         element: <EvalPosPPublicaion/>,
       },
       {
-        path: '/evaluacion/evaluar/:rut',
+        path: '/evaluacion/evaluar/:id/:rut',
         element: <EvalPostulante/>,
       },
       {
         path: '/evaluacion/ver-postulante/:rut',
         element: <VerPostulante/>,
+      },
+      {
+        path: '/postulacion',
+        element: <Postulacion/>,
+      },
+      {
+        path: '/resultados',
+        element: <Resultados/>,
       }
     ],
   },

@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPostulanteByRut, deleteEvaluacion } from "../../services/Evaluacion.service";
+import { getPostulanteByRut, deleteEvaluacion, getEvaluacion } from "../../services/Evaluacion.service";
+import { getRubricaById } from "../../services/rubrics.service";
 import { useNavigate } from 'react-router-dom';
 function EvalPostulante() {
     const { rut } = useParams();
     const navigate = useNavigate();
+    const [postulante, setPostulante] = useState([]);
     const [evaluacion, setEvaluacion] = useState([]);
+    const [rubrica, setRubrica] = useState([]);
+    const [resultado, setResultado] = useState([]);
     useEffect(() => {
         getPostulanteByRut(rut).then((response) => {
-            setEvaluacion(response.data);
+            setPostulante(response.data);
             (response.data === null) ? deleteEvaluaciones(rut) : console.log("no se puede eliminar");
+        });
+        getEvaluacion(rut).then((response) => {
+            setEvaluacion(response.data);
+            console.log(response.data);
+        });
+        getRubricaById(evaluacion.rubricaId).then((response) => {
+            setRubrica(response.data);
+            console.log(response.data);
         });
         
     }, []);

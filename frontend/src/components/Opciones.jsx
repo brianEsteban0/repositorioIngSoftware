@@ -20,7 +20,7 @@ function Opciones() {
         </button>
       </div>
     )}
-
+    {user.roles[0].name === 'admin' && (
     <div className="col-4 mb-3">
       <button
         key="publicacion"
@@ -30,6 +30,7 @@ function Opciones() {
         Publicaciones
       </button>
     </div>
+    )}
 
     <div className="col-4 mb-3">
       <button

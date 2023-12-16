@@ -5,6 +5,7 @@ function VerPublicaciones() {
   const [publicaciones, setPublicaciones] = useState([]);
   const [filtroFecha, setFiltroFecha] = useState('');
   const [filtroTitulo, setFiltroTitulo] = useState('');
+  const [ordenamiento, setOrdenamiento] = useState(null);
 
   useEffect(() => {
     obtenerPublicaciones();
@@ -12,7 +13,7 @@ function VerPublicaciones() {
 
   const obtenerPublicaciones = async () => {
     try {
-      const data = await getPublicacion(); // Usa getPublicacion en lugar de fetchPublicaciones
+      const data = await getPublicacion();
       setPublicaciones(data);
     } catch (error) {
       console.error('Error fetching publications:', error);
@@ -28,15 +29,42 @@ function VerPublicaciones() {
     );
   };
 
-  const publicacionesFiltradas = filtroFecha
-    ? filtrarPorFecha()
-    : filtroTitulo
-    ? filtrarPorTitulo()
-    : publicaciones;
+  const filtrarPorFecha = () => {
+    // Implementa tu lógica de filtrado por fecha aquí
+  };
+  const ordenarPorCupos = (publicaciones) => {
+    if (ordenamiento === 'cuposAsc') {
+      return publicaciones.slice().sort((a, b) => a.cupos - b.cupos);
+    } else if (ordenamiento === 'cuposDesc') {
+      return publicaciones.slice().sort((a, b) => b.cupos - a.cupos);
+    }
+    return publicaciones;
+  };
 
-  const publicacionesOrdenadas = publicacionesFiltradas.sort((a, b) =>
-    new Date(a.fecha_inicio) - new Date(b.fecha_inicio)
-  );
+  const ordenarPublicaciones = () => {
+    let publicacionesFiltradas = filtroFecha
+      ? filtrarPorFecha()
+      : filtroTitulo
+      ? filtrarPorTitulo()
+      : publicaciones;
+  
+    if (ordenamiento === 'montoAsc') {
+      publicacionesFiltradas = publicacionesFiltradas.sort((a, b) => a.monto - b.monto);
+    } else if (ordenamiento === 'montoDesc') {
+      publicacionesFiltradas = publicacionesFiltradas.sort((a, b) => b.monto - a.monto);
+    } else if (ordenamiento === 'cuposAsc' || ordenamiento === 'cuposDesc') {
+      publicacionesFiltradas = ordenarPorCupos(publicacionesFiltradas);
+    }
+  
+    return publicacionesFiltradas;
+  };
+
+  const handleOrdenamientoChange = (e) => {
+    const selectedOrdenamiento = e.target.value;
+    setOrdenamiento(selectedOrdenamiento === ordenamiento ? null : selectedOrdenamiento);
+  };
+
+  const publicacionesOrdenadas = ordenarPublicaciones();
 
   return (
     <div>
@@ -48,6 +76,15 @@ function VerPublicaciones() {
           value={filtroTitulo}
           onChange={(e) => setFiltroTitulo(e.target.value)}
         />
+      </div>
+      <div>
+        <select value={ordenamiento || ''} onChange={handleOrdenamientoChange}>
+          <option value="">Ordenar por...</option>
+          <option value="montoAsc">Monto (Asc)</option>
+          <option value="montoDesc">Monto (Desc)</option>
+          <option value="cuposAsc"> Cupos (Asc)</option>
+          <option value="cuposDesc"> Cupos (Desc)</option>
+        </select>
       </div>
       <ul>
         {publicacionesOrdenadas.map((publicacion) => (

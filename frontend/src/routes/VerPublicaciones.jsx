@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchPublicaciones } from '../services/VerPublicaciones.service';
+import { getPublicacion } from '../services/VerPublicaciones.service';
 
 function VerPublicaciones() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -12,20 +12,11 @@ function VerPublicaciones() {
 
   const obtenerPublicaciones = async () => {
     try {
-      const data = await fetchPublicaciones();
+      const data = await getPublicacion(); // Usa getPublicacion en lugar de fetchPublicaciones
       setPublicaciones(data);
     } catch (error) {
       console.error('Error fetching publications:', error);
     }
-  };
-
-  const filtrarPorFecha = () => {
-    if (filtroFecha.trim() === '') {
-      return publicaciones;
-    }
-    return publicaciones.filter(publicacion =>
-      publicacion.fecha_termino >= filtroFecha
-    );
   };
 
   const filtrarPorTitulo = () => {
@@ -36,7 +27,6 @@ function VerPublicaciones() {
       publicacion.titulo.toLowerCase().includes(filtroTitulo.toLowerCase())
     );
   };
-
 
   const publicacionesFiltradas = filtroFecha
     ? filtrarPorFecha()
@@ -58,11 +48,6 @@ function VerPublicaciones() {
           value={filtroTitulo}
           onChange={(e) => setFiltroTitulo(e.target.value)}
         />
-        <input
-          type="date"
-          value={filtroFecha}
-          onChange={(e) => setFiltroFecha(e.target.value)}
-        />
       </div>
       <ul>
         {publicacionesOrdenadas.map((publicacion) => (
@@ -74,7 +59,6 @@ function VerPublicaciones() {
             <p>Fecha de término: {publicacion.fecha_termino}</p>
             <p>Monto: {publicacion.monto}</p>
             <p>Cupos: {publicacion.cupos}</p>
-            {/* Resto de la información de la publicación */}
           </li>
         ))}
       </ul>

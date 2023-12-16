@@ -27,7 +27,7 @@ async function getPostulantes() {
 async function createPostulantes(postulante) {
     try {
         const { Organizacion, descripcion, Ubicación, Representante, Rut_Representante, Rut_Organizacion, Telefono, Correo, publicacion } = postulante;
-        const postulanteFound = await Postulante.findOne({ Rut_Organizacion: postulante.Rut_Organizacion });
+        const postulanteFound = await Postulante.findOne({ Rut_Representante: postulante.Rut_Representante });
         if (postulanteFound) return [null, "El postulante ya existe"];
 
         const newPostulante = new Postulante({

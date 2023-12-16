@@ -7,10 +7,10 @@ import Root from './routes/Root.jsx';
 import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
 import RubricForm from './routes/rubricas/CrearRubricas.jsx';
-import PublicacionForm from './routes/AgregarPublicacion.jsx';
 import Publicaciones from './routes/Publicaciones.jsx'
 import ModificarPublicacion from './routes/ModificarPublicacion.jsx';
 import VerPublicaciones from './routes/verPublicaciones.jsx';
+import PublicacionForm from './routes/AgregarPublicacion.jsx';
 import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
 import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
 import EvalPosPPublicaion from './routes/evaluacion/EvalPosPPublicaion.jsx';
@@ -21,6 +21,7 @@ import PublicacionResultadoForm from './routes/publicacion_resultados/CrearPubli
 import EditarPublicacionResultados from './routes/publicacion_resultados/EditarPublicacionResultados.jsx';
 import VerPublicacionesResultados from './routes/publicacion_resultados/VerPublicacionesResultados.jsx';
 
+import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
         path: '/evaluacion/evaluar/:rut',
         element: <EvalPostulante/>,
       },
+      {
+        path: '/evaluacion/ver-postulante/:rut',
+        element: <VerPostulante/>,
+      }
     ],
   },
   {

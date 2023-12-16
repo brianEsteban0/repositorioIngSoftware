@@ -8,17 +8,55 @@ function Opciones() {
   const { user } = useAuth();
   const navigate = useNavigate();
   return (
-    <div>
-      {user.roles[0].name === 'admin' ? (
-        <button key={"rubrica"} className='options' onClick={() => navigate('/rubricas')}>Rubricas</button>
-      ) : (<></>)}
+    <div className="row">
+    {user.roles[0].name === 'admin' && (
+      <div className="col-4 mb-3">
+        <button
+          key="rubrica"
+          className="buton buton-block success"
+          onClick={() => navigate('/rubricas')}
+        >
+          Rubricas
+        </button>
+      </div>
+    )}
 
-          <button key={"publicacion"} className='options' onClick={() => navigate('/publicaciones')}>Publicaciones</button>
-          <button key={"evaluacion"} className='options' onClick={() => navigate('/evaluacion')}>Evaluacion</button>
-          <button key={"postular"} className='options'>Postular</button>
-          <button key={"publicacion_resultados"} className='options'onClick={() => navigate('/publicacion_resultados')}>Publicacion de Resultados</button>
-
+    <div className="col-4 mb-3">
+      <button
+        key="publicacion"
+        className="buton buton-block success"
+        onClick={() => navigate('/publicaciones')}
+      >
+        Publicaciones
+      </button>
     </div>
+
+    <div className="col-4 mb-3">
+      <button
+        key="evaluacion"
+        className="buton buton-block success"
+        onClick={() => navigate('/evaluacion')}
+      >
+        Evaluación
+      </button>
+    </div>
+
+    <div className="col-4 mb-3">
+      <button key="postular" className="buton buton-block success">
+        Postular
+      </button>
+    </div>
+
+    <div className="col-4 mb-3">
+      <button
+        key="publicacion_resultados"
+        className="buton buton-block success"
+        onClick={() => navigate('/publicacion_resultados')}
+      >
+        Publicación de Resultados
+      </button>
+    </div>
+  </div>
   );
 }
 

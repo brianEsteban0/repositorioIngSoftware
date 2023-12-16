@@ -61,7 +61,7 @@ function LoginForm() {
 
         <button
           type="button"
-          onClick={() => navigate('/publicaciones/ver')}
+          onClick={() => navigate('/publicaciones/verInvitado')}
           className="btn btn-secondary ms-2"
         >
           Ingresar como Visitante

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getPublicacion } from '../services/VerPublicaciones.service';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 function VerPublicaciones() {
   const [publicaciones, setPublicaciones] = useState([]);
   const [filtroFecha, setFiltroFecha] = useState('');

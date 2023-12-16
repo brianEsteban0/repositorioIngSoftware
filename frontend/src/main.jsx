@@ -64,6 +64,10 @@ const router = createBrowserRouter([
         element: <Publicaciones />,
       },
       {
+        path: '/publicaciones/ver',
+        element: <VerPublicaciones />,
+      },
+      {
         path: '/publicaciones/modificar/',
         element: <ModificarPublicacion />,
       },
@@ -110,7 +114,7 @@ const router = createBrowserRouter([
     element: <PublicacionResultado />
   },
   {
-    path: '/publicaciones/ver',
+    path: '/publicaciones/verInvitado',
     element: <VerPublicaciones />,
   },
   {

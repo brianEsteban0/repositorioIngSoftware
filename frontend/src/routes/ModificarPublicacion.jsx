@@ -89,7 +89,7 @@ function ModificarPostulacion() {
     } catch (error) {
       console.error('Error al modificar la publicación', error);
       // Manejo de errores: mostrar un mensaje al usuario, realizar un rollback de cambios, etc.
-      alert('Error al modificar la publicación');
+      alert('Confirme los datos ingresados');
     }
   };
   

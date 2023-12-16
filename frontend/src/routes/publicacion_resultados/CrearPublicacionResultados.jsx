@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import axios from '../../services/root.service';
 import './CrearPublicacionResultados.css';
 
 const PublicacionResultadoForm = () => {
@@ -20,7 +20,7 @@ const PublicacionResultadoForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+/*
         const url = 'http://localhost:3000/api/publicacion_resultados';
         const options = {
             method: 'POST',
@@ -29,74 +29,94 @@ const PublicacionResultadoForm = () => {
             },
             body: JSON.stringify(publicacionData),
         };
-
+*/
         try {
-            const response = await fetch(url, options);
+/*            const response = await fetch(url, options);
             if (response.ok) {
-                alert('Publicación de resultados creada con éxito');
-                navigate('/publicacion_resultados');
+            alert('Publicación creada con éxito');
+            navigate('/publicacion_resultados');
             } else {
-                alert('Ooops! Hubo un problema al crear la publicación de resultados, intente nuevamente');
+                alert('Hubo un problema al crear la publicación');
             }
         } catch (error) {
-            alert('Ooops! Ha ocurrido un error al crear la publicación de resultados, intente nuevamente');
-            console.error('Error:', error);
+            console.error('Error ak crear la publicación', error);
+            alert('Error al crear la publicación');
+        } */
+            await axios.post('/publicacion_resultados/', publicacionData);
+            alert('Publicación creada con éxito');
+            navigate('/publicacion_resultados');
+        } catch (error) {
+            console.error('Error al crear la publicación de resultados', error);
+            alert('Error al crear la publicación de resultados');
         }
     };
 
+
     return (
-        <div>
+        <div className="container my-5">
+            <h1 className="mb-4">Crear Publicación de Resultados</h1>
             <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="Titulo">Titulo:</label>
-                <input
-                    type="text"
-                    id="Titulo"
-                    value={publicacionData.Titulo}
-                    onChange={(e) => handleInputChange('Titulo', e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="Descripcion">Descripción:</label>
-                <input
-                    type="text"
-                    id="Descripcion"
-                    value={publicacionData.Descripcion}
-                    onChange={(e) => handleInputChange('Descripcion', e.target.value)}
-                    />
+            <div className='mb-3'>
+    <label htmlFor="Titulo" className="form-label">Titulo:</label>
+    <input
+        type="text"
+        className="form-control"
+        id="Titulo"
+        placeholder="Título de la Publicación..."
+        value={publicacionData.Titulo}
+        onChange={(e) => handleInputChange('Titulo', e.target.value)}
+    />
+</div>
+<div className="mb-3">
+    <label htmlFor="Descripcion" className="form-label">Descripción:</label>
+    <input
+        type="text"
+        className="form-control"
+        id="Descripcion"
+        placeholder="Ingrese una descripción a la publicación..."
+        value={publicacionData.Descripcion}
+        onChange={(e) => handleInputChange('Descripcion', e.target.value)}
+    />
+</div>
+<div className="mb-3">
+    <label htmlFor="Organizacion" className="form-label">Organización:</label>
+    <input
+        type="text"
+        className="form-control"
+        id="Organizacion"
+        placeholder="Ingrese el nombre de la Organización..."
+        value={publicacionData.Organizacion}
+        onChange={(e) => handleInputChange('Organizacion', e.target.value)}
+    />
+</div>
+<div className="mb-3">
+    <label htmlFor="Representante" className="form-label">Representante:</label>
+    <input
+        type="text"
+        className="form-control"
+        id="Representante"
+        placeholder="Ingrese el nombre del Representante..."
+        value={publicacionData.Representante}
+        onChange={(e) => handleInputChange('Representante', e.target.value)}
+    />
+</div>
+<div className="mb-3">
+    <label htmlFor="Rut_Representante" className="form-label">Rut de Representante:</label>
+    <input
+        type="text"
+        className="form-control"
+        id="Rut_Representante"
+        placeholder="xxxxxxxx-x"
+        value={publicacionData.Rut_Representante}
+        onChange={(e) => handleInputChange('Rut_Representante', e.target.value)}
+    />
+</div>
+                <div className="d-grid gap-2">
+                    <button className="btn btn-primary" type="submit">Crear Publicacion de Resultados</button>
+                    <button className="btn btn-secondary" onClick={() => navigate('/publicacion_resultado')}>Cancelar</button>
                 </div>
-                <div>
-                    <label htmlFor="Organizacion">Organización:</label>
-                    <input
-                        type="text"
-                        id="Organizacion"
-                        value={publicacionData.Organizacion}
-                        onChange={(e) => handleInputChange('Organizacion', e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="Representante">Representante:</label>
-                    <input
-                        type="text"
-                        id="Representante"
-                        value={publicacionData.Representante}
-                        onChange={(e) => handleInputChange('Representante', e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="Rut_Representante">Rut de Representante:</label>
-                    <input
-                        type="text"
-                        id="Rut_Representante"
-                        value={publicacionData.Rut_Representante}
-                        onChange={(e) => handleInputChange('Rut_Representante', e.target.value)}
-                    />
-                </div>
-                <button type="submit">Crear Publicacion de Resultados</button>
             </form>
-            <button onClick={() => navigate('/publicacion_resultados')}>Cancelar</button>
         </div>
     );
 };
-
 export default PublicacionResultadoForm;

@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Opciones() {
+  
   const { user } = useAuth();
   const navigate = useNavigate();
+  const isAdmin = user.roles[0].name === 'admin';
   return (
     <div className="row">
     {user.roles[0].name === 'admin' && (
@@ -31,7 +33,17 @@ function Opciones() {
       </button>
     </div>
     )}
-
+    {!isAdmin && (
+        <div className="col-4 mb-3">
+          <button
+            key="publicacion_ver"
+            className="buton buton-block success"
+            onClick={() => navigate('/publicaciones/ver')}
+          >
+            Ver Publicaciones
+          </button>
+        </div>
+      )}
     <div className="col-4 mb-3">
       <button
         key="evaluacion"

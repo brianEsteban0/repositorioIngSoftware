@@ -116,85 +116,95 @@ function ModificarPostulacion() {
           {console.log('¿Existe publicacionData?', publicacionData)}
   
           {/* Campos de modificación de la publicación */}
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="titulo">Titulo:</label>
+          <form onSubmit={handleSubmit} className="modify-publication-form">
+            <div className="mb-3">
+              <label htmlFor="titulo" className="form-label">Título:</label>
               <input
                 type="text"
                 id="titulo"
                 value={publicacionData.titulo || ''}
                 onChange={(e) => handleInputChange('titulo', e.target.value)}
+                className="form-control"
               />
             </div>
-            <div>
-              <label htmlFor="descripcion">Descripción:</label>
-              <input
-                type="text"
+
+            <div className="mb-3">
+              <label htmlFor="descripcion" className="form-label">Descripción:</label>
+              <textarea
                 id="descripcion"
-                value={publicacionData.descripcion}
+                value={publicacionData.descripcion || ''}
                 onChange={(e) => handleInputChange('descripcion', e.target.value)}
-              />
+                className="form-control"
+                rows="3"
+              ></textarea>
             </div>
-            <div>
-              <label htmlFor="objetivo">Objetivo:</label>
+
+            <div className="mb-3">
+              <label htmlFor="objetivo" className="form-label">Objetivo:</label>
               <input
                 type="text"
                 id="objetivo"
-                value={publicacionData.objetivo}
+                value={publicacionData.objetivo || ''}
                 onChange={(e) => handleInputChange('objetivo', e.target.value)}
+                className="form-control"
               />
             </div>
-            <div>
-              <label htmlFor="fecha_inicio">Fecha de inicio:</label>
+
+            <div className="mb-3">
+              <label htmlFor="fecha_inicio" className="form-label">Fecha de inicio:</label>
               <input
                 type="date"
                 id="fecha_inicio"
                 value={publicacionData.fecha_inicio || ''}
                 onChange={(e) => handleInputChange('fecha_inicio', e.target.value)}
+                className="form-control"
               />
             </div>
-            <div>
-              <label htmlFor="fecha_termino">Fecha de termino:</label>
+
+            <div className="mb-3">
+              <label htmlFor="fecha_termino" className="form-label">Fecha de término:</label>
               <input
                 type="date"
                 id="fecha_termino"
                 value={publicacionData.fecha_termino || ''}
                 onChange={(e) => handleInputChange('fecha_termino', e.target.value)}
+                className="form-control"
               />
             </div>
-            <div>
-              <label htmlFor="monto">Monto:</label>
+
+            <div className="mb-3">
+              <label htmlFor="monto" className="form-label">Monto:</label>
               <input
                 type="text"
                 id="monto"
-                value={publicacionData.monto}
+                value={publicacionData.monto || ''}
                 onChange={(e) => handleInputChange('monto', e.target.value)}
+                className="form-control"
               />
             </div>
-            <div>
-              <label htmlFor="cupos">Cupos:</label>
+
+            <div className="mb-3">
+              <label htmlFor="cupos" className="form-label">Cupos:</label>
               <input
                 type="number"
                 id="cupos"
-                value={publicacionData.cupos}
+                value={publicacionData.cupos || ''}
                 onChange={(e) => handleInputChange('cupos', e.target.value)}
+                className="form-control"
               />
             </div>
-            <button type="submit">Modificar Publicación</button>
+
+            <button type="submit" className="btn btn-primary">Modificar Publicación</button>
           </form>
-          <div>
-      <h1>Modificar Postulación</h1>
-      {publicacionData && (
-        <div>
-          {/* Resto de tu código... */}
-          <button onClick={() => handleEliminarPublicacion(publicacionData._id)}>Eliminar Publicación</button>
-        </div>
-      )}
-      <button onClick={() => navigate('/publicaciones')}>Cancelar</button>
-    </div>
+
+          <div className="modify-publication-actions">
+            <button onClick={() => handleEliminarPublicacion(publicacionData._id)} className="btn btn-danger">Eliminar Publicación</button>
+            <button onClick={() => navigate('/publicaciones')} className="btn btn-secondary">Cancelar</button>
+          </div>
         </div>
       )}
     </div>
   );
 }
+
 export default ModificarPostulacion;

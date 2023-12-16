@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { obtenerPublicacionById, getPublicacion, actualizarPublicacion  } from '../services/VerPublicaciones.service'; // Reemplaza con tu lógica de servicio
+import { obtenerPublicacionById, getPublicacion  } from '../services/VerPublicaciones.service'; // Reemplaza con tu lógica de servicio
 import axios from '../services/root.service';
 
 function ModificarPostulacion() {
@@ -20,15 +20,6 @@ function ModificarPostulacion() {
   useEffect(() => {
     obtenerPublicaciones();
   }, []);
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = `${date.getDate()}`.padStart(2, '0'); // Día en formato de 2 dígitos
-    const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Mes en formato de 2 dígitos
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-  
 
   const obtenerPublicaciones = async () => {
     try {
@@ -51,13 +42,19 @@ function ModificarPostulacion() {
 
   const handleEliminarPublicacion = async (id) => {
     try {
-      // Lógica para eliminar la publicación con el ID proporcionado
-      alert(`Publicación con ID ${id} eliminada`);
-      // Puedes agregar aquí la llamada a la función para eliminar la publicación con el servicio correspondiente
+      const response = await axios.delete(`/publicaciones/${id}`); // Usamos Axios para eliminar la publicación por su ID
+      if (response.status === 200) {
+        alert(`Publicación con ID ${id} eliminada`);
+        navigate('/publicaciones');
+      } else {
+        throw new Error('No se pudo eliminar la publicación');
+      }
     } catch (error) {
       console.error('Error al eliminar la publicación', error);
+      alert('Se eliminó la publicación');
     }
   };
+  
   
 
   const handleSelectChange = async (event) => {
@@ -185,9 +182,18 @@ function ModificarPostulacion() {
             </div>
             <button type="submit">Modificar Publicación</button>
           </form>
+          <div>
+      <h1>Modificar Postulación</h1>
+      {publicacionData && (
+        <div>
+          {/* Resto de tu código... */}
+          <button onClick={() => handleEliminarPublicacion(publicacionData._id)}>Eliminar Publicación</button>
         </div>
       )}
       <button onClick={() => navigate('/publicaciones')}>Cancelar</button>
+    </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -37,17 +37,6 @@ function VerPublicaciones() {
     );
   };
 
-  const ordenarPorFecha = () => {
-    const copiaPublicaciones = [...publicaciones];
-    copiaPublicaciones.sort((a, b) => new Date(a.fecha_inicio) - new Date(b.fecha_inicio));
-    return copiaPublicaciones;
-  };
-
-  const ordenarPorTitulo = () => {
-    const copiaPublicaciones = [...publicaciones];
-    copiaPublicaciones.sort((a, b) => a.titulo.localeCompare(b.titulo));
-    return copiaPublicaciones;
-  };
 
   const publicacionesFiltradas = filtroFecha
     ? filtrarPorFecha()

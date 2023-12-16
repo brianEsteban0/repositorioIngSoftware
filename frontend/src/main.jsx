@@ -9,7 +9,7 @@ import Login from './routes/Login.jsx';
 import RubricForm from './routes/rubricas/CrearRubricas.jsx';
 import Publicaciones from './routes/Publicaciones.jsx'
 import ModificarPublicacion from './routes/ModificarPublicacion.jsx';
-import VerPublicaciones from './routes/verPublicaciones.jsx';
+import VerPublicaciones from './routes/VerPublicaciones.jsx'
 import PublicacionForm from './routes/AgregarPublicacion.jsx';
 import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
 import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
@@ -22,7 +22,6 @@ import EditarPublicacionResultados from './routes/publicacion_resultados/EditarP
 import VerPublicacionesResultados from './routes/publicacion_resultados/VerPublicacionesResultados.jsx';
 
 import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
-import EditarPublicacion from './routes/EditarPublicacion.jsx'
 
 const router = createBrowserRouter([
   {

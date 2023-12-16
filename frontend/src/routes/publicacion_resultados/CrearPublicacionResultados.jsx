@@ -20,28 +20,10 @@ const PublicacionResultadoForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-/*
-        const url = 'http://localhost:3000/api/publicacion_resultados';
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(publicacionData),
-        };
-*/
+        const confirmation = window.confirm('¿Estás seguro de agregar esta publicación?');
+        if (!confirmation) return;
+
         try {
-/*            const response = await fetch(url, options);
-            if (response.ok) {
-            alert('Publicación creada con éxito');
-            navigate('/publicacion_resultados');
-            } else {
-                alert('Hubo un problema al crear la publicación');
-            }
-        } catch (error) {
-            console.error('Error ak crear la publicación', error);
-            alert('Error al crear la publicación');
-        } */
             await axios.post('/publicacion_resultados/', publicacionData);
             alert('Publicación creada con éxito');
             navigate('/publicacion_resultados');
@@ -50,7 +32,6 @@ const PublicacionResultadoForm = () => {
             alert('Error al crear la publicación de resultados');
         }
     };
-
 
     return (
         <div className="container my-5">

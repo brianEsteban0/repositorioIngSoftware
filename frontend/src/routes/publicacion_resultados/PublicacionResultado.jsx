@@ -32,7 +32,7 @@ function PublicacionResultados() {
                     onClick={() => navigate('/publicacion_resultados/crear')}
                         >Crear publicaciones</button>
                     <button key={"publicaciones"}
-                    onClick={() => navigate('/publicacion_resultados/editar')}
+                    onClick={() => navigate('/publicacion_resultados/modificar')}
                         >Editar publicaciones</button>
 
                 </label>

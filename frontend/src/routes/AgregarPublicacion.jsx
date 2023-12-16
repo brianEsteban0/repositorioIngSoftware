@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../services/root.service';
-import './CrearPublicacion.css';
 import moment from 'moment';
+import './CrearPublicacion.css';
 
 const PublicacionForm = () => {
   const [publicacionData, setPublicacionData] = useState({

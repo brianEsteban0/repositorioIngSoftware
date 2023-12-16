@@ -179,7 +179,7 @@ function ModificarPublicacionResultados() {
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary">Modificacion Publicación Resultados</button>
+                        <button type="submit" className="btn btn-primary">Modificar Publicación Resultados</button>
                     </form>
 
                     <div className="modify-publication-actions">

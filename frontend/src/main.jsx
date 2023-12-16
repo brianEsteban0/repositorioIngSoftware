@@ -70,7 +70,7 @@ const router = createBrowserRouter([
         element: <EvalPosPPublicaion/>,
       },
       {
-        path: '/evaluacion/evaluar/:rut',
+        path: '/evaluacion/evaluar/:id/:rut',
         element: <EvalPostulante/>,
       },
       {

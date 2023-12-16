@@ -27,10 +27,12 @@ export const createEvaluacion = async (evaluacion) => {
     }
 }
 
-export const updateEvaluacion = async (id, evaluacion) => {
+export const updateEvaluacion = async (rut, evaluacion) => {
     try {
-        const response = await axios.put(`/evaluacion/${id}`, evaluacion);
-        return response.data;
+        console.log(evaluacion);
+        const response = await axios.put(`/evaluacion/${rut}`, evaluacion);
+        console.log(response);
+        return response;
     } catch (error) {
         console.error(error);
     }

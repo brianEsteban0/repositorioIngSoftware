@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 "use strict";
 // Importa el modulo 'express' para crear las rutas
 const express = require("express");
@@ -23,6 +24,7 @@ router.post("/", authorizationMiddleware.isAdmin, rubricaController.createRubric
 router.get("/:id", authorizationMiddleware.isEvalAdmin,rubricaController.getRubricById);
 router.put("/:id",authorizationMiddleware.isAdmin,rubricaController.updateRubric);
 router.delete("/:id",authorizationMiddleware.isAdmin,rubricaController.deleteRubric);
+router.get("/publicacion/:id",authorizationMiddleware.isEvalAdmin,rubricaController.getRubricByPublicacionId);
 
 // Exporta el enrutador
 module.exports = router;

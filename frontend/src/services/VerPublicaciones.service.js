@@ -18,20 +18,11 @@ export async function fetchPublicaciones() {
   }
 
   export async function obtenerPublicacionById(id) {
-    try {
       const response = await axios.get(`/publicaciones/${id}`);
-      const data = await response.json();
   
-      console.log(data);
-  
-      if (data.state === 'Success') {
-        return data.data;
-      } else {
-        return null;
+      if (response.status === 200) {
+        return response.data;
       }
-    } catch (error) {
-      return null;
-    }
   }
 
   export const getPublicacion = async () =>{
@@ -50,3 +41,18 @@ export async function fetchPublicaciones() {
     }
   }
   
+export const getPublicacionById = async (id) =>{
+    try {
+      const response = await axios.get(`/publicaciones/${id}`);
+      console.log(response.status);
+  
+      if (response.status === 200) {
+        return response.data.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  }

@@ -36,6 +36,7 @@ function EvalPosPPublicaion() {
           <td></td>
           <td>
                 <button className="btn btn-primary" onClick={()=>{navigate(`/evaluacion/evaluar/${evaluacion.postulanteRut}`)}}>Evaluar</button>
+                <button className="btn btn-info" onClick={()=>{navigate(`/evaluacion/ver-postulante/${evaluacion.postulanteRut}`)}}>Ver Postulante</button>
           </td>
           </tr>
           )

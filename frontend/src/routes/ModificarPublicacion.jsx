@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { obtenerPublicacionById, getPublicacion, actualizarPublicacion  } from '../services/VerPublicaciones.service'; // Reemplaza con tu lógica de servicio
+import axios from '../services/root.service';
 
 function ModificarPostulacion() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -80,111 +81,114 @@ function ModificarPostulacion() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { _id } = publicacionData; // Suponiendo que publicacionData contiene el ID de la publicación
-      const updatedPublication = await actualizarPublicacion(_id, publicacionData);
+      const { _id, ...postData } = publicacionData; // Suponiendo que publicacionData contiene el ID de la publicación
+  
+      const updatedPublication = await axios.put(`/publicaciones/${_id}`, postData);
+      console.log('Publicación actualizada:', updatedPublication.data);
       
-      console.log('Publicación actualizada:', updatedPublication);
       // Haz lo que necesites con los datos actualizados, por ejemplo, actualizar el estado local, mostrar un mensaje, etc.
+      alert('Publicación modificada con éxito');
+      navigate('/publicaciones');
     } catch (error) {
       console.error('Error al modificar la publicación', error);
       // Manejo de errores: mostrar un mensaje al usuario, realizar un rollback de cambios, etc.
+      alert('Error al modificar la publicación');
     }
   };
   
   return (
     <div>
       <h1>Modificar Postulación</h1>
-      <div>
-        <label htmlFor="publicacionSelect">Seleccionar Publicación:</label>
-        <select
-          id="publicacionSelect"
-          value={selectedPublicacion}
-          onChange={handleSelectChange}
-        >
-          <option value="">Seleccione una publicación</option>
-          {publicaciones.map((publicacion) => (
-            <option key={publicacion._id} value={publicacion._id}>
-              {publicacion.titulo}
-            </option>
-          ))}
-        </select>
-      </div>
-  
-      {/* Paso 1: Imprimir en la consola */}
-      {console.log('¿Existe publicacionData?', publicacionData)}
-  
-      {/* Campos de modificación de la publicación */}
       {publicacionData && (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="titulo">Titulo:</label>
-            <input
-              type="text"
-              id="titulo"
-              value={publicacionData.titulo || ''}
-              onChange={(e) => handleInputChange('titulo', e.target.value)}
-            />
-          </div>
-          <div>
-          <label htmlFor="descripcion">Descripción:</label>
-          <input
-            type="text"
-            id="descripcion"
-            value={publicacionData.descripcion}
-            onChange={(e) => handleInputChange('descripcion', e.target.value)}
-          />
-        </div>
         <div>
-          <label htmlFor="objetivo">Objetivo:</label>
-          <input
-            type="text"
-            id="objetivo"
-            value={publicacionData.objetivo}
-            onChange={(e) => handleInputChange('objetivo', e.target.value)}
-          />
+          <label htmlFor="publicacionSelect">Seleccionar Publicación:</label>
+          <select
+            id="publicacionSelect"
+            value={selectedPublicacion}
+            onChange={handleSelectChange}
+          >
+            <option value="">Seleccione una publicación</option>
+            {publicaciones.map((publicacion) => (
+              <option key={publicacion._id} value={publicacion._id}>
+                {publicacion.titulo}
+              </option>
+            ))}
+          </select>
+  
+          {/* Paso 1: Imprimir en la consola */}
+          {console.log('¿Existe publicacionData?', publicacionData)}
+  
+          {/* Campos de modificación de la publicación */}
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="titulo">Titulo:</label>
+              <input
+                type="text"
+                id="titulo"
+                value={publicacionData.titulo || ''}
+                onChange={(e) => handleInputChange('titulo', e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="descripcion">Descripción:</label>
+              <input
+                type="text"
+                id="descripcion"
+                value={publicacionData.descripcion}
+                onChange={(e) => handleInputChange('descripcion', e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="objetivo">Objetivo:</label>
+              <input
+                type="text"
+                id="objetivo"
+                value={publicacionData.objetivo}
+                onChange={(e) => handleInputChange('objetivo', e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="fecha_inicio">Fecha de inicio:</label>
+              <input
+                type="date"
+                id="fecha_inicio"
+                value={publicacionData.fecha_inicio || ''}
+                onChange={(e) => handleInputChange('fecha_inicio', e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="fecha_termino">Fecha de termino:</label>
+              <input
+                type="date"
+                id="fecha_termino"
+                value={publicacionData.fecha_termino || ''}
+                onChange={(e) => handleInputChange('fecha_termino', e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="monto">Monto:</label>
+              <input
+                type="text"
+                id="monto"
+                value={publicacionData.monto}
+                onChange={(e) => handleInputChange('monto', e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="cupos">Cupos:</label>
+              <input
+                type="number"
+                id="cupos"
+                value={publicacionData.cupos}
+                onChange={(e) => handleInputChange('cupos', e.target.value)}
+              />
+            </div>
+            <button type="submit">Modificar Publicación</button>
+          </form>
         </div>
-        <div>
-        <input
-            type="text"
-            id="fecha_inicio"
-            value={formatDate(publicacionData.fecha_inicio)}
-            onChange={(e) => handleInputChange('fecha_inicio', e.target.value)}
-          />
-
-        </div>
-        <div>
-        <input
-  type="text"
-  id="fecha_termino"
-  value={formatDate(publicacionData.fecha_termino)}
-  onChange={(e) => handleInputChange('fecha_termino', e.target.value)}
-/>
-
-        </div>
-        <div>
-          <label htmlFor="monto">Monto:</label>
-          <input
-            type="text"
-            id="monto"
-            value={publicacionData.monto}
-            onChange={(e) => handleInputChange('monto', e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="cupos">Cupos:</label>
-          <input
-            type="number"
-            id="cupos"
-            value={publicacionData.cupos}
-            onChange={(e) => handleInputChange('cupos', e.target.value)}
-          />
-        </div>
-          <button type="submit">Modificar Publicación</button>
-        </form>
       )}
       <button onClick={() => navigate('/publicaciones')}>Cancelar</button>
     </div>
   );
 }
-
 export default ModificarPostulacion;

@@ -18,20 +18,24 @@ const PublicacionForm = () => {
   const navigate = useNavigate();
 
   const handleInputChange = (field, value) => {
-    setPublicacionData({ ...publicacionData, [field]: value });
+    if (field === 'fecha_inicio' || field === 'fecha_termino') {
+      // Modifica el formato de la fecha ingresada por el usuario
+      setPublicacionData({ ...publicacionData, [field]: value });
+    } else {
+      setPublicacionData({ ...publicacionData, [field]: value });
+    }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formattedData = { ...publicacionData };
-      // Transforma las fechas al formato dd/mm/yyyy
-      const startDateParts = publicacionData.fecha_inicio.split('-');
-      formattedData.fecha_inicio = `${startDateParts[2]}/${startDateParts[1]}/${startDateParts[0]}`;
-  
-      const endDateParts = publicacionData.fecha_termino.split('-');
-      formattedData.fecha_termino = `${endDateParts[2]}/${endDateParts[1]}/${endDateParts[0]}`;
-  
+      
+      // Formatea las fechas al formato requerido por el servidor (DD/MM/YYYY)
+      formattedData.fecha_inicio = moment(publicacionData.fecha_inicio, 'YYYY-MM-DD').format('DD/MM/YYYY');
+      formattedData.fecha_termino = moment(publicacionData.fecha_termino, 'YYYY-MM-DD').format('DD/MM/YYYY');
+      
       // Ahora puedes enviar formattedData al servidor
       await axios.post('/publicaciones/', formattedData);
       alert('Publicación creada con éxito');
@@ -42,20 +46,6 @@ const PublicacionForm = () => {
     }
   };
   
-  
-  
-  
-  // Función para formatear la fecha a dd/mm/yyyy
-  function formatDateToDDMMYYYY(date) {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-  
-  
-  
-
   return (
     <div>
       <form onSubmit={handleSubmit}>

@@ -4,6 +4,7 @@ const { respondSuccess, respondError } = require("../utils/resHandler");
 const Publicacion_resultados_service = require("../services/publicacion_resultados.service.js");
 const { handleError } = require("../utils/errorHandler");
 const Publicacion_resultados = require('../models/publicacion_resultados.model');
+const { respondInternalError } = require("../utils/resHandler");
 
 // Obtiene una publicación de resultados
 async function getPublicacion_resultados(req, res) {
@@ -59,6 +60,24 @@ async function updatePublicacion_resultados(req, res) {
     }
 }
 
+async function getPublicacion_resultadosById(req, res) {
+    try {
+        const { id } = req.params; // Obtén el ID de la URL
+
+        // Busca la publicación por ID
+        const publicacion_resultados = await Publicacion_resultados.findById(id);
+
+        if (!publicacion_resultados) {
+            return res.status(404).json({ message: 'Publicación no encontrada' });
+        }
+
+        return res.status(200).json(publicacion_resultados);
+    } catch (error) {
+        handleError(error, "publicacion_resultados.controller -> getPublicacion_resultadosById");
+        return res.status(500).json({ message: 'Error al obtener la publicación' });
+    }
+}
+
 // Elimina una publicación de resultados
 async function deletePublicacion_resultados(req, res) {
     try {
@@ -83,6 +102,7 @@ module.exports = {
     createPublicacion_resultados,
     updatePublicacion_resultados,
     deletePublicacion_resultados,
+    getPublicacion_resultadosById,
 };
 
 

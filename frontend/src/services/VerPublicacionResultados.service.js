@@ -1,33 +1,57 @@
 import axios from './root.service';
 
-export const getPublicacionResultados = async () => {
+export async function fetchPublicacionesResultados() {
     try {
-        const response = await axios.get('/publicacion_resultados');
-        if (response.status === 200) {
-            console.log(response.data);
-            return response.data; // Devuelve la respuesta directamente
+        const response = await fetch("http://localhost:3000/api/publicacion_resultados");
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        if (data.state === 'Success') {
+            return data.data;
+        } else {
+            throw new Error('State is not Success');
         }
     } catch (error) {
-        console.error(error);
-        throw error; // Lanza el error nuevamente para que pueda ser manejado por el código que llama a la función
-    }
-};
-
-export const getPublicacionResultadoById = async (id) => {
-    try {
-        const response = await axios.get(`/publicacion_resultados/${id}`);
-
-        if (response.status === 200) {
-            console.log(response.data);
-            return response.data;
-        }
-    } catch (error) {
-        console.error(error);
+        console.error('Error fetching data:', error);
         throw error;
     }
 }
 
-export const createPublicacionResultado = async (PublicacionResultado) => {
+export async function getPublicacionResultadoById(id) {
+    try {
+        const response = axios.get(`/publicacion_resultados/${id}`);
+        const data = await response.json();
+
+        console.log(data);
+
+        if (data.state === 'Success') {
+            return data.data;
+        } else {
+            return null;
+            }
+        } catch (error) {
+            return null;
+        }
+    }
+
+export const getPublicacionResultados = async () => {
+    try {
+        const response = await axios.get(`/publicacion_resultados`);
+        console.log(response.status);
+
+        if (response.status === 200) {
+            return response.data.data;
+        } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        }
+}
+
+/* export const createPublicacionResultado = async (PublicacionResultado) => {
     try {
         const response = await axios.post('/publicacion_resultados', PublicacionResultado);
 
@@ -67,4 +91,4 @@ export const deletePublicacionResultado = async (id) => {
         console.error(error);
         throw error;
     }
-}
+} */

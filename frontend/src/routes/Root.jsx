@@ -30,7 +30,7 @@ function PageRoot() {
           <h1 className="display-3">Postulacion Concursos Proyectos</h1>
         </div>
         <div className="mailbuton">
-          <div class="text-muted">Correo: {user.email}</div>
+          <div className="text-muted">Correo: {user.email}</div>
           <div>
             <button className="btn btn-secondary" onClick={() => navigate("/")}>
               Inicio

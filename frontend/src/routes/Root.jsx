@@ -25,18 +25,23 @@ function PageRoot() {
 
   return (
     <div>
-      <div className="principal">
-        <h1 className="display-3">Postulacion Concursos Proyectos</h1>
-        <div class="text-muted">Correo: {user.email}</div>
-        <div>
-          <button className="btn btn-secondary" onClick={() => navigate("/")}>
-            Inicio
-          </button>
-          <button className="btn btn-dark" onClick={handleLogout}>
-            Cerrar sesion
-          </button>
+      <div className="d-flex justify-content-between align-items-center principal">
+        <div className="titulo">
+          <h1 className="display-3">Postulacion Concursos Proyectos</h1>
+        </div>
+        <div className="mailbuton">
+          <div class="text-muted">Correo: {user.email}</div>
+          <div>
+            <button className="btn btn-secondary" onClick={() => navigate("/")}>
+              Inicio
+            </button>
+            <button className="btn btn-dark" onClick={handleLogout}>
+              Cerrar sesion
+            </button>
+          </div>
         </div>
       </div>
+
       <Outlet />
     </div>
   );

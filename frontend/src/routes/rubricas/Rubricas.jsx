@@ -43,8 +43,8 @@ const Rubricas = () => {
     return (
         <div>
             <h1>Rubricas</h1>
-            <label>
-                <button key={"rubrica"} onClick={() => navigate('/rubricas/generar')}>
+            <label className='d-flex justify-content-between align-items-center principal'>
+                <button key={"rubrica"} className='btn btn-dark' onClick={() => navigate('/rubricas/generar')}>
                     Generar Rubrica
                 </button>
             </label>

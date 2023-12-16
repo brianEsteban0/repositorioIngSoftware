@@ -2,6 +2,7 @@ import { useAuth } from '../context/AuthContext';
 import { test } from '../services/auth.service';
 import React, { useEffect, useState } from 'react';
 import Opciones from '../components/Opciones';
+import './app.css';
 
 function App() {
   
@@ -25,8 +26,11 @@ function App() {
 
   return (
     <>
-      <h4>Opciones</h4>
-      <Opciones />
+      <h4 className='subtitle'>Opciones</h4>
+      <div className='inicioopciones'> 
+        <Opciones />
+      </div>
+      
     </>
   );
 }

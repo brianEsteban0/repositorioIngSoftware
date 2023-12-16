@@ -13,7 +13,7 @@ function Opciones() {
       <div className="col-4 mb-3">
         <button
           key="rubrica"
-          className="options btn btn-success"
+          className="buton buton-block success"
           onClick={() => navigate('/rubricas')}
         >
           Rubricas
@@ -24,7 +24,7 @@ function Opciones() {
     <div className="col-4 mb-3">
       <button
         key="publicacion"
-        className="options btn btn-success"
+        className="buton buton-block success"
         onClick={() => navigate('/publicaciones')}
       >
         Publicaciones
@@ -34,7 +34,7 @@ function Opciones() {
     <div className="col-4 mb-3">
       <button
         key="evaluacion"
-        className="options btn btn-success"
+        className="buton buton-block success"
         onClick={() => navigate('/evaluacion')}
       >
         Evaluación
@@ -42,7 +42,7 @@ function Opciones() {
     </div>
 
     <div className="col-4 mb-3">
-      <button key="postular" className="options">
+      <button key="postular" className="buton buton-block success">
         Postular
       </button>
     </div>
@@ -50,7 +50,7 @@ function Opciones() {
     <div className="col-4 mb-3">
       <button
         key="publicacion_resultados"
-        className="options btn btn-success"
+        className="buton buton-block success"
         onClick={() => navigate('/publicacion_resultados')}
       >
         Publicación de Resultados

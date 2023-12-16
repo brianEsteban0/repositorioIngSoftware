@@ -1,55 +1,190 @@
-import { getPublicacion } from '../services/VerPublicaciones.service';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { obtenerPublicacionById, getPublicacion, actualizarPublicacion  } from '../services/VerPublicaciones.service'; // Reemplaza con tu lógica de servicio
 
 function ModificarPostulacion() {
-    const [publicaciones, setPublicaciones] = useState([]);
-    const navigate = useNavigate();
+  const [publicaciones, setPublicaciones] = useState([]);
+  const [selectedPublicacion, setSelectedPublicacion] = useState('');
+  const [publicacionData, setPublicacionData] = useState({
+    titulo: '',
+    descripcion: '',
+    objetivo: '',
+    fecha_inicio: '',
+    fecha_termino: '',
+    monto: '',
+    cupos: '',
+  });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    obtenerPublicaciones();
+  }, []);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = `${date.getDate()}`.padStart(2, '0'); // Día en formato de 2 dígitos
+    const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Mes en formato de 2 dígitos
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
   
-    useEffect(() => {
-      obtenerPublicaciones();
-    }, []);
-  
-    const obtenerPublicaciones = async () => {
-      try {
-        const response = await getPublicacion();
-        setPublicaciones(response);
-      } catch (error) {
-        console.error('Error al obtener las publicaciones', error);
-      }
-    };
-  
-    const handleEliminarPublicacion = async (id) => {
+
+  const obtenerPublicaciones = async () => {
+    try {
+      const response = await obtenerListaPublicaciones();
+      setPublicaciones(response);
+    } catch (error) {
+      console.error('Error al obtener las publicaciones', error);
+    }
+  };
+
+  const obtenerListaPublicaciones = async () => {
+    try {
+      const listaPublicaciones = await getPublicacion();
+      return listaPublicaciones || []; // Asegúrate de que la respuesta coincida con la lista de publicaciones esperada
+    } catch (error) {
+      console.error('Error al obtener la lista de publicaciones', error);
+      return [];
+    }
+  };
+
+  const handleEliminarPublicacion = async (id) => {
+    try {
       // Lógica para eliminar la publicación con el ID proporcionado
-      try {
-        // Lógica para eliminar la publicación según el ID
-        alert(`Publicación con ID ${id} eliminada`);
-        // Puedes agregar aquí la llamada a la función para eliminar la publicación con el servicio correspondiente
-      } catch (error) {
-        console.error('Error al eliminar la publicación', error);
-      }
-    };
+      alert(`Publicación con ID ${id} eliminada`);
+      // Puedes agregar aquí la llamada a la función para eliminar la publicación con el servicio correspondiente
+    } catch (error) {
+      console.error('Error al eliminar la publicación', error);
+    }
+  };
   
-    return (
+
+  const handleSelectChange = async (event) => {
+    setSelectedPublicacion(event.target.value);
+    try {
+      // Obtener los detalles de la publicación seleccionada por su ID
+      const response = await obtenerPublicacionById(event.target.value);
+      console.log('Datos de la publicación:', response); // Paso 2: Imprimir en la consola
+  
+      // Actualizar el estado con los datos de la publicación seleccionada
+      setPublicacionData(response);
+    } catch (error) {
+      console.error('Error al obtener los detalles de la publicación', error);
+    }
+  };
+
+  const handleInputChange = (field, value) => {
+    setPublicacionData({ ...publicacionData, [field]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { _id } = publicacionData; // Suponiendo que publicacionData contiene el ID de la publicación
+      const updatedPublication = await actualizarPublicacion(_id, publicacionData);
+      
+      console.log('Publicación actualizada:', updatedPublication);
+      // Haz lo que necesites con los datos actualizados, por ejemplo, actualizar el estado local, mostrar un mensaje, etc.
+    } catch (error) {
+      console.error('Error al modificar la publicación', error);
+      // Manejo de errores: mostrar un mensaje al usuario, realizar un rollback de cambios, etc.
+    }
+  };
+  
+  return (
+    <div>
+      <h1>Modificar Postulación</h1>
       <div>
-        <h1>Modificar Postulación</h1>
-        <ul>
-          {publicaciones.map(publicacion => (
-            <li key={publicacion._id}>
-              <h3>{publicacion.titulo}</h3>
-              {/* Botón para modificar la publicación */}
-              <button onClick={() => navigate(`/modificar/postulacion/${publicacion._id}`)}>
-                Modificar Postulación
-              </button>
-              {/* Botón para eliminar la publicación */}
-              <button onClick={() => handleEliminarPublicacion(publicacion._id)}>
-                Eliminar Postulación
-              </button>
-            </li>
+        <label htmlFor="publicacionSelect">Seleccionar Publicación:</label>
+        <select
+          id="publicacionSelect"
+          value={selectedPublicacion}
+          onChange={handleSelectChange}
+        >
+          <option value="">Seleccione una publicación</option>
+          {publicaciones.map((publicacion) => (
+            <option key={publicacion._id} value={publicacion._id}>
+              {publicacion.titulo}
+            </option>
           ))}
-        </ul>
+        </select>
       </div>
-    );
-  }
   
-  export default ModificarPostulacion;
+      {/* Paso 1: Imprimir en la consola */}
+      {console.log('¿Existe publicacionData?', publicacionData)}
+  
+      {/* Campos de modificación de la publicación */}
+      {publicacionData && (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="titulo">Titulo:</label>
+            <input
+              type="text"
+              id="titulo"
+              value={publicacionData.titulo || ''}
+              onChange={(e) => handleInputChange('titulo', e.target.value)}
+            />
+          </div>
+          <div>
+          <label htmlFor="descripcion">Descripción:</label>
+          <input
+            type="text"
+            id="descripcion"
+            value={publicacionData.descripcion}
+            onChange={(e) => handleInputChange('descripcion', e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="objetivo">Objetivo:</label>
+          <input
+            type="text"
+            id="objetivo"
+            value={publicacionData.objetivo}
+            onChange={(e) => handleInputChange('objetivo', e.target.value)}
+          />
+        </div>
+        <div>
+        <input
+            type="text"
+            id="fecha_inicio"
+            value={formatDate(publicacionData.fecha_inicio)}
+            onChange={(e) => handleInputChange('fecha_inicio', e.target.value)}
+          />
+
+        </div>
+        <div>
+        <input
+  type="text"
+  id="fecha_termino"
+  value={formatDate(publicacionData.fecha_termino)}
+  onChange={(e) => handleInputChange('fecha_termino', e.target.value)}
+/>
+
+        </div>
+        <div>
+          <label htmlFor="monto">Monto:</label>
+          <input
+            type="text"
+            id="monto"
+            value={publicacionData.monto}
+            onChange={(e) => handleInputChange('monto', e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="cupos">Cupos:</label>
+          <input
+            type="number"
+            id="cupos"
+            value={publicacionData.cupos}
+            onChange={(e) => handleInputChange('cupos', e.target.value)}
+          />
+        </div>
+          <button type="submit">Modificar Publicación</button>
+        </form>
+      )}
+      <button onClick={() => navigate('/publicaciones')}>Cancelar</button>
+    </div>
+  );
+}
+
+export default ModificarPostulacion;

@@ -20,17 +20,17 @@ export async function fetchPublicaciones() {
   export async function obtenerPublicacionById(id) {
     try {
       const response = await axios.get(`/publicaciones/${id}`);
-      const data = await response.json();
+      console.log('Respuesta de la solicitud:', response);
   
-      console.log(data);
-  
-      if (data.state === 'Success') {
-        return data.data;
+      if (response.status === 200 && response.data) {
+        const data = response.data; // Obtén los datos de la respuesta
+        return data; // Devuelve los datos de la publicación
       } else {
-        return null;
+        throw new Error('No se pudo obtener la publicación');
       }
     } catch (error) {
-      return null;
+      console.error('Error al obtener la publicación:', error);
+      throw error;
     }
   }
 
@@ -49,4 +49,28 @@ export async function fetchPublicaciones() {
       throw error;
     }
   }
-  
+  export async function actualizarPublicacion(id, publicacionData) {
+  try {
+    const requestOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(publicacionData),
+    };
+
+    const response = await fetch(`http://localhost:3000/api/publicaciones/${id}`, requestOptions);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    if (data.state === 'Success') {
+      return data.data; // Podrías retornar los datos actualizados si el estado es éxito
+    } else {
+      throw new Error('State is not Success');
+    }
+  } catch (error) {
+    console.error('Error updating publication:', error);
+    throw error;
+  }
+}

@@ -16,6 +16,7 @@ import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
 import EvalPosPPublicaion from './routes/evaluacion/EvalPosPPublicaion.jsx';
 import EvalPostulante from './routes/evaluacion/EvalPostulante.jsx';
 import ModificarPublicacion from './routes/ModificarPublicacion.jsx';
+import EditarPublicacion from './routes/EditarPublicacion.jsx'
 
 const router = createBrowserRouter([
   {
@@ -36,12 +37,20 @@ const router = createBrowserRouter([
         element: <RubricForm />,
       },
       {
+        path: '/publicaciones',
+        element: <Publicaciones />,
+      },
+      {
+        path: '/publicaciones/modificar/',
+        element: <ModificarPublicacion />,
+      },
+      {
         path: '/publicaciones/agregar',
         element: <PublicacionForm />,
       },
       {
-        path: '/publicaciones/modificar',
-        element: <ModificarPublicacion />,
+        path: '/publicaciones/modificar/:id',
+        element: <EditarPublicacion />,
       },
       {
         path: '/rubricas/editar/:id',
@@ -66,16 +75,13 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: '/publicaciones',
-    element: <Publicaciones />,
+    path: '/publicacion_resultados',
+    element: <PublicacionResultados />,
   },
   {
     path: '/publicaciones/ver',
     element: <VerPublicaciones />,
   },
-  {
-    path: '/publicacion_resultados',
-    element: <PublicacionResultados />,}
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

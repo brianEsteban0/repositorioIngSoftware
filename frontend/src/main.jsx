@@ -22,6 +22,24 @@ import EditarPublicacionResultados from './routes/publicacion_resultados/EditarP
 import VerPublicacionesResultados from './routes/publicacion_resultados/VerPublicacionesResultados.jsx';
 
 import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
+const publicacionesRoutes = [
+  {
+    path: '/publicaciones/ver',
+    element: <VerPublicaciones />,
+  },
+];
+
+const adminRoutes = [
+  {
+    path: '/publicaciones/agregar',
+    element: <PublicacionForm />,
+  },
+  {
+    path: '/publicaciones/modificar',
+    element: <ModificarPublicacion />,
+  },
+  // ... Otras rutas específicas del administrador
+];
 
 const router = createBrowserRouter([
   {
@@ -76,7 +94,7 @@ const router = createBrowserRouter([
       {
         path: '/evaluacion/ver-postulante/:rut',
         element: <VerPostulante/>,
-      }
+      },
     ],
   },
   {

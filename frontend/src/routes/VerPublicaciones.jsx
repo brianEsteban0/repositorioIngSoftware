@@ -69,6 +69,14 @@ function VerPublicaciones() {
 
   const publicacionesOrdenadas = ordenarPublicaciones();
 
+  const postular = (publicacionId) => {
+    // TODO: Implement postular logic
+  };
+
+  const obtenerMasInformacion = (publicacionId) => {
+    // TODO: Implement obtenerMasInformacion logic
+  };
+
   return (
     <div className="container" style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}>
       <div className="row">
@@ -112,13 +120,13 @@ function VerPublicaciones() {
                   <h5 className="card-title" style={{ color: '#1C2938', marginBottom: '5px', fontSize: '16px', fontWeight: 'bold' }}>{publicacion.titulo}</h5>
                   <p className="card-text" style={{ marginBottom: '5px', fontSize: '14px' }}>Fecha de inicio: {publicacion.fecha_inicio}</p>
                   <p className="card-text" style={{ marginBottom: '5px', fontSize: '14px' }}>Fecha de término: {publicacion.fecha_termino}</p>
+                  <p className="card-text" style={{ marginBottom: '5px', fontSize: '14px' }}>Cupos: {publicacion.monto}</p>
                   <p className="card-text" style={{ marginBottom: '5px', fontSize: '14px' }}>Cupos: {publicacion.cupos}</p>
                 </div>
                 {expandedPublication === publicacion._id && (
-                  <div style={{ marginTop: '10px' }}>
+                  <div style={{ marginTop: '14px' }}>
                     <p className="card-text">Descripción: {publicacion.descripcion}</p>
                     <p className="card-text">Objetivo: {publicacion.objetivo}</p>
-                    <p className="card-text">Monto: {publicacion.monto}</p>
                   </div>
                 )}
                 {/* Botones para Postular y Obtener más información */}
@@ -136,6 +144,5 @@ function VerPublicaciones() {
     </div>
   );
 }
-
 
 export default VerPublicaciones;

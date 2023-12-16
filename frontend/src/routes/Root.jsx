@@ -24,13 +24,13 @@ function PageRoot() {
   const { user } = useAuth();
 
   return (
-    <div>
+    <div className="bg-success p-2 text-dark bg-opacity-25 background">
       <div className="d-flex justify-content-between align-items-center principal">
         <div className="titulo">
           <h1 className="display-3">Postulacion Concursos Proyectos</h1>
         </div>
         <div className="mailbuton">
-          <div class="text-muted">Correo: {user.email}</div>
+          <div className="text-muted">Correo: {user.email}</div>
           <div>
             <button className="btn btn-secondary" onClick={() => navigate("/")}>
               Inicio

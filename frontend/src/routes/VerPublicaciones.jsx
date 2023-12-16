@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { fetchPublicaciones } from '../services/VerPublicaciones.service';
+import { getPublicacion } from '../services/VerPublicaciones.service';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function VerPublicaciones() {
   const [publicaciones, setPublicaciones] = useState([]);
   const [filtroFecha, setFiltroFecha] = useState('');
   const [filtroTitulo, setFiltroTitulo] = useState('');
+  const [ordenamiento, setOrdenamiento] = useState(null);
 
   useEffect(() => {
     obtenerPublicaciones();
@@ -12,20 +14,11 @@ function VerPublicaciones() {
 
   const obtenerPublicaciones = async () => {
     try {
-      const data = await fetchPublicaciones();
+      const data = await getPublicacion();
       setPublicaciones(data);
     } catch (error) {
       console.error('Error fetching publications:', error);
     }
-  };
-
-  const filtrarPorFecha = () => {
-    if (filtroFecha.trim() === '') {
-      return publicaciones;
-    }
-    return publicaciones.filter(publicacion =>
-      publicacion.fecha_termino >= filtroFecha
-    );
   };
 
   const filtrarPorTitulo = () => {
@@ -37,60 +30,86 @@ function VerPublicaciones() {
     );
   };
 
-  const ordenarPorFecha = () => {
-    const copiaPublicaciones = [...publicaciones];
-    copiaPublicaciones.sort((a, b) => new Date(a.fecha_inicio) - new Date(b.fecha_inicio));
-    return copiaPublicaciones;
+  const filtrarPorFecha = () => {
+    // Implementa tu lógica de filtrado por fecha aquí
+  };
+  const ordenarPorCupos = (publicaciones) => {
+    if (ordenamiento === 'cuposAsc') {
+      return publicaciones.slice().sort((a, b) => a.cupos - b.cupos);
+    } else if (ordenamiento === 'cuposDesc') {
+      return publicaciones.slice().sort((a, b) => b.cupos - a.cupos);
+    }
+    return publicaciones;
   };
 
-  const ordenarPorTitulo = () => {
-    const copiaPublicaciones = [...publicaciones];
-    copiaPublicaciones.sort((a, b) => a.titulo.localeCompare(b.titulo));
-    return copiaPublicaciones;
+  const ordenarPublicaciones = () => {
+    let publicacionesFiltradas = filtroFecha
+      ? filtrarPorFecha()
+      : filtroTitulo
+      ? filtrarPorTitulo()
+      : publicaciones;
+  
+    if (ordenamiento === 'montoAsc') {
+      publicacionesFiltradas = publicacionesFiltradas.sort((a, b) => a.monto - b.monto);
+    } else if (ordenamiento === 'montoDesc') {
+      publicacionesFiltradas = publicacionesFiltradas.sort((a, b) => b.monto - a.monto);
+    } else if (ordenamiento === 'cuposAsc' || ordenamiento === 'cuposDesc') {
+      publicacionesFiltradas = ordenarPorCupos(publicacionesFiltradas);
+    }
+  
+    return publicacionesFiltradas;
   };
 
-  const publicacionesFiltradas = filtroFecha
-    ? filtrarPorFecha()
-    : filtroTitulo
-    ? filtrarPorTitulo()
-    : publicaciones;
+  const handleOrdenamientoChange = (e) => {
+    const selectedOrdenamiento = e.target.value;
+    setOrdenamiento(selectedOrdenamiento === ordenamiento ? null : selectedOrdenamiento);
+  };
 
-  const publicacionesOrdenadas = publicacionesFiltradas.sort((a, b) =>
-    new Date(a.fecha_inicio) - new Date(b.fecha_inicio)
-  );
+  const publicacionesOrdenadas = ordenarPublicaciones();
 
   return (
-    <div>
-      <h1>Ver Publicaciones</h1>
-      <div>
-        <input
-          type="text"
-          placeholder="Filtrar por título"
-          value={filtroTitulo}
-          onChange={(e) => setFiltroTitulo(e.target.value)}
-        />
-        <input
-          type="date"
-          value={filtroFecha}
-          onChange={(e) => setFiltroFecha(e.target.value)}
-        />
+    <div className="container" style={{ backgroundColor: '#f5e5d1', padding: '20px' }}>
+      <h1 className="mt-4 mb-4">Ver Publicaciones</h1>
+      <div className="row">
+        <div className="col-md-6">
+          <input
+            type="text"
+            className="form-control mb-2"
+            placeholder="Filtrar por título"
+            value={filtroTitulo}
+            onChange={(e) => setFiltroTitulo(e.target.value)}
+          />
+        </div>
+        <div className="col-md-6">
+          <select className="form-select mb-2" value={ordenamiento || ''} onChange={handleOrdenamientoChange}>
+            <option value="">Ordenar por...</option>
+            <option value="montoAsc">Monto (Asc)</option>
+            <option value="montoDesc">Monto (Desc)</option>
+            <option value="cuposAsc">Cupos (Asc)</option>
+            <option value="cuposDesc">Cupos (Desc)</option>
+          </select>
+        </div>
       </div>
-      <ul>
+      <div className="row" style={{ margin: '20px -5px' }}>
         {publicacionesOrdenadas.map((publicacion) => (
-          <li key={publicacion._id}>
-            <h3>{publicacion.titulo}</h3>
-            <p>Descripción: {publicacion.descripcion}</p>
-            <p>Objetivo: {publicacion.objetivo}</p>
-            <p>Fecha de inicio: {publicacion.fecha_inicio}</p>
-            <p>Fecha de término: {publicacion.fecha_termino}</p>
-            <p>Monto: {publicacion.monto}</p>
-            <p>Cupos: {publicacion.cupos}</p>
-            {/* Resto de la información de la publicación */}
-          </li>
+          <div className="col-md-6" key={publicacion._id} style={{ padding: '5px' }}>
+            <div className="card mb-4" style={{ border: '1px solid #ccc', backgroundColor: 'white' }}>
+              <div className="card-body">
+                <h5 className="card-title">{publicacion.titulo}</h5>
+                <p className="card-text">Descripción: {publicacion.descripcion}</p>
+                <p className="card-text">Objetivo: {publicacion.objetivo}</p>
+                <p className="card-text">Fecha de inicio: {publicacion.fecha_inicio}</p>
+                <p className="card-text">Fecha de término: {publicacion.fecha_termino}</p>
+                <p className="card-text">Monto: {publicacion.monto}</p>
+                <p className="card-text">Cupos: {publicacion.cupos}</p>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
+
 
 export default VerPublicaciones;

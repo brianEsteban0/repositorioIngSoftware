@@ -9,7 +9,7 @@ import Login from './routes/Login.jsx';
 import RubricForm from './routes/rubricas/CrearRubricas.jsx';
 import Publicaciones from './routes/Publicaciones.jsx'
 import ModificarPublicacion from './routes/ModificarPublicacion.jsx';
-import VerPublicaciones from './routes/verPublicaciones.jsx';
+import VerPublicaciones from './routes/VerPublicaciones.jsx'
 import PublicacionForm from './routes/AgregarPublicacion.jsx';
 import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
 import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
@@ -42,20 +42,20 @@ const router = createBrowserRouter([
         element: <RubricForm />,
       },
       {
+        path: '/publicaciones',
+        element: <Publicaciones />,
+      },
+      {
+        path: '/publicaciones/modificar/',
+        element: <ModificarPublicacion />,
+      },
+      {
         path: '/publicaciones/agregar',
         element: <PublicacionForm />,
       },
       {
-        path: '/publicaciones/modificar',
+        path: '/publicaciones/modificar/:id',
         element: <ModificarPublicacion />,
-      },
-      {
-        path: '/publicacion_resultados/crear',
-        element: <PublicacionResultadoForm />,
-      },
-      {
-        path: '/publicacion_resultados/editar/:id',
-        element: <EditarPublicacionResultados />,
       },
       {
         path: '/rubricas/editar/:id',

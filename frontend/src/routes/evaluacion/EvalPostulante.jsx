@@ -77,14 +77,14 @@ function EvalPostulante() {
     const scoresAsNumbers = puntajes.map(Number);
     const resultadoData = {
       postulanteRut: evaluacion.postulanteRut,
-      rubric: evaluacion.rubric,
-      publicacion: evaluacion.publicacion,
+      rubric: rubrica._id,
+      publicacion: id,
       scores: scoresAsNumbers,
       scoretotal: 0 // Obtener los puntajes como array
     };
     setResultadoData(resultadoData);
     updateEvaluacion(rut, resultadoData);
-    alert("Puntuacion Registrada con excito");
+    alert("Puntuacion Registrada con exito");
     navigate(`/evaluacion/postulantes/${id}`);
     // Puedes realizar otras acciones con resultadoData, por ejemplo, enviarlo a un servidor
     console.log("Resultado guardado:", resultadoData);

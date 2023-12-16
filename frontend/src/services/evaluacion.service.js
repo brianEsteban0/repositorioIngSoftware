@@ -29,7 +29,8 @@ export const createEvaluacion = async (evaluacion) => {
 
 export const updateEvaluacion = async (rut, evaluacion) => {
     try {
-        console.log(evaluacion);
+        console.log(JSON.stringify(evaluacion));
+
         const response = await axios.put(`/evaluacion/${rut}`, evaluacion);
         console.log(response);
         return response;
@@ -63,6 +64,7 @@ export const getEvaluacionByPostulacion = async (id) => {
 export const getPostulanteByRut = async (rut) => {
     try {
         const response = await axios.get(`/postulante/publicacion/${rut}`);
+        console.log(response);
         return response.data;
 
     } catch (error) {

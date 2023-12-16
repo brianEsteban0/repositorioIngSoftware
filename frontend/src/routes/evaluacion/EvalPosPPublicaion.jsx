@@ -11,6 +11,7 @@ function EvalPosPPublicaion() {
     useEffect(() => {
         getEvaluacionByPostulacion(id).then((response) => {
             setEvaluaciones(response.data);
+            console.log(response.data);
             
         });
         obtenerPublicacionById(id).then((response) => {
@@ -49,7 +50,7 @@ function EvalPosPPublicaion() {
         })}
       </tbody>
     </table>
-    <button className="btn btn-primary" onClick={() => window.history.back()}>Volver atras</button>
+    <button className="btn btn-primary" onClick={() => navigate("/evaluacion")}>Volver atras</button>
     </div>
   );
 }

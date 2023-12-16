@@ -90,9 +90,9 @@ async function createPublicacion(req, res) {
       return respondError(req, res, 400, "La fecha de inicio debe ser igual o posterior a la fecha actual");
     }
     
-    if (new Date(fechaInicio) > '31/12/2150') {
-      return respondError(req, res, 400, "La fecha de inicio no puede ser mayor al 31/12/2150");
-    }
+    if (new Date(fechaInicio) > new Date('2150-12-31')) {
+  return respondError(req, res, 400, "La fecha de inicio no puede ser mayor al 31/12/2150");
+}
 
     // Aquí continúa con la creación de la publicación
 

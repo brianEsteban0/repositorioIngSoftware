@@ -72,7 +72,7 @@ async function updateRubric(id, rubric) {
     const rubricFound = await Rubric.findById(id);
     if (!rubricFound) return [null, "La rubrica no existe"];
 
-    const { name, contestType, criteria } = rubric;
+    const { name, contestType, criteria, publicacion } = rubric;
 
     
 
@@ -82,6 +82,7 @@ async function updateRubric(id, rubric) {
         name,
         contestType,
         criteria,
+        publicacion,
       },
       { new: true },
     );

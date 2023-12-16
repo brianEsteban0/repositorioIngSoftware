@@ -8,14 +8,20 @@ import ErrorPage from './routes/ErrorPage.jsx';
 import Login from './routes/Login.jsx';
 import RubricForm from './routes/rubricas/CrearRubricas.jsx';
 import Publicaciones from './routes/Publicaciones.jsx'
+import ModificarPublicacion from './routes/ModificarPublicacion.jsx';
 import VerPublicaciones from './routes/verPublicaciones.jsx';
 import PublicacionForm from './routes/AgregarPublicacion.jsx';
 import EditarRubrica from './routes/rubricas/EditarRubrica.jsx';
-import PublicacionResultados from './routes/publicacion_resultados/PublicacionResultado.jsx';
 import EvaluarPostulante from './routes/evaluacion/EvaluarPostulante.jsx';
 import EvalPosPPublicaion from './routes/evaluacion/EvalPosPPublicaion.jsx';
 import EvalPostulante from './routes/evaluacion/EvalPostulante.jsx';
-import ModificarPublicacion from './routes/ModificarPublicacion.jsx';
+
+import PublicacionResultado from './routes/publicacion_resultados/PublicacionResultado.jsx';
+import PublicacionResultadoForm from './routes/publicacion_resultados/CrearPublicacionResultados.jsx';
+import EditarPublicacionResultados from './routes/publicacion_resultados/EditarPublicacionResultados.jsx';
+import VerPublicacionesResultados from './routes/publicacion_resultados/VerPublicacionesResultados.jsx';
+
+import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
 import EditarPublicacion from './routes/EditarPublicacion.jsx'
 
 const router = createBrowserRouter([
@@ -50,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/publicaciones/modificar/:id',
-        element: <EditarPublicacion />,
+        element: <ModificarPublicacion />,
       },
       {
         path: '/rubricas/editar/:id',
@@ -68,6 +74,10 @@ const router = createBrowserRouter([
         path: '/evaluacion/evaluar/:rut',
         element: <EvalPostulante/>,
       },
+      {
+        path: '/evaluacion/ver-postulante/:rut',
+        element: <VerPostulante/>,
+      }
     ],
   },
   {
@@ -75,13 +85,21 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: '/publicaciones',
+    element: <Publicaciones />,
+  },
+  {
     path: '/publicacion_resultados',
-    element: <PublicacionResultados />,
+    element: <PublicacionResultado />
   },
   {
     path: '/publicaciones/ver',
     element: <VerPublicaciones />,
   },
+  {
+    path: '/publicacion_resultados/ver',
+    element: <VerPublicacionesResultados />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

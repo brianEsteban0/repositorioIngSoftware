@@ -36,9 +36,10 @@ export const updateEvaluacion = async (id, evaluacion) => {
     }
 }
 
-export const deleteEvaluacion = async (id) => {
+export const deleteEvaluacion = async (rut) => {
     try {
-        const response = await axios.delete(`/evaluacion/${id}`);
+        const response = await axios.delete(`/evaluacion/${rut}`);
+        console.log(rut);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -47,6 +48,9 @@ export const deleteEvaluacion = async (id) => {
 
 export const getEvaluacionByPostulacion = async (id) => {
     try {
+        if (id === undefined) {
+            return null;
+        }
         const response = await axios.get(`/evaluacion/publicacion/${id}`);
         return response.data;
     } catch (error) {
@@ -57,7 +61,6 @@ export const getEvaluacionByPostulacion = async (id) => {
 export const getPostulanteByRut = async (rut) => {
     try {
         const response = await axios.get(`/postulante/publicacion/${rut}`);
-        console.log(response.data);
         return response.data;
 
     } catch (error) {

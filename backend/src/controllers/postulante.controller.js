@@ -115,11 +115,23 @@ async function getPostulanteByRut(req, res) {
   }
 }
 
+async function getPostulantesById(req, res) {
+  try {
+    const { params } = req;
+    const postulante = await Postulante.findById(params.id);
+    respondSuccess(req, res, 200, postulante);
+  } catch (error) {
+    handleError(error, "postulante.controller -> getPostulanteById");
+    respondError(req, res, 500, "No se pudo obtener el postulante");
+  }
+}
+
 module.exports = {
     createPostulantes,
     getPostulantes,
     updatePostulantes,
     deletePostulantes,
+    getPostulantesById,
     getPostulantesBypostulacionId,
     getPostulanteByRut,
 };

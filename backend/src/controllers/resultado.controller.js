@@ -1,6 +1,7 @@
 const ResultadoService = require("../services/resultado.service.js");
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const { handleError } = require("../utils/errorHandler");
+const Resultado = require("../models/resultado.models.js");
 
 async function getResultado(req, res) {
     try {
@@ -95,10 +96,25 @@ async function deleteResultado(req, res) {
   }
 }
 
+async function getResultadoById(req, res) {
+  try {
+    const { params } = req;
+    const resultado = await Resultado.findById(params.id);
+
+    resultado.length === 0
+      ? respondSuccess(req, res, 204)
+      : respondSuccess(req, res, 200, resultado);
+  } catch (error) {
+    handleError(error, "resultado.controller -> getResultadoById");
+    respondError(req, res, 400, error.message);
+  }
+}
+
 module.exports = {
     createResultado,
     getResultado,
     getResultadoPostulacion,
     updateResultado,
     deleteResultado,
+    getResultadoById,
 };

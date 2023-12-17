@@ -17,11 +17,11 @@ router.use(authenticationMiddleware);
 
 
 router.get('/',authorizationMiddleware.isEvalAdmin,PostulanteController.getPostulantes);
-router.post('/',[authorizationMiddleware.isUser,checkfecha,/*checkCupos,*/crearEvaluacion],PostulanteController.createPostulantes);
+router.post('/',[checkfecha,/*checkCupos,*/crearEvaluacion],PostulanteController.createPostulantes);
 router.put('/:id',[authorizationMiddleware.isUser,checkfecha],PostulanteController.updatePostulantes);
 router.delete('/:id',authorizationMiddleware.isUser,PostulanteController.deletePostulantes);
 router.get('/publicacion/:postulanteRut',authorizationMiddleware.isEvalAdmin,PostulanteController.getPostulanteByRut);
 
-//router.get('/:id',authorizationMiddleware.isUser,PostulanteController.getPostulantes);
+router.get('/:id',PostulanteController.getPostulantesById);
 
 module.exports = router;

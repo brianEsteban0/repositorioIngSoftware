@@ -24,6 +24,7 @@ import PublicacionResultadoForm from './routes/publicacion_resultados/CrearPubli
 import VerPublicacionesResultados from './routes/publicacion_resultados/VerPublicacionesResultados.jsx';
 import ModificarPublicacionResultados from './routes/publicacion_resultados/ModificarPublicacionResultados.jsx';
 
+import FormularioPostulacion from './routes/Postulante.routes.jsx';
 
 import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
 
@@ -134,11 +135,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/postulacion',
-        element: <Postulacion/>,
+        element: <FormularioPostulacion/>,
       },
       {
         path: '/resultados',
         element: <Resultados/>,
+      },
+      {
+        path: '/postulacion/formulario/:id',
+        element: <Postulacion/>,
       }
     ],
   },

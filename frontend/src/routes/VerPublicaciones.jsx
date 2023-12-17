@@ -22,6 +22,7 @@ function VerPublicaciones() {
       console.error('Error fetching publications:', error);
     }
   };
+  
 
   const filtrarPorTitulo = () => {
     if (filtroTitulo.trim() === '') {
@@ -71,7 +72,7 @@ function VerPublicaciones() {
   const publicacionesOrdenadas = ordenarPublicaciones();
 
   const postular = (publicacionId) => {
-    // TODO: Implement postular logic
+    navigate(`/postulacion/formulario/${publicacionId}`);
   };
 
   const obtenerMasInformacion = (publicacionId) => {
@@ -133,7 +134,7 @@ function VerPublicaciones() {
                 {/* Botones para Postular y Obtener más información */}
                 <div className="d-flex justify-content-end mt-auto">
                   <div className="d-grid gap-2">
-                    <button className="btn btn-primary" onClick={() => postular(publicacion._id)}>Postular</button>
+                  <button className="btn btn-primary" onClick={() => postular(publicacion._id)}>Postular</button>
                     <button className="btn btn-secondary" onClick={() => obtenerMasInformacion(publicacion._id)}>Obtener más información</button>
                   </div>
                 </div>

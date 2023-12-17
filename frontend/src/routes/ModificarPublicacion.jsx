@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { obtenerPublicacionById, getPublicacion  } from '../services/VerPublicaciones.service'; // Reemplaza con tu lógica de servicio
+import { obtenerPublicacionById, getPublicacion  } from '../services/VerPublicaciones.service';
 import axios from '../services/root.service';
 
 function ModificarPostulacion() {

@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getResultados } from "../../services/resultados.service";
 import { getPublicacion } from "../../services/VerPublicaciones.service";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { getRubricas } from "../../services/rubrics.service";
+import { getPostulantes, getPostulanteById } from "../../services/Evaluacion.service";
 function Resultados() {
   const [resultados, setResultados] = useState([]);
+  const navigate = useNavigate();
   const [publicaciones, setPublicaciones] = useState([]);
+  const [rubricas, setRubricas] = useState([]);
+  const [postulantes, setPostulantes] = useState([]);
   useEffect(() => {
     getResultados().then((response) => {
       setResultados(response.data);
@@ -15,43 +19,123 @@ function Resultados() {
       setPublicaciones(response);
       console.log(response);
     });
+    getRubricas().then((response) => {
+      setRubricas(response.data);
+      console.log(response.data);
+    });
+    getPostulantes().then((response) => {
+      setPostulantes(response.data);
+      console.log(response.data);
+    });
   }, []);
+
+  const handleClick = (id) => {
+    console.log(id);
+    getPostulanteById(id).then((response) => {
+        console.log(response.data);
+        (response.data === null)? alert("No hay postulante asociado a esta publicacion"): 
+        navigate(`/evaluacion/ver-postulante/${response.data.Rut_Representante}`);
+        }
+    );
+};
+
+    const handleDefinirGanador = (id) => {
+        navigate(`/resultados/${id}`);
+    }
+
   return (
-    <div>
+    <>
       <h1>Resultados</h1>
-      <p>Esta es la página de Resultados</p>
-      <table className="table ">
+      <h4>Filtrar</h4>
+      <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col">Publicacion</div>
+          <div class="col">Estado Postulacion</div>
+        </div>
+      </div>
+      <div class="container text-center">
+        <div class="row align-items-center">
+          <div class="col">
+          <select
+            className="form-select mb-2"
+            style={{
+              backgroundColor: "#FFFFFF",
+              color: "#333",
+              border: "1px solid #C5AFA0",
+              marginRight: "20px",
+            }}
+          >
+            <option value="">Sin filtro</option>
+            {publicaciones?.map((publicacion) => (
+                <option key={publicacion._id} value={publicacion._id}>
+                  {publicacion.titulo}
+                </option>
+                ))}
+          </select>
+          </div>
+          <div class="col">
+          <select
+            className="form-select mb-2"
+            style={{
+              backgroundColor: "#FFFFFF",
+              color: "#333",
+              border: "1px solid #C5AFA0",
+              marginRight: "20px",
+            }}
+          >
+            <option value="">Sin filtro</option>
+            <option value="montoAsc">Pendientes</option>
+            <option value="montoDesc">Finalizada</option>
+            <option value="montoDesc">En Revision</option>
+          </select>
+          </div>
+        </div>
+      </div>
+      <table className="table">
         <thead>
           <tr>
-          <th>Titulo</th>
-          <th>fechainicio</th>
-          <th>Monto</th>
-          <th>Cantidad de Evaluados</th>
-          <th>Acciones</th>
+            <th>Rut</th>
+            <th>Representante</th>
+            <th>Publicacion</th>
+            <th>Puntaje</th>
+            <th>Estado Postulacion</th>
+            <th>Postulante</th>
+            <th>Definir Ganador</th>
           </tr>
         </thead>
         <tbody>
-          {publicaciones?.map((publicacion) => {
-            return publicacion.fecha_termino === "Plazo vencido" ? (
-              <tr key={publicacion._id}>
-                <td>{publicacion.titulo}</td>
-                <td>{publicacion.fecha_inicio}</td>
-                <td>{publicacion.monto}</td>
-                <td>{publicacion.cupos}</td>
+          {resultados?.map((resultado) => {
+            const postulante = postulantes.find((elementos) => elementos._id === resultado.postulante);
+            return (
+              <tr key={resultado._id}>
                 <td>
-                <button
-                    className="btn btn-primary"
-                  >Ver</button>
-                  <button className="btn btn-light">
-                    <FontAwesomeIcon icon={faEdit} />
-                  </button>
-                  <button className="btn btn-info">
-                    <FontAwesomeIcon icon={faTrashAlt} />
+                    {postulante?.Rut_Representante}
+                </td>
+                <td>
+                    {postulante?.Representante}
+                </td>
+                <td>
+                    {publicaciones.find((elementos) => elementos._id === resultado.postulacion)?.titulo}
+                </td>
+                <td>{resultado.puntaje_total}</td>
+                <td>{resultado.estadoEvaluacion}</td>
+                <td>
+                  <button
+                    className="btn btn-info"
+                    
+                    onClick={() => {
+                        handleClick(resultado.postulante);
+                    }}    
+                  >
+                    Ver
                   </button>
                 </td>
+                <td>
+                    <button className="btn btn-warning" 
+                    onClick={() => {handleDefinirGanador(resultado._id)}}
+                    >+</button>
+                </td>
               </tr>
-            ) : (
-              <div key={publicacion._id}></div>
             );
           })}
         </tbody>
@@ -59,7 +143,7 @@ function Resultados() {
       <button className="btn btn-primary" onClick={() => navigate("/")}>
         Volver atras
       </button>
-    </div>
+    </>
   );
 }
 

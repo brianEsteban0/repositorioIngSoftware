@@ -11,6 +11,7 @@ export const getResultados = async () => {
 
 export const getResultado = async (id) => {
     try {
+        console.log(id);
         const response = await axios.get(`/resultados/${id}`);
         return response.data;
     } catch (error) {

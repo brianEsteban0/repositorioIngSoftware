@@ -26,10 +26,10 @@ function EvalPosPPublicaion() {
       <thead>
         <tr>
           <th>Rut</th>
-          <th>fechainicio</th>
-          <th>Periodo de Evaluacion</th>
-          <th>Cantidad de Postulante</th>
-          <th>Ver Postulantes</th>
+          <th></th>
+          <th>Evaluado</th>
+          <th>Puntaje</th>
+          <th>Acciones</th>
           
         </tr>
       </thead>
@@ -39,8 +39,8 @@ function EvalPosPPublicaion() {
             <tr key={evaluacion._id}>
           <td>{evaluacion.postulanteRut}</td>
           <td></td>
-          <td></td>
-          <td></td>
+          <td>{(evaluacion.scoretotal === 0)? <>No</> : <>Sí</>}</td>
+          <td>{evaluacion.scoretotal}</td>
           <td>
                 <button className="btn btn-primary" onClick={()=>{navigate(`/evaluacion/evaluar/${id}/${evaluacion.postulanteRut}`)}}>Evaluar</button>
                 <button className="btn btn-info" onClick={()=>{navigate(`/evaluacion/ver-postulante/${evaluacion.postulanteRut}`)}}>Ver Postulante</button>

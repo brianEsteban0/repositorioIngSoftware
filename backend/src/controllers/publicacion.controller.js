@@ -93,10 +93,10 @@ async function createPublicacion(req, res) {
       return respondError(req, res, 400, "Verificar largo del titulo (min 10 max 70 caracteres).");
     }
 
-    const regexTitulo = /^[a-zA-Z\d\s-!@]+$/;
+    const regexTitulo = /^(?=.*[a-zA-Z])[a-zA-Z\d\s!@#-]+$/;
     
     if (!regexTitulo.test(titulo)) {
-      return respondError(req, res, 400, "Revisar que el titulo no contenga simbolos.");
+      return respondError(req, res, 400, "El titulo debe al menos una letra y los siguientes simbolos: ! @ # -");
     }
     //validaciones descripcion
     if (typeof descripcion !== "string" || descripcion.length < 2 || descripcion.length > 600) {

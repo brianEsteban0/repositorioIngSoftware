@@ -46,7 +46,7 @@ const PublicacionForm = () => {
       navigate('/publicaciones');
     } catch (error) {
       console.error('Error al crear la publicación', error);
-      alert('Error al crear la publicación');
+      alert('Error al crear la publicación: ' + error.response.data.message); 
     }
   };
   return (

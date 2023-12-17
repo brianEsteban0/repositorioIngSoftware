@@ -99,6 +99,8 @@ async function createPublicacion(req, res) {
   }
 }
 
+module.exports = { createPublicacion };
+
 
   // funcion para editar publicacion
   async function updatePublicacion(req, res) {

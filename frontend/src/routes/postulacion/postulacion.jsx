@@ -23,10 +23,8 @@ function FormularioPostulacion({ publicacionId }) {
   
     try {
       // Aquí se realiza la solicitud POST utilizando Axios
-      const response = await axios.post('/postulante/', {
-        postulanteData,
-        publicacionId,
-      });
+      console.log( postulanteData);
+      const response = await axios.post('/postulante',postulanteData);
   
       // Si la solicitud se realiza con éxito, puedes manejar la respuesta aquí
       console.log('Respuesta del servidor:', response.data);

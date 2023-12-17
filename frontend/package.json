@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.15.0",
+    "@mui/lab": "^5.0.0-alpha.156",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
     "js-cookie": "^3.0.5",

@@ -4,11 +4,11 @@
 /* eslint-disable require-jsdoc */
 "use strict";
 
-const {respondSuccess, respondError } = require("../utils/resHandler")
+const { respondSuccess, respondError } = require("../utils/resHandler");
 const PublicacionService = require("../services/publicacion.service");
 const { handleError } = require("../utils/errorHandler");
 const Publicacion = require('../models/publicacion.model');
-const { respondInternalError} = require("../utils/resHandler");
+const { respondInternalError } = require("../utils/resHandler");
 
 // Importa una librería para manejar fechas en formato 'dd/mm/aa'
 const { parse } = require('date-fns');
@@ -74,32 +74,12 @@ async function getPublicaciones(req, res) {
 // Función para crear la publicación
 async function createPublicacion(req, res) {
   try {
-    
     const { body } = req;
-    const currentDate = new Date(); // obtiene fecha actual
-    // Formatea las fechas al formato adecuado
-    const fechaInicio = formatDateToDDMMYYYY(new Date(body.fecha_inicio));
-    const fechaTermino = formatDateToDDMMYYYY(new Date(body.fecha_termino));
 
-    // Valida que la fecha de inicio no sea mayor que la fecha de termino
-    if (!validateFechas(fechaInicio, fechaTermino)) {
-      // Avisa al usuario por mensaje del error
-      return respondError(req, res, 400, "La fecha de inicio no puede ser mayor que la fecha de termino");
-    }
-    if (new Date(fechaInicio) < currentDate) {
-      return respondError(req, res, 400, "La fecha de inicio debe ser igual o posterior a la fecha actual");
-    }
-    
-    if (new Date(fechaInicio) > new Date('2150-12-31')) {
-  return respondError(req, res, 400, "La fecha de inicio no puede ser mayor al 31/12/2150");
-}
-
-    // Aquí continúa con la creación de la publicación
+    // Aquí continúa con la creación de la publicación sin formatear las fechas
 
     const publicacion = {
       ...body,
-      fecha_inicio: fechaInicio,
-      fecha_termino: fechaTermino,
     };
 
     const [publicaciones, errorPublicaciones] = await PublicacionService.createPublicacion(publicacion);

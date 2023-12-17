@@ -33,7 +33,7 @@ function ModificarPostulacion() {
   const obtenerListaPublicaciones = async () => {
     try {
       const listaPublicaciones = await getPublicacion();
-      return listaPublicaciones || []; // Asegúrate de que la respuesta coincida con la lista de publicaciones esperada
+      return listaPublicaciones || [];
     } catch (error) {
       console.error('Error al obtener la lista de publicaciones', error);
       return [];
@@ -42,7 +42,7 @@ function ModificarPostulacion() {
 
   const handleEliminarPublicacion = async (id) => {
     try {
-      const response = await axios.delete(`/publicaciones/${id}`); // Usamos Axios para eliminar la publicación por su ID
+      const response = await axios.delete(`/publicaciones/${id}`);
       if (response.status === 200) {
         alert(`Publicación con ID ${id} eliminada`);
         navigate('/publicaciones');
@@ -54,17 +54,11 @@ function ModificarPostulacion() {
       alert('Se eliminó la publicación');
     }
   };
-  
-  
 
   const handleSelectChange = async (event) => {
     setSelectedPublicacion(event.target.value);
     try {
-      // Obtener los detalles de la publicación seleccionada por su ID
       const response = await obtenerPublicacionById(event.target.value);
-      console.log('Datos de la publicación:', response); // Paso 2: Imprimir en la consola
-  
-      // Actualizar el estado con los datos de la publicación seleccionada
       setPublicacionData(response);
     } catch (error) {
       console.error('Error al obtener los detalles de la publicación', error);
@@ -78,19 +72,17 @@ function ModificarPostulacion() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { _id, ...postData } = publicacionData; // Suponiendo que publicacionData contiene el ID de la publicación
-  
-      const updatedPublication = await axios.put(`/publicaciones/${_id}`, postData);
-      console.log('Publicación actualizada:', updatedPublication.data);
-      
-      // Haz lo que necesites con los datos actualizados, por ejemplo, actualizar el estado local, mostrar un mensaje, etc.
+      const updatedPublication = await axios.put(`/publicaciones/${publicacionData._id}`, publicacionData);
       alert('Publicación modificada con éxito');
       navigate('/publicaciones');
     } catch (error) {
       console.error('Error al modificar la publicación', error);
-      // Manejo de errores: mostrar un mensaje al usuario, realizar un rollback de cambios, etc.
       alert('Confirme los datos ingresados');
     }
+  };
+
+  const formatDateForInput = (date) => {
+    return date ? new Date(date).toISOString().slice(0, 10) : '';
   };
   
   return (
@@ -155,7 +147,7 @@ function ModificarPostulacion() {
               <input
                 type="date"
                 id="fecha_inicio"
-                value={publicacionData.fecha_inicio || ''}
+                value={formatDateForInput(publicacionData.fecha_inicio)}
                 onChange={(e) => handleInputChange('fecha_inicio', e.target.value)}
                 className="form-control"
               />
@@ -166,7 +158,7 @@ function ModificarPostulacion() {
               <input
                 type="date"
                 id="fecha_termino"
-                value={publicacionData.fecha_termino || ''}
+                value={formatDateForInput(publicacionData.fecha_termino)}
                 onChange={(e) => handleInputChange('fecha_termino', e.target.value)}
                 className="form-control"
               />

@@ -28,6 +28,7 @@ import ModificarPublicacionResultados from './routes/publicacion_resultados/Modi
 import FormularioPostulacion from './routes/Postulante.routes.jsx';
 
 import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
+import PublicacionResultados from './routes/publicacion_resultados/PublicacionResultado.jsx';
 
 const publicacionesRoutes = [
   {
@@ -83,12 +84,16 @@ const router = createBrowserRouter([
         element: <Publicaciones />,
       },
       {
+        path: '/publicacion_resultados',
+        element: <PublicacionResultado />
+      },
+      {
         path: '/publicaciones/ver',
         element: <VerPublicaciones />,
       },
       {
-        path: '/publicacion_resultados',
-        element: <PublicacionResultado />
+        path: '/publicacion_resultados/ver',
+        element: <VerPublicacionesResultados />,
       },
       {
         path: '/publicaciones/modificar/',
@@ -162,14 +167,14 @@ const router = createBrowserRouter([
   },
   {
     path: '/publicacion_resultados',
-    element: <PublicacionResultado />
+    element: <PublicacionResultados />
   },
   {
     path: '/publicaciones/verInvitado',
     element: <VerPublicaciones />,
   },
   {
-    path: '/publicacion_resultados/ver',
+    path: '/publicacion_resultados/verInvitado',
     element: <VerPublicacionesResultados />,
   }
 ]);

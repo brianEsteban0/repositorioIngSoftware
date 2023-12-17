@@ -20,38 +20,64 @@ export async function fetchPublicacionesResultados() {
 
 export async function getPublicacionResultadoById(id) {
     try {
-        const response = axios.get(`/publicacion_resultados/${id}`);
-        const data = await response.json();
+        const response = await axios.get(`/publicacion_resultados/${id}`);
+        console.log('Respuesta de la solicitud:', response);
 
-        console.log(data);
-
-        if (data.state === 'Success') {
-            return data.data;
+        if (response.state === 200 && response.data) {
+            const data = response.data; // Obtén los datos de la respuesta
+            return data; // Devuelve los datos de la publicación
         } else {
-            return null;
+            throw new Error('No se pudo obtener la publicación');
             }
         } catch (error) {
-            return null;
+            console.error('Error al obtener la publicación:', error);
+            throw error;
         }
     }
 
-export const getPublicacionResultados = async () => {
-    try {
-        const response = await axios.get(`/publicacion_resultados`);
-        console.log(response.status);
+    export const getPublicacionResultados = async () => {
+        try {
+            const response = await axios.get(`/publicacion_resultados`);
+            console.log(response.status);
 
         if (response.status === 200) {
             return response.data.data;
         } else {
-                return null;
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            throw error;
+            return null;
         }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
 }
 
-/* export const createPublicacionResultado = async (PublicacionResultado) => {
+export async function actualizarPublicacionResultado(id, publicacionResultadoData) {
+    try {
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(publicacionResultadoData),
+    };
+
+    const response = await fetch(`http://localhost:3000/api/publicacion_resultados/${id}`, requestOptions);
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    if (data.state === 'Success') {
+        return data.data;
+    } else {
+        throw new Error('State is not Success');
+    }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+export const createPublicacionResultado = async (PublicacionResultado) => {
     try {
         const response = await axios.post('/publicacion_resultados', PublicacionResultado);
 
@@ -65,19 +91,6 @@ export const getPublicacionResultados = async () => {
     }
 }
 
-export const updatePublicacionResultado = async (id, PublicacionResultado) => {
-    try {
-        const response = await axios.put(`/publicacion_resultados/${id}`, PublicacionResultado);
-
-        if (response.status === 200) {
-            console.log(response.data);
-            return response.data;
-        }
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
 
 export const deletePublicacionResultado = async (id) => {
     try {
@@ -91,4 +104,4 @@ export const deletePublicacionResultado = async (id) => {
         console.error(error);
         throw error;
     }
-} */
+}

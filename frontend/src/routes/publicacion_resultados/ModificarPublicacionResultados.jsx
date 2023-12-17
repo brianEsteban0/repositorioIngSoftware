@@ -9,10 +9,9 @@ function ModificarPublicacionResultados() {
     const [publicacionData, setPublicacionData] = useState({
         Titulo: '',
         Descripcion: '',
-        Objetivo: '',
         Organizacion: '',
         Representante: '',
-        Rut_Representante: '',
+        Resultado: '',
     });
 
     const navigate = useNavigate();
@@ -120,6 +119,7 @@ function ModificarPublicacionResultados() {
                                 value={publicacionData.Titulo}
                                 onChange={(e) => handleInputChange('Titulo', e.target.value)}
                                 className="form-control"
+                                placeholder="Título de la Publicación..."
                             />
                         </div>
 
@@ -131,18 +131,8 @@ function ModificarPublicacionResultados() {
                                 onChange={(e) => handleInputChange('Descripcion', e.target.value)}
                                 className="form-control"
                                 rows="5"
+                                placeholder='Ingrese una descripción a la publicación...'
                             ></textarea>
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="Objetivo" className="form-label">Objetivo:</label>
-                            <input
-                                type="text"
-                                id="Objetivo"
-                                value={publicacionData.Objetivo || ''}
-                                onChange={(e) => handleInputChange('Objetivo', e.target.value)}
-                                className="form-control"
-                            />
                         </div>
 
                         <div className="mb-3">
@@ -153,6 +143,7 @@ function ModificarPublicacionResultados() {
                                 value={publicacionData.Organizacion || ''}
                                 onChange={(e) => handleInputChange('Organizacion', e.target.value)}
                                 className="form-control"
+                                placeholder="Ingrese el nombre de la Organización..."
                             />
                         </div>
 
@@ -169,12 +160,12 @@ function ModificarPublicacionResultados() {
                         </div>
 
                         <div className="mb-3">
-                            <label htmlFor="Rut_Representante" className="form-label">Rut Representante:</label>
+                            <label htmlFor="Resultado" className="form-label">Resultado:</label>
                             <input
                                 type="text"
-                                id="Rut_Representante"
-                                value={publicacionData.Rut_Representante || ''}
-                                placeholder="Ingrese el rut del representante..."
+                                id="Resultado"
+                                value={publicacionData.Resultado || ''}
+                                placeholder="Beneficiario/No Beneficiario"
                                 className="form-control"
                             />
                         </div>
@@ -183,8 +174,12 @@ function ModificarPublicacionResultados() {
                     </form>
 
                     <div className="modify-publication-actions">
-                        <button onClick={() => handleEliminarPublicacion(publicacionData._id)} className="btn btn-danger">Eliminar Publicación Resultados</button>
-                        <button onClick={() => navigate('/publicacion_resultados')} className="btn btn-secondary">Cancelar</button>
+                        <button onClick={() => handleEliminarPublicacion(publicacionData._id)} className="btn btn-danger me-2">
+                            Eliminar Publicación Resultados
+                        </button>
+                        <button onClick={() => navigate('/publicacion_resultados')} className="btn btn-secondary me-2">
+                            Cancelar
+                        </button>
                     </div>
                 </div>
             )}

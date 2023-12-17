@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { fetchPublicacionesResultados } from '../../services/VerPublicacionResultados.service';
-
+import { getPublicacionResultados } from '../../services/VerPublicacionResultados.service';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 function VerPublicacionesResultados() {
     const [publicaciones, setPublicaciones] = useState([]);
     const [filtroTitulo, setFiltroTitulo] = useState('');
+    const [ordenamiento, setOrdenamiento] = useState(null);
+    const [expandedPublication, setExpandedPublication] = useState(null);
 
     useEffect(() => {
         getPublicacionesResultados();
@@ -12,7 +15,7 @@ function VerPublicacionesResultados() {
 
     const getPublicacionesResultados = async () => {
         try {
-            const data = await fetchPublicacionesResultados();
+            const data = await getPublicacionResultados();
             setPublicaciones(data);
         } catch (error) {
             console.error('Error fetching publications:', error);
@@ -28,38 +31,117 @@ function VerPublicacionesResultados() {
         );
     };
 
-    const ordenarPorTitulo = () => {
-        const copiaPublicaciones = [...publicaciones];
-        copiaPublicaciones.sort((a, b) => a.Titulo.localeCompare(b.Titulo));
-        return copiaPublicaciones;
+    const ordenenarPorOrganizacion = (publicaciones) => {
+        if (ordenamiento === 'organizacionAsc') {
+            return publicaciones.slice().sort((a, b) => a.organizacion - b.organizacion);
+        } else if (ordenamiento === 'organizacionDesc') {
+            return publicaciones.slice().sort((a, b) => b.organizacion - a.organizacion);
+        }
+        return publicaciones;
     };
 
-    const publicacionesFiltradas = filtroTitulo
-    ? filtrarPorTitulo()
-    : publicaciones;
+    const ordenarPublicaciones = () => {
+        let publicacionesFiltradas = filtroTitulo
+            ? filtrarPorTitulo()
+            : publicaciones;
+
+        if (ordenamiento === 'organizacionAsc') {
+            publicacionesFiltradas = publicacionesFiltradas.sort((a, b) => a.monto - b.monto);
+        } else if (ordenamiento === 'organizacionDesc') {
+            publicacionesFiltradas = publicacionesFiltradas.sort((a, b) => b.monto - a.monto);
+        } else {
+            publicacionesFiltradas = ordenenarPorOrganizacion(publicacionesFiltradas);
+        }
+
+        return publicacionesFiltradas;
+    };
+
+    const handleOrdenamientoCharge = (e) => {
+        const selectedOrdenamiento  = e.target.value;
+        setOrdenamiento(selectedOrdenamiento === ordenamiento ? null : selectedOrdenamiento);
+    };
+
+    const handleExpandirPublicacion = (publicacionId) => {
+        setExpandedPublication(publicacionId === expandedPublication ? null : publicacionId);
+    };
+
+    const publicacionesOrdenadas = ordenarPublicaciones();
+
+    const resultados = (publicacionId) => {
+        // TODO: implementar
+    };
 
     return (
-        <div>
-            <h1>Ver Publicaciones de Resultados</h1>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Filtrar por título"
-                    value={filtroTitulo}
-                    onChange={(e) => setFiltroTitulo(e.target.value)}
-                />
+        <div className="container" style={{ fontFamily: 'Arial, sans-serif', padding: '20px'}}>
+            <div className="row">
+                <div className="col-md-6">
+                    <input
+                        type="text"
+                        className="form-control mb-2"
+                        placeholder="Buscar por título"
+                        value={filtroTitulo}
+                        onChange={(e) => setFiltroTitulo(e.target.value)}
+                        style={{ bacgroundColor: '#FFFFFF', color: '#333', border: '1px solid #C5AFA0' }}
+                    />
+                </div>
+                <div className="col-md-6">
+                    <select
+                        className="form-control mb-2"
+                        value={ordenamiento || ''}
+                        onChange={handleOrdenamientoCharge}
+                        style={{ backgroundColor: '#FFFFFF', color: '#333', border: '1px solid #C5AFA0' }}
+                    >
+                        <option value="">Ordenar por...</option>
+                        <option value="organizacionAsc">Organización (Ascendente)</option>
+                        <option value="organizacionDesc">Organización (Descendente)</option>
+                    </select>
+                </div>
             </div>
-            <ul>
-                {publicacionesFiltradas.map(publicacionresultado => (
-                    <li key={publicacionresultado._id}>
-                        <h3>{publicacionresultado.Titulo}</h3>
-                        <p>Descripción de la publicacion: {publicacionresultado.Descripcion}</p>
-                        <p>Nombre de la Organización: {publicacionresultado.Organizacion}</p>
-                        <p>Nombre del representante: {publicacionresultado.Representante}</p>
-                        <p>Rut del representante: {publicacionresultado.Rut_Representante}</p>
-                    </li>
-                ))}
-            </ul>
+
+            <div className="row justify-content-center" style={{ margin: '20px -5px'}}>
+                {publicacionesOrdenadas.map((publicacion) => (
+                        <div
+                            className="col-md-6 mb-3"
+                            key={publicacion.id}
+                            style={{ padding: '10px', cursor: 'pointer' }}
+                            onClick={() => handleExpandirPublicacion(publicacion.id)}
+                        >
+                            <div className="card" style={{ border: '1px solid #E1E8ED', backgroundColor: '#FFFFFF', color: '#1C2938' }}>
+                                <div className="card-body d-flex flex-column">
+                                    <div>
+                                        <h5 className="card-title" style={{ color: '#1C2938', marginBottom: '5px', fontSize: '16px', fontWeight: 'bold' }}>{publicacion.Titulo}</h5>
+                                        <p className="card-text" style={{ marginBottom: '5px', fontSize: '14px'}}>Organizacion: {publicacion.Organizacion}</p>
+                                        <p className="card-text" style={{ marginBottom: '5px', fontSize: '14px'}}>Representante: {publicacion.Representante}</p>
+                                    </div>
+                                    {expandedPublication === publicacion.id && (
+                                        <div style={{ marginTop: '14px' }}>
+                                            <p className="card-text">Descripción: {publicacion.Descripcion}</p>
+                                            <p className="card-text">Resultado: {publicacion.Resultado}</p>
+                                        </div>
+                                    )}
+                                    {/* Botones para Ver Resultado */}
+                                    <div className="d-flex justify-contend-end mt-auto">
+                                        <div className="d-grid gap-2">
+                                            <button className="btn-primary" onClick={() => resultados(publicacion._id)}>Resultados</button>
+                                        </div>
+                                    </div>
+                                    <button
+                                    className="btn btn-info"
+                                    style={{
+                                        position: 'fixed',
+                                        bottom: '20px',
+                                        right: '20px',
+                                        zIndex: '9999'
+                                    }}
+                                    onClick={() => Navigate(-1)}
+                                    >
+                                    Volver
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 }

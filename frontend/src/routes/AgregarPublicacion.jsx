@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../services/root.service';
 import './CrearPublicacion.css';
-import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'; // Estilos predefinidos de react-datepicker
 import es from 'date-fns/locale/es';

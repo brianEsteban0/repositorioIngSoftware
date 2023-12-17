@@ -14,9 +14,7 @@ export const getRubricas = async () => {
   
 export const getRubricaById = async (id) => {
     try {
-      console.log(id);
       const response = await axios.get(`/rubric/${id}`);
-      console.log(response.data);
       if (response.status === 200) {
         return response.data;
       }

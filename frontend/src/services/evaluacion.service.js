@@ -14,7 +14,7 @@ export const getEvaluacion = async (id) => {
     const response = await axios.get(`/evaluacion/${id}`);
     return response.data;
   } catch (error) {
-    console.error(error);
+    alert("Error al obtener evaluacion");
   }
 }
 

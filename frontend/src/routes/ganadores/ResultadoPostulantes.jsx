@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getResultado, updateResultado} from "../../services/resultados.service";
+import { getResultado ,updateResultado} from "../../services/resultados.service";
 import { obtenerPublicacionById } from "../../services/VerPublicaciones.service";
 import { getRubricaById } from "../../services/rubrics.service";
 import {
@@ -10,12 +10,14 @@ import {
 } from "../../services/Evaluacion.service";
 
 function ResultadoPostulantes() {
+  const id = useParams();
+  console.log(id.id);
   const [resultado, setResultado] = useState([]);
   const [publicacion, setPublicacion] = useState([]);
   const [rubrica, setRubrica] = useState([]);
   const [postulante, setPostulante] = useState([]);
   const [evaluacion, setEvaluacion] = useState([]);
-  const id = useParams();
+
   const navigate = useNavigate();
   const [resultadoData, setResultadoData] = useState({
     estadoEvaluacion: "",
@@ -26,8 +28,8 @@ function ResultadoPostulantes() {
     rubrica: "",
   });
   useEffect(() => {
-    console.log(id);
-    getResultado(id.id).then((response) => {
+    console.log(id, "id");
+    getResultado(id?.id).then((response) => {
       setResultado(response?.data);
 
       // Obtén datos relacionados después de obtener el resultado
@@ -70,7 +72,7 @@ function ResultadoPostulantes() {
       // Llama a la función para obtener datos relacionados
       obtenerDatosRelacionados();
     });
-  }, [id.id]);
+  }, []);
 
   const handleInputChange = (field, value) => {
     setResultadoData({ ...resultadoData, [field]: value });
@@ -78,7 +80,8 @@ function ResultadoPostulantes() {
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
-      console.log(resultadoData);
+      updateResultado(id?.id, resultadoData);
+      alert("Datos enviados correctamente");
     } catch (error) {
       alert("Error al enviar datos");
     }
@@ -154,10 +157,10 @@ function ResultadoPostulantes() {
                   <td>Titulo</td>
                   <td>{rubrica?.name}</td>
                 </tr>
-                {rubrica?.criteria.map((criterio, index) => (
+                {rubrica?.criteria?.map((criterio, index) => (
                   <tr key={index}>
                     <td>{criterio?.name}</td>
-                    <td>{evaluacion?.scores[index]}</td>
+                    <td>{evaluacion?.scores?.[index]}</td>
                   </tr>
                 ))}
                 <tr>
@@ -202,20 +205,20 @@ function ResultadoPostulantes() {
                 className="form-select"
                 onChange={(e) => handleInputChange("ganador", e.target.value)}
               >
-                <option value={undefined} key="null">
+                <option value={""} key="null">
                   Sin Resultado
                 </option>
-                <option value={true} key="verdadero">
+                <option value={true} key="true">
                   Ganador
                 </option>
-                <option value={false} key="falso">
+                <option value={false} key="false">
                   Rechazado
                 </option>
               </select>
             </div>
           </div>
           <div className="d-flex justify-content-end">
-            <button type="submit" className="btn btn-primary btn-lg my-2 mx-3">
+            <button type="submit"  className="btn btn-primary btn-lg my-2 mx-3" onClick={() => navigate(`/resultados`)}>
               Enviar
             </button>
           </div>

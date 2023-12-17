@@ -31,9 +31,10 @@ export const createResultado = async (resultado) => {
 export const updateResultado = async (id, resultado) => {
     try {
         const response = await axios.put(`/resultados/${id}`, resultado);
+        console.log(response.data);
         return response.data;
     } catch (error) {
-        console.error(error);
+       alert("Error al actualizar ingrese resultado");
     }
 }
 

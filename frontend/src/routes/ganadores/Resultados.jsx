@@ -47,15 +47,15 @@ function Resultados() {
     <>
       <h1>Resultados</h1>
       <h4>Filtrar</h4>
-      <div class="container text-center">
-        <div class="row align-items-start">
-          <div class="col">Publicacion</div>
-          <div class="col">Estado Postulacion</div>
+      <div className="container text-center">
+        <div className="row align-items-start">
+          <div className="col">Publicacion</div>
+          <div className="col">Estado Postulacion</div>
         </div>
       </div>
-      <div class="container text-center">
-        <div class="row align-items-center">
-          <div class="col">
+      <div className="container text-center">
+        <div className="row align-items-center">
+          <div className="col">
           <select
             className="form-select mb-2"
             style={{
@@ -73,7 +73,7 @@ function Resultados() {
                 ))}
           </select>
           </div>
-          <div class="col">
+          <div className="col">
           <select
             className="form-select mb-2"
             style={{
@@ -99,6 +99,7 @@ function Resultados() {
             <th>Publicacion</th>
             <th>Puntaje</th>
             <th>Estado Postulacion</th>
+            <th>Resultado</th>
             <th>Postulante</th>
             <th>Definir Ganador</th>
           </tr>
@@ -117,8 +118,10 @@ function Resultados() {
                 <td>
                     {publicaciones.find((elementos) => elementos._id === resultado.postulacion)?.titulo}
                 </td>
-                <td>{resultado.puntaje_total}</td>
-                <td>{resultado.estadoEvaluacion}</td>
+                <td>{resultado?.puntaje_total}</td>
+                <td>{resultado?.estadoEvaluacion}</td>
+                <td>{resultado.ganador ? 'Ganador' : resultado.ganador === null ? 'Sin resultado' : 'Rechazado'}</td>
+
                 <td>
                   <button
                     className="btn btn-info"

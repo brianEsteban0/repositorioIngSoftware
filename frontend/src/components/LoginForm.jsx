@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { login } from '../services/auth.service';
-import { fetchPublicaciones } from '../services/VerPublicaciones.service';
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -19,15 +18,7 @@ function LoginForm() {
     });
   };
 
-  const obtenerPublicaciones = () => {
-    fetchPublicaciones()
-      .then((data) => {
-        setPublicaciones(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching publications:', error);
-      });
-  };
+
 
   return (
       <div className="d-flex align-items-center justify-content-center min-vh-100">
@@ -61,7 +52,7 @@ function LoginForm() {
 
         <button
           type="button"
-          onClick={() => navigate('/publicaciones/ver')}
+          onClick={() => navigate('/publicaciones/verInvitado')}
           className="btn btn-secondary ms-2"
         >
           Ingresar como Visitante

@@ -3,26 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../services/root.service';
 import './CrearPublicacion.css';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'; // Estilos predefinidos de react-datepicker
+import es from 'date-fns/locale/es';
 
 const PublicacionForm = () => {
   const [publicacionData, setPublicacionData] = useState({
     titulo: '',
     descripcion: '',
     objetivo: '',
-    fecha_inicio: '',
-    fecha_termino: '',
+    fecha_inicio: null,
+    fecha_termino: null,
     monto: '',
     cupos: '',
   });
 
   const navigate = useNavigate();
 
+  const handleDateChange = (field, date) => {
+    setPublicacionData({ ...publicacionData, [field]: date });
+  };
+
   const handleInputChange = (field, value) => {
-    if (field === 'fecha_inicio' || field === 'fecha_termino') {
-      setPublicacionData({ ...publicacionData, [field]: value });
-    } else {
-      setPublicacionData({ ...publicacionData, [field]: value });
-    }
+    setPublicacionData({ ...publicacionData, [field]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -31,11 +34,14 @@ const PublicacionForm = () => {
     if (!confirmation) return;
 
     try {
-      const formattedData = { ...publicacionData };
-      formattedData.fecha_inicio = moment(publicacionData.fecha_inicio, 'YYYY-MM-DD').format('DD/MM/YYYY');
-      formattedData.fecha_termino = moment(publicacionData.fecha_termino, 'YYYY-MM-DD').format('DD/MM/YYYY');
-      
+      const formattedData = {
+        ...publicacionData,
+        fecha_inicio: publicacionData.fecha_inicio.toISOString(),
+        fecha_termino: publicacionData.fecha_termino.toISOString(),
+      };
+
       await axios.post('/publicaciones/', formattedData);
+
       alert('Publicación creada con éxito');
       navigate('/publicaciones');
     } catch (error) {
@@ -43,7 +49,6 @@ const PublicacionForm = () => {
       alert('Error al crear la publicación');
     }
   };
-  
   return (
     <div className="container my-5">
       <h1 className="mb-4">Crear Publicación</h1>
@@ -83,22 +88,24 @@ const PublicacionForm = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="fecha_inicio" className="form-label">Fecha de inicio:</label>
-          <input
-            type="date"
-            className="form-control"
+          <DatePicker
             id="fecha_inicio"
-            value={publicacionData.fecha_inicio}
-            onChange={(e) => handleInputChange('fecha_inicio', e.target.value)}
+            selected={publicacionData.fecha_inicio}
+            onChange={(date) => handleDateChange('fecha_inicio', date)}
+            locale={es}
+            dateFormat="dd/MM/yyyy" // Formato de fecha para mostrar al usuario
+            className="form-control"
           />
         </div>
         <div className="mb-3">
           <label htmlFor="fecha_termino" className="form-label">Fecha de término:</label>
-          <input
-            type="date"
-            className="form-control"
+          <DatePicker
             id="fecha_termino"
-            value={publicacionData.fecha_termino}
-            onChange={(e) => handleInputChange('fecha_termino', e.target.value)}
+            selected={publicacionData.fecha_termino}
+            onChange={(date) => handleDateChange('fecha_termino', date)}
+            locale={es}
+            dateFormat="dd/MM/yyyy" // Formato de fecha para mostrar al usuario
+            className="form-control"
           />
         </div>
         <div className="mb-3">

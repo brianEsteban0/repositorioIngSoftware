@@ -1,45 +1,45 @@
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { fetchPublicacionesResultados } from '../../services/VerPublicacionResultados.service';
 import { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
 
 function PublicacionResultados() {
-    const [publicaciones, setPublicaciones] = useState([]);
+        const [publicaciones, setPublicaciones] = useState([]);
 
-    useEffect(() => {
-        obtenerPublicaciones();
+        useEffect(() => {
+            obtenerPublicaciones();
         }, []);
         const navigate = useNavigate();
 
-    const obtenerPublicaciones = () => {
-        fetchPublicacionesResultados()
-            .then((data) => {
-                setPublicaciones(data);
-            })
-            .catch((error) => {
-                console.error('Error fetching publications:', error);
-            });
-    };
+        const obtenerPublicaciones = () => {
+            fetchPublicacionesResultados()
+                .then((data) => {
+                    setPublicaciones(data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching publications:', error);
+                });
+        };
 
-    return (
-        <div>
-            <h1>Publicaciones de resultados</h1>
-            <label>
-                <button key={"publicaciones"}
+        return (
+            <div>
+                <h1>Publicaciones de resultados</h1>
+                <label>
+                        <button key={"publicaciones"}
                     onClick={() => navigate('/publicacion_resultados/ver')}
-                >Ver publicaciones</button>
-                <button key={"publicaciones"}
+                        >Ver publicaciones</button>
+                        <button key={"publicaciones"}
                     onClick={() => navigate('/publicacion_resultados/crear')}
-                >Crear publicaciones</button>
-                <button key={"publicaciones"}
-                    onClick={() => navigate('/publicacion_resultados/editar')}
-                >Editar publicaciones</button>
+                        >Crear publicaciones</button>
+                    <button key={"publicaciones"}
+                    onClick={() => navigate('/publicacion_resultados/modificar')}
+                        >Editar publicaciones</button>
 
-            </label>
-            <ul>
-            </ul>
-        </div>
-    );
-}
+                </label>
+                <ul>
+                </ul>
+            </div>
+        );
+    }
 
 export default PublicacionResultados;

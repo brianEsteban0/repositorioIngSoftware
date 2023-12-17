@@ -9,7 +9,7 @@ const {handleError} = require("../utils/errorHandler");
  */
 
 async function getPublicacion_resultados(){
-    try{
+    try {
         const publicacion_resultados = await Publicacion_resultados.find().exec();
         if(!publicacion_resultados) return [null, "No se han encontrado publicaciones de resultados recientes"];
 

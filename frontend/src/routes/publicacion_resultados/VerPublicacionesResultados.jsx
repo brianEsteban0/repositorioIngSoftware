@@ -24,13 +24,13 @@ function VerPublicacionesResultados() {
             return publicaciones;
         }
         return publicaciones.filter(publicacionresultado =>
-            publicacionresultado.titulo.toLowerCase().includes(filtroTitulo.toLowerCase())
+            publicacionresultado.Titulo.toLowerCase().includes(filtroTitulo.toLowerCase())
         );
     };
 
     const ordenarPorTitulo = () => {
         const copiaPublicaciones = [...publicaciones];
-        copiaPublicaciones.sort((a, b) => a.titulo.localeCompare(b.Titulo));
+        copiaPublicaciones.sort((a, b) => a.Titulo.localeCompare(b.Titulo));
         return copiaPublicaciones;
     };
 

@@ -1,9 +1,11 @@
+/* eslint-disable require-jsdoc */
 "use strict";
 
 
 const RubricService = require("../services/rubric.service.js");
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const { handleError } = require("../utils/errorHandler");
+const Rubrica = require("../models/rubric.model.js");
 
 
 
@@ -106,10 +108,24 @@ async function deleteRubric(req, res) {
   }
 }
 
+async function getRubricByPublicacionId(req, res) {
+  try {
+    const { params} = req;
+    const rubric= await Rubrica.findOne({ publicacion: params.id});
+
+
+    respondSuccess(req, res, 200, rubric);
+  } catch (error) {
+    handleError(error, "rubric.controller -> getrubricById");
+    respondError(req, res, 500, "No se pudo obtener la rubrica");
+  }
+}
+
 module.exports = {
   getRubric,
   createRubric,
   getRubricById,
   updateRubric,
   deleteRubric,
+  getRubricByPublicacionId,
 };

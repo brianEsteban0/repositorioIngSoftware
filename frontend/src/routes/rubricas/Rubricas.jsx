@@ -59,7 +59,7 @@ const Rubricas = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map(rubrica => (
+                    {data?.map(rubrica => (
                         <tr key={rubrica._id}>
                             <td>{rubrica.name}</td>
                             <td>{rubrica.criteria.length}</td>

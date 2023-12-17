@@ -13,6 +13,7 @@ import EvalPosPPublicaion from './routes/evaluacion/EvalPosPPublicaion.jsx';
 import EvalPostulante from './routes/evaluacion/EvalPostulante.jsx';
 import Postulacion from './routes/postulacion/postulacion.jsx';
 import Resultados from './routes/ganadores/Resultados.jsx';
+import ResultadoPostulantes from './routes/ganadores/ResultadoPostulantes.jsx';
 
 import Publicaciones from './routes/Publicaciones.jsx'
 import PublicacionForm from './routes/AgregarPublicacion.jsx';
@@ -24,6 +25,7 @@ import PublicacionResultadoForm from './routes/publicacion_resultados/CrearPubli
 import VerPublicacionesResultados from './routes/publicacion_resultados/VerPublicacionesResultados.jsx';
 import ModificarPublicacionResultados from './routes/publicacion_resultados/ModificarPublicacionResultados.jsx';
 
+import FormularioPostulacion from './routes/Postulante.routes.jsx';
 
 import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
 
@@ -134,11 +136,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/postulacion',
-        element: <Postulacion/>,
+        element: <FormularioPostulacion/>,
       },
       {
         path: '/resultados',
         element: <Resultados/>,
+      },
+      {
+        path: '/resultados/:id',
+        element: <ResultadoPostulantes/>,
+      },
+      {
+        path: '/postulacion/formulario/:id',
+        element: <Postulacion/>,
       }
     ],
   },

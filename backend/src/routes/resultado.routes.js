@@ -27,6 +27,6 @@ router.delete("/:id",authorizationMiddleware.isAdmin,resultadoController.deleteR
 //obtiene los ganadores
 router.get("/resultadosPorPostulacion/:idPostulacion",authorizationMiddleware.isEvalAdmin,resultadoController.getResultadoPostulacion);
 
-
+router.get("/:id",authorizationMiddleware.isEvalAdmin,resultadoController.getResultadoById);
 // Exporta el enrutador
 module.exports = router;

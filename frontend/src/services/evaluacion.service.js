@@ -71,3 +71,23 @@ export const getPostulanteByRut = async (rut) => {
         console.error(error);
     }
 }
+
+export const getPostulanteById = async (id) => {
+    try {
+        const response = await axios.get(`/postulante/${id}`);
+        console.log(response);
+        return response.data;
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const getPostulantes = async () => {
+    try {
+        const response = await axios.get('/postulante');
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}

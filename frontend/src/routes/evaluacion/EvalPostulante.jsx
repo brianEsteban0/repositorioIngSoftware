@@ -72,6 +72,7 @@ function EvalPostulante() {
     }));
   };
 
+
   const handleGuardarClick = () => {
      const puntajes = Object.values(scores);
     const scoresAsNumbers = puntajes.map(Number);
@@ -93,8 +94,8 @@ function EvalPostulante() {
   return (
     <div>
       <h2>Evaluacion Postulante</h2>
-      <h4>Rubrica {rubrica?.name}</h4>
-      <h4>Publicacion {publicacion.titulo}</h4>
+      <h4>Rubrica : {rubrica?.name}</h4>
+      <h4>Publicacion : {publicacion.titulo}</h4>
       <table className="table">
         <thead>
           <tr>
@@ -111,10 +112,13 @@ function EvalPostulante() {
                   type="number"
                   className="form-control"
                   value={scores[criterio._id] || ""}
-                  onChange={(e) =>
-                    handleScoreChange(criterio._id, e.target.value)}
+                  onChange={(e) => {
+                    handleScoreChange(criterio._id, e.target.value);
+                    
+                  }}
                     min="0"
                     max="100"
+                    placeholder="puntuacion entre 0 y 100"
                 />
               </td>
             </tr>

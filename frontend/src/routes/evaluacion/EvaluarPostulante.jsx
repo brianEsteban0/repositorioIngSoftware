@@ -1,5 +1,5 @@
 import {getPublicacion} from '../../services/VerPublicaciones.service';
-import { getEvaluacionByPostulacion} from '../../services/Evaluacion.service';
+import { getEvaluacionByPostulacion} from '../../services/evaluacion.service';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

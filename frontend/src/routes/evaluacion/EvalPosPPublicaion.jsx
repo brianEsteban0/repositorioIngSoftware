@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getEvaluacionByPostulacion } from "../../services/Evaluacion.service";
+import { getEvaluacionByPostulacion } from "../../services/evaluacion.service";
 import { obtenerPublicacionById} from "../../services/VerPublicaciones.service";
 import { useNavigate } from 'react-router-dom';
 function EvalPosPPublicaion() {

@@ -5,7 +5,7 @@ import {
   deleteEvaluacion,
   getEvaluacion,
   updateEvaluacion,
-} from "../../services/Evaluacion.service";
+} from "../../services/evaluacion.service";
 import { obtenerPublicacionById } from "../../services/VerPublicaciones.service";
 import { getRubricaByIdPublicacion } from "../../services/rubrics.service";
 import { useNavigate } from "react-router-dom";

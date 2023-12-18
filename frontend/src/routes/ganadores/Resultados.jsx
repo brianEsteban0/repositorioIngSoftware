@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getResultados } from "../../services/resultados.service";
 import { getPublicacion } from "../../services/VerPublicaciones.service";
 import { getRubricas } from "../../services/rubrics.service";
-import { getPostulantes, getPostulanteById } from "../../services/Evaluacion.service";
+import { getPostulantes, getPostulanteById } from "../../services/evaluacion.service";
 function Resultados() {
   const [resultados, setResultados] = useState([]);
   const navigate = useNavigate();

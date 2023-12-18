@@ -36,7 +36,7 @@ function EvaluarPostulante(){
           <th>fechainicio</th>
           <th>Periodo de Evaluacion</th>
           <th>Cantidad de Postulante</th>
-          <th>Ver Porsulantes</th>
+          <th>Ver Postulantes</th>
           
         </tr>
       </thead>

@@ -1,5 +1,5 @@
 import {getPublicacion} from '../../services/VerPublicaciones.service';
-import { getEvaluacionByPostulacion} from '../../services/Evaluacion.service';
+import { getEvaluacionByPostulacion} from '../../services/evaluacion.service';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -36,7 +36,7 @@ function EvaluarPostulante(){
           <th>fechainicio</th>
           <th>Periodo de Evaluacion</th>
           <th>Cantidad de Postulante</th>
-          <th>Ver Porsulantes</th>
+          <th>Ver Postulantes</th>
           
         </tr>
       </thead>

@@ -3,16 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { getResultados } from "../../services/resultados.service";
 import { getPublicacion } from "../../services/VerPublicaciones.service";
 import { getRubricas } from "../../services/rubrics.service";
-import { getPostulantes, getPostulanteById } from "../../services/Evaluacion.service";
+import { getPostulantes, getPostulanteById } from "../../services/evaluacion.service";
 function Resultados() {
   const [resultados, setResultados] = useState([]);
   const navigate = useNavigate();
   const [publicaciones, setPublicaciones] = useState([]);
   const [rubricas, setRubricas] = useState([]);
   const [postulantes, setPostulantes] = useState([]);
+  const [filtroResultado, setFiltroResultado] = useState([]);
+  const [filtroPublicacion, setFiltroPublicacion] = useState("");
+  const [filtroEstado, setFiltroEstado] = useState("");
   useEffect(() => {
     getResultados().then((response) => {
       setResultados(response.data);
+      setFiltroResultado(response.data);
       console.log(response.data);
     });
     getPublicacion().then((response) => {
@@ -43,6 +47,24 @@ function Resultados() {
         navigate(`/resultados/${id}`);
     }
 
+    const handleFiltrar = () => {
+      let resultadosFiltrados = filtroResultado;
+  
+      if (filtroPublicacion) {
+        resultadosFiltrados = resultadosFiltrados.filter(
+          (resultado) => resultado.postulacion === filtroPublicacion
+        );
+      }
+  
+      if (filtroEstado) {
+        resultadosFiltrados = resultadosFiltrados.filter(
+          (resultado) => resultado.estadoEvaluacion === filtroEstado
+        );
+      }
+  
+      setResultados(resultadosFiltrados);
+    };
+
   return (
     <>
       <h1>Resultados</h1>
@@ -56,38 +78,35 @@ function Resultados() {
       <div className="container text-center">
         <div className="row align-items-center">
           <div className="col">
-          <select
-            className="form-select mb-2"
-            style={{
-              backgroundColor: "#FFFFFF",
-              color: "#333",
-              border: "1px solid #C5AFA0",
-              marginRight: "20px",
-            }}
-          >
-            <option value="">Sin filtro</option>
-            {publicaciones?.map((publicacion) => (
+            <select
+              className="form-select mb-2"
+              onChange={(e) => setFiltroPublicacion(e.target.value)}
+              value={filtroPublicacion}
+            >
+              <option value="">Sin filtro</option>
+              {publicaciones?.map((publicacion) => (
                 <option key={publicacion._id} value={publicacion._id}>
                   {publicacion.titulo}
                 </option>
-                ))}
-          </select>
+              ))}
+            </select>
           </div>
           <div className="col">
-          <select
-            className="form-select mb-2"
-            style={{
-              backgroundColor: "#FFFFFF",
-              color: "#333",
-              border: "1px solid #C5AFA0",
-              marginRight: "20px",
-            }}
-          >
-            <option value="">Sin filtro</option>
-            <option value="montoAsc">Pendientes</option>
-            <option value="montoDesc">Finalizada</option>
-            <option value="montoDesc">En Revision</option>
-          </select>
+            <select
+              className="form-select mb-2"
+              onChange={(e) => setFiltroEstado(e.target.value)}
+              value={filtroEstado}
+            >
+              <option value="">Sin filtro</option>
+              <option value="Pendiente">Pendientes</option>
+              <option value="Finalizada">Finalizada</option>
+              <option value="EnRevision">En Revisión</option>
+            </select>
+          </div>
+          <div className="col">
+            <button className="btn btn-primary" onClick={handleFiltrar}>
+              Aplicar Filtros
+            </button>
           </div>
         </div>
       </div>
@@ -121,7 +140,6 @@ function Resultados() {
                 <td>{resultado?.puntaje_total}</td>
                 <td>{resultado?.estadoEvaluacion}</td>
                 <td>{resultado.ganador ? 'Ganador' : resultado.ganador === null ? 'Sin resultado' : 'Rechazado'}</td>
-
                 <td>
                   <button
                     className="btn btn-info"

@@ -20,6 +20,7 @@ function PublicacionResultados() {
       });
   };
 
+<<<<<<< HEAD
   return (
     <div className="container my-5">
       <div className="row">
@@ -28,6 +29,33 @@ function PublicacionResultados() {
           <p className="lead">
             Descubre, crea y modifica las publicaciones de resultados de tu interés.
           </p>
+=======
+    const obtenerPublicaciones = () => {
+        fetchPublicacionesResultados()
+            .then((data) => {
+                setPublicaciones(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching publications:', error);
+            });
+    };
+
+    return (
+        <div>
+            <h1>Publicaciones de resultados</h1>
+            <label>
+                <button key={"publicaciones1"} onClick={() => navigate('/publicacion_resultados/ver')}>
+                    Ver publicaciones
+                </button>
+                <button key={"publicaciones2"} onClick={() => navigate('/publicacion_resultados/crear')}>
+                    Crear publicaciones
+                </button>
+                <button key={"publicaciones3"} onClick={() => navigate('/publicacion_resultados/modificar')}>
+                    Editar publicaciones
+                </button>
+            </label>
+            <ul></ul>
+>>>>>>> 51a30bcddad2a1a6d0f200513341a14f5b3f5977
         </div>
       </div>
 

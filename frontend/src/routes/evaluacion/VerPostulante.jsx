@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import {
   getPostulanteByRut,
   deleteEvaluacion,
-} from "../../services/Evaluacion.service";
+} from "../../services/evaluacion.service";
 import { useNavigate } from "react-router-dom";
 function VerPostulante() {
   const { rut } = useParams();

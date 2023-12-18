@@ -71,6 +71,7 @@ const EditarRubrica = () => {
       e.preventDefault();
       console.log(rubricData);
       const response = await updateRubrica(id, rubricData);
+      console.log(response);
       if (response.status === 200) {
         alert("Rubrica editada con éxito");
         navigate("/rubricas");

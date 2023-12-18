@@ -7,7 +7,7 @@ import { getRubricaById } from "../../services/rubrics.service";
 import {
   getPostulanteById,
   getEvaluacion,
-} from "../../services/Evaluacion.service";
+} from "../../services/evaluacion.service";
 
 function ResultadoPostulantes() {
   const id = useParams();

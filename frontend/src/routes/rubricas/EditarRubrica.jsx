@@ -70,9 +70,12 @@ const EditarRubrica = () => {
     try {
       e.preventDefault();
       console.log(rubricData);
-      await updateRubrica(id, rubricData);
-      alert("Rubrica editada con éxito");
-      navigate("/rubricas");
+      const response = await updateRubrica(id, rubricData);
+      if (response.status === 200) {
+        alert("Rubrica editada con éxito");
+        navigate("/rubricas");
+      }
+      
     } catch (error) {
       const errorMessage = error.response?.data.message || 'Error desconocido al editar la rubrica';
       console.error('Error al editar la rubrica', error);

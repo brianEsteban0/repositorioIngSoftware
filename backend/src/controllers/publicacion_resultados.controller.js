@@ -39,42 +39,45 @@ async function createPublicacion_resultados(req, res) {
         } = body;
 
         // Validaciones de los campos
-        if (typeof Titulo !== "string" || Titulo.length < 3 || Titulo.length > 70) {
-            return respondError(req, res, 400, "Verificar largo del titulo (min 10 max 70 caracteres).");
+        if (typeof Titulo !== "string" || Titulo.length < 5 || Titulo.length > 70) {
+            return respondError(req, res, 400, "Verificar largo del título (min 1 max 70 caracteres).");
         }
-        const regexTitulo = /^(?=.*[a-zA-Z])[a-zA-Z\d\s!@#-]+$/;
+        const regexTitulo = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
         if (!regexTitulo.test(Titulo)) {
-            return respondError(req, res, 400, "El titulo debe tener al menos una letra y permite los siguientes simbolos: ! @ # -");
+            return respondError(req, res, 400, "El título no cumple con los requisitos permitidos (min 5 max 70 caracteres).");
         }
 
-        if (typeof Descripcion !== "string" || Descripcion.length < 2 || Descripcion.length > 750) {
-            return respondError(req, res, 400, "Verificar largo de la descripcion (min 2 max 750 caracteres).");
+        if (typeof Descripcion !== "string" || Descripcion.length < 5 || Descripcion.length > 750) {
+            return respondError(req, res, 400, "Verificar largo de la descripción (min 1 max 750 caracteres).");
         }
-        const regexDescripcion = /^(?=.*[a-zA-Z])[a-zA-Z\d\s!@#$%^&*.,?]+$/;
+        // Utilizar una expresión regular para verificar que la descripción cumpla con ciertos patrones
+        const regexDescripcion = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)^[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
         if (!regexDescripcion.test(Descripcion)) {
-            return respondError(req, res, 400, "La descripción no puede quedar en Blanco.");
+            return respondError(req, res, 400, "La descripción no cumple con los patrones permitidos. (min 5 max 750 caracteres).");
         }
 
-        if (typeof Organizacion !== "string" || Organizacion.length < 2 || Organizacion.length > 70) {
+        if (typeof Organizacion !== "string" || Organizacion.length < 5 || Organizacion.length > 70) {
             return respondError(req, res, 400, "Verificar largo de la Organizacion (min 1 max 70 caracteres).");
         }
-        const regexOrganizacion = /^(?=.*[a-zA-Z])[a-zA-Z\d\s!@#$%^&*.,?]+$/;
+        const regexOrganizacion = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
         if (!regexOrganizacion.test(Organizacion)) {
-            return respondError(req, res, 400, "El campo de Organizacion es obligatorio.");
+            return respondError(req, res, 400, "El campo de Organizacion es obligatorio. (min 5 max 70 caracteres).");
         }
 
-        if (typeof Representante !== "string" || Representante.length < 2 || Representante.length > 70) {
+        if (typeof Representante !== "string" || Representante.length < 1 || Representante.length > 70) {
             return respondError(req, res, 400, "Verificar largo del Representante (min 1 max 70 caracteres).");
         }
-        const regexRepresentante = /^[a-zA-ZñÑ\s]+$/;
+        const regexRepresentante = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
         if (!regexRepresentante.test(Representante)) {
-            return respondError(req, res, 400, "El campo del Representante es obligatorio.");
+            return respondError(req, res, 400, "El campo del Representante es obligatorio y solo puede contener letras, espacios y la letra 'ñ'.");
         }
 
+        if (typeof Resultado !== "string" || Resultado.length < 11 || Resultado.length > 16) {
+            return respondError(req, res, 400, "Verificar largo del Resultado (min 11 max 16 caracteres).");
+        }
         const regexResultado = /^(Beneficiario|No Beneficiario)$/;
-
         if (!regexResultado.test(Resultado)) {
-            return respondError(req, res, 400, "El Resultado solo acepta 'Beneficiario' o 'No Beneficiario'.");
+            return respondError(req, res, 400, "El Resultado Solo Acepta Beneficiario o No Beneficiario.");
         }
 
         const publicacion = {
@@ -125,36 +128,37 @@ async function updatePublicacion_resultados(req, res) {
         } = updatePresults;
 
         // Validaciones de los campos
-        if (typeof Titulo !== "string" || Titulo.length < 10 || Titulo.length > 70) {
-            return respondError(req, res, 400, "Verificar largo del titulo (min 10 max 70 caracteres).");
+        if (typeof Titulo !== "string" || Titulo.length < 5 || Titulo.length > 70) {
+            return respondError(req, res, 400, "Verificar largo del título (min 1 max 70 caracteres).");
         }
-        const regexTitulo = /^(?=.*[a-zA-Z])[a-zA-Z\d\s!@#-]+$/;
+        const regexTitulo = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
         if (!regexTitulo.test(Titulo)) {
-            return respondError(req, res, 400, "El titulo debe tener al menos una letra y permite los siguientes simbolos: ! @ # -");
+            return respondError(req, res, 400, "El título no cumple con los requisitos permitidos (min 5 max 70 caracteres).");
         }
 
-        if (typeof Descripcion !== "string" || Descripcion.length < 2 || Descripcion.length > 750) {
-            return respondError(req, res, 400, "Verificar largo de la descripcion (min 1 max 750 caracteres).");
+        if (typeof Descripcion !== "string" || Descripcion.length < 5 || Descripcion.length > 750) {
+            return respondError(req, res, 400, "Verificar largo de la descripción (min 1 max 750 caracteres).");
         }
-        const regexDescripcion = /^(?=.*[a-zA-Z])[a-zA-Z\d\s!@#$%^&*.,?]+$/;
+        // Utilizar una expresión regular para verificar que la descripción cumpla con ciertos patrones
+        const regexDescripcion = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)^[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
         if (!regexDescripcion.test(Descripcion)) {
-            return respondError(req, res, 400, "La descripción no puede quedar en Blanco.");
+            return respondError(req, res, 400, "La descripción no cumple con los patrones permitidos. (min 5 max 750 caracteres).");
         }
 
-        if (typeof Organizacion !== "string" || Organizacion.length < 2 || Organizacion.length > 70) {
+        if (typeof Organizacion !== "string" || Organizacion.length < 5 || Organizacion.length > 70) {
             return respondError(req, res, 400, "Verificar largo de la Organizacion (min 1 max 70 caracteres).");
         }
-        const regexOrganizacion = /^(?=.*[a-zA-Z])[a-zA-Z\d\s!@#$%^&*.,?]+$/;
+        const regexOrganizacion = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
         if (!regexOrganizacion.test(Organizacion)) {
-            return respondError(req, res, 400, "El campo de Organizacion es obligatorio.");
+            return respondError(req, res, 400, "El campo de Organizacion es obligatorio. (min 5 max 70 caracteres).");
         }
 
-        if (typeof Representante !== "string" || Representante.length < 2 || Representante.length > 70) {
+        if (typeof Representante !== "string" || Representante.length < 1 || Representante.length > 70) {
             return respondError(req, res, 400, "Verificar largo del Representante (min 1 max 70 caracteres).");
         }
-        const regexRepresentante = /^[a-zA-ZñÑ\s]+$/;
+        const regexRepresentante = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
         if (!regexRepresentante.test(Representante)) {
-            return respondError(req, res, 400, "El campo del Representante es obligatorio.");
+            return respondError(req, res, 400, "El campo del Representante es obligatorio y solo puede contener letras, espacios y la letra 'ñ'.");
         }
 
         if (typeof Resultado !== "string" || Resultado.length < 11 || Resultado.length > 16) {
@@ -164,7 +168,6 @@ async function updatePublicacion_resultados(req, res) {
         if (!regexResultado.test(Resultado)) {
             return respondError(req, res, 400, "El Resultado Solo Acepta Beneficiario o No Beneficiario.");
         }
-
         // Actualiza la publicación
         publicacion_resultados.set(updatePresults);
         const publicacion_resultadosUpdated = await publicacion_resultados.save();

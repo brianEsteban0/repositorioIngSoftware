@@ -8,23 +8,22 @@ const publicacionResultadosSchema = new mongoose.Schema(
 {
     Titulo: {
         type: String,
-        required: [true, "El título de la publicación es obligatorio"],
-        unique: true,
+        required: true,
     },
     Descripcion: {
         type: String,
-        required: [true, "La descripción es obligatoria"],
+        required: true,
     },
     Organizacion: {
         type: String,
-        required: [true, "El nombre de la organización es obligatorio"],
+        required: true,
     },
     Representante: {
         type: String,
-        required: [true, "El nombre del representante es obligatorio"],
+        required: true,
     }, Resultado: {
         type: String,
-        required: [true, "Beneficiario es obligatorio"],
+        required: true,
     },
 });
 

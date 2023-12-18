@@ -26,13 +26,13 @@ function PublicacionResultados() {
         <div>
             <h1>Publicaciones de resultados</h1>
             <label>
-                <button key={"publicaciones"} onClick={() => navigate('/publicacion_resultados/ver')}>
+                <button key={"publicaciones1"} onClick={() => navigate('/publicacion_resultados/ver')}>
                     Ver publicaciones
                 </button>
-                <button key={"publicaciones"} onClick={() => navigate('/publicacion_resultados/crear')}>
+                <button key={"publicaciones2"} onClick={() => navigate('/publicacion_resultados/crear')}>
                     Crear publicaciones
                 </button>
-                <button key={"publicaciones"} onClick={() => navigate('/publicacion_resultados/modificar')}>
+                <button key={"publicaciones3"} onClick={() => navigate('/publicacion_resultados/modificar')}>
                     Editar publicaciones
                 </button>
             </label>

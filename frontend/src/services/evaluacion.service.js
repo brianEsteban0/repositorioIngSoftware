@@ -35,7 +35,9 @@ export const updateEvaluacion = async (rut, evaluacion) => {
         console.log(response);
         return response;
     } catch (error) {
-        console.error(error);
+        const errorMessage = error.response?.data.message || 'Error desconocido en Evaluacion';
+        console.error('Error al editar la evaluacion', error);
+        alert('Error ingresar los datos: ' + errorMessage);
     }
 }
 

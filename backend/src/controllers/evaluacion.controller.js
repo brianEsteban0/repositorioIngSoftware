@@ -70,6 +70,19 @@ async function getEvaluacionById(req, res) {
 async function updateEvaluacion(req, res) {
   try {
     const { params, body } = req;
+    const { scores } = body;
+
+    for (const score of scores) {
+      if (typeof score !== "number" || score < 0 || score > 100) {
+        return respondError(
+          req,
+          res,
+          400,
+          "Los puntajes deben ser números en el rango de 0 a 100.",
+        );
+      }
+    }
+
     const [evaluacion, errorEvaluacion] = await EvaluacionService.updateEvaluacion(params.postulanteRut, body);
     
     if (errorEvaluacion) return respondError(req, res, 400, errorEvaluacion);

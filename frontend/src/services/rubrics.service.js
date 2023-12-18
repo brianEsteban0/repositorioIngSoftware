@@ -46,8 +46,9 @@ export const updateRubrica = async (id, rubrica) => {
         return response.data;
       }
     } catch (error) {
-      console.error(error);
-      throw error;
+      const errorMessage = error.response?.data.message || 'Error desconocido al editar la rubrica';
+      console.error('Error al editar la rubrica', error);
+      alert('Error al editar la rubrica: ' + errorMessage);
     }
 }
 

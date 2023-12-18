@@ -73,7 +73,7 @@ function EvalPostulante() {
   };
 
 
-  const handleGuardarClick = () => {
+  const handleGuardarClick = async() => {
      const puntajes = Object.values(scores);
     const scoresAsNumbers = puntajes.map(Number);
     const resultadoData = {
@@ -83,13 +83,22 @@ function EvalPostulante() {
       scores: scoresAsNumbers,
       scoretotal: 0 // Obtener los puntajes como array
     };
-    setResultadoData(resultadoData);
-    updateEvaluacion(rut, resultadoData);
+    try {
+    await setResultadoData(resultadoData);
+    const response = await updateEvaluacion(rut, resultadoData);
+    if (response.status === 200) { 
+    
     alert("Puntuacion Registrada con exito");
     navigate(`/evaluacion/postulantes/${id}`);
+    }
     // Puedes realizar otras acciones con resultadoData, por ejemplo, enviarlo a un servidor
     console.log("Resultado guardado:", resultadoData);
-  };
+  }catch(error){
+    const errorMessage = error.response?.data.message || 'Error desconocido al editar la rubrica';
+    console.error('Error al editar la rubrica', error);
+    alert('Error al editar la rubrica: ' + errorMessage);
+  }
+};
 
   return (
     <div>

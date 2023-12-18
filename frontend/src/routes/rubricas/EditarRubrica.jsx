@@ -66,15 +66,17 @@ const EditarRubrica = () => {
     setRubricData({ ...rubricData, criteria: updatedCriteria });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       console.log(rubricData);
-      updateRubrica(id, rubricData);
-      alert("Rubrica editada con exito");
+      await updateRubrica(id, rubricData);
+      alert("Rubrica editada con éxito");
       navigate("/rubricas");
     } catch (error) {
-      alert("Error al editar la rubrica");
+      const errorMessage = error.response?.data.message || 'Error desconocido al editar la rubrica';
+      console.error('Error al editar la rubrica', error);
+      alert('Error al editar la rubrica: ' + errorMessage);
     }
   };
 

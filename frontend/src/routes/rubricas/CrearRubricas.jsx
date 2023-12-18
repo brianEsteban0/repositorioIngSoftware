@@ -50,14 +50,23 @@ const RubricForm = () => {
     setRubricData({ ...rubricData, criteria: updatedCriteria });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      axios.post("/rubric", rubricData);
-      alert("Rubrica creada con exito");
-      navigate("/rubricas");
+      const response = await axios.post("/rubric", rubricData);
+  
+      // Verificar si la solicitud fue exitosa
+      if (response.status === 200) {
+        alert('Rubrica creada con éxito');
+        navigate('/rubricas');
+      } else {
+        const errorMessage = response.data.message || 'Error desconocido al crear la rubrica';
+        alert('Error al crear la rubrica: ' + errorMessage);
+      }
     } catch (error) {
-      alert("Error al crear la rubrica");
+      const errorMessage = error.response?.data.message || 'Error desconocido al crear la rubrica';
+      console.error('Error al crear la rubrica', error);
+      alert('Error al crear la rubrica: ' + errorMessage );
     }
   };
 

@@ -19,15 +19,9 @@ export const getRubricaById = async (id) => {
         return response.data;
       }
     } catch (error) {
-      if (error.response.status === 404) {
-        const shouldDelete = window.confirm(
-          "Rubrica no encontrada Asignar Rubrica a Publicacion"
-        );
     
-        if (shouldDelete) {
-          window.history.back();
-        }
-      }
+        console.error('Error al crear la publicación', error);
+        alert('Error al crear la rubrica: ' + error.response.data.message); 
     }
 }
 

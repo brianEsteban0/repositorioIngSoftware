@@ -92,7 +92,7 @@ function ModificarPublicacionResultados() {
       navigate('/publicacion_resultados');
     } catch (error) {
       console.error('Error al modificar la publicación', error);
-      alert('Confirme los datos ingresados');
+      alert(error.response.data.message); // Muestra el mensaje de error al usuario
     }
   };
 

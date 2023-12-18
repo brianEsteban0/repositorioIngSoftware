@@ -42,7 +42,8 @@ async function createPublicacion_resultados(req, res) {
         if (typeof Titulo !== "string" || Titulo.length < 5 || Titulo.length > 70) {
             return respondError(req, res, 400, "Verificar largo del título (min 1 max 70 caracteres).");
         }
-        const regexTitulo = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
+        const regexTitulo = /^[\w\s.,-:;!?"'()]+$/;
+
         if (!regexTitulo.test(Titulo)) {
             return respondError(req, res, 400, "El título no cumple con los requisitos permitidos (min 5 max 70 caracteres).");
         }
@@ -51,15 +52,17 @@ async function createPublicacion_resultados(req, res) {
             return respondError(req, res, 400, "Verificar largo de la descripción (min 1 max 750 caracteres).");
         }
         // Utilizar una expresión regular para verificar que la descripción cumpla con ciertos patrones
-        const regexDescripcion = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)^[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
+        const regexDescripcion = /^[\w\s\d&%$#.,-:;!?"'()]+$/;
+
         if (!regexDescripcion.test(Descripcion)) {
             return respondError(req, res, 400, "La descripción no cumple con los patrones permitidos. (min 5 max 750 caracteres).");
         }
 
-        if (typeof Organizacion !== "string" || Organizacion.length < 5 || Organizacion.length > 70) {
+        if (typeof Organizacion !== "string" || Organizacion.length < 1 || Organizacion.length > 70) {
             return respondError(req, res, 400, "Verificar largo de la Organizacion (min 1 max 70 caracteres).");
         }
-        const regexOrganizacion = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
+        const regexOrganizacion = /^[\w\s\d&%$#.,-:;!?"'()]+$/;
+
         if (!regexOrganizacion.test(Organizacion)) {
             return respondError(req, res, 400, "El campo de Organizacion es obligatorio. (min 5 max 70 caracteres).");
         }
@@ -120,11 +123,13 @@ async function updatePublicacion_resultados(req, res) {
             Resultado,
         } = updatePresults;
 
+
         // Validaciones de los campos
         if (typeof Titulo !== "string" || Titulo.length < 5 || Titulo.length > 70) {
             return respondError(req, res, 400, "Verificar largo del título (min 1 max 70 caracteres).");
         }
-        const regexTitulo = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
+        const regexTitulo = /^[\w\s.,-:;!?"'()]+$/;
+
         if (!regexTitulo.test(Titulo)) {
             return respondError(req, res, 400, "El título no cumple con los requisitos permitidos (min 5 max 70 caracteres).");
         }
@@ -133,15 +138,17 @@ async function updatePublicacion_resultados(req, res) {
             return respondError(req, res, 400, "Verificar largo de la descripción (min 1 max 750 caracteres).");
         }
         // Utilizar una expresión regular para verificar que la descripción cumpla con ciertos patrones
-        const regexDescripcion = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)^[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
+        const regexDescripcion = /^[\w\s\d&%$#.,-:;!?"'()]+$/;
+
         if (!regexDescripcion.test(Descripcion)) {
             return respondError(req, res, 400, "La descripción no cumple con los patrones permitidos. (min 5 max 750 caracteres).");
         }
 
-        if (typeof Organizacion !== "string" || Organizacion.length < 5 || Organizacion.length > 70) {
+        if (typeof Organizacion !== "string" || Organizacion.length < 3 || Organizacion.length > 70) {
             return respondError(req, res, 400, "Verificar largo de la Organizacion (min 1 max 70 caracteres).");
         }
-        const regexOrganizacion = /^(?!^\d+$)(?!^[!@#$%^&*.,?]+$)(?!^[!@#$%^&*.,?]+\d+$)[a-zA-ZáéíóúÁÉÍÓÚñÑ\d\s!@#$%^&*.,?]+$/;
+        const regexOrganizacion = /^[\w\s\d&%$#.,-:;!?"'()]+$/;
+
         if (!regexOrganizacion.test(Organizacion)) {
             return respondError(req, res, 400, "El campo de Organizacion es obligatorio. (min 5 max 70 caracteres).");
         }

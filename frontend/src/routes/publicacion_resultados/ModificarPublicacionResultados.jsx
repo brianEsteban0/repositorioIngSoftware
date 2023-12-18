@@ -1,190 +1,240 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getPublicacionResultadoById, getPublicacionResultados } from '../../services/VerPublicacionResultados.service';
 import axios from '../../services/root.service';
+import { Modal, Button } from 'react-bootstrap';
 
 function ModificarPublicacionResultados() {
-    const [publicaciones, setPublicaciones] = useState([]);
-    const [selectedPublicacion, setSelectedPublicacion] = useState('');
-    const [publicacionData, setPublicacionData] = useState({
+  const [publicaciones, setPublicaciones] = useState([]);
+  const [selectedPublicacion, setSelectedPublicacion] = useState('');
+  const [publicacionData, setPublicacionData] = useState({
+    Titulo: '',
+    Descripcion: '',
+    Organizacion: '',
+    Representante: '',
+    Resultado: '',
+  });
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    obtenerPublicaciones();
+  }, []);
+
+  const obtenerPublicaciones = async () => {
+    try {
+      const response = await obtenerListaPublicaciones();
+      setPublicaciones(response);
+    } catch (error) {
+      console.error('Error al obtener las publicaciones', error);
+    }
+  };
+
+  const obtenerListaPublicaciones = async () => {
+    try {
+      const listaPublicaciones = await getPublicacionResultados();
+      return listaPublicaciones || [];
+    } catch (error) {
+      console.error('Error al obtener la lista de publicaciones', error);
+      return [];
+    }
+  };
+
+  const handleEliminarPublicacion = async (id) => {
+    try {
+      const response = await axios.delete(`/publicacion_resultados/${id}`);
+      if (response.status === 200) {
+        alert(`Publicación con ID ${id} eliminada`);
+        navigate('/publicacion_resultados');
+      } else {
+        throw new Error('No se pudo eliminar la publicación');
+      }
+    } catch (error) {
+      console.error('Error al eliminar la publicación', error);
+      alert('Se eliminó la publicación');
+    }
+  };
+
+  const handleSelectChange = async (event) => {
+    const selectedId = event.target.value;
+    setSelectedPublicacion(selectedId);
+
+    if (selectedId) {
+      try {
+        const response = await getPublicacionResultadoById(selectedId);
+        setPublicacionData(response);
+      } catch (error) {
+        console.error('Error al obtener los detalles de la publicación', error);
+      }
+    } else {
+      // Reiniciar datos si no hay ninguna publicación seleccionada
+      setPublicacionData({
         Titulo: '',
         Descripcion: '',
         Organizacion: '',
         Representante: '',
         Resultado: '',
-    });
+      });
+    }
+  };
 
-    const navigate = useNavigate();
+  const handleInputChange = (field, value) => {
+    setPublicacionData({ ...publicacionData, [field]: value });
+  };
 
-    useEffect(() => {
-        obtenerPublicaciones();
-    }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedPublication = await axios.put(`/publicacion_resultados/${selectedPublicacion}`, publicacionData);
+      alert('Publicación modificada con éxito');
+      navigate('/publicacion_resultados');
+    } catch (error) {
+      console.error('Error al modificar la publicación', error);
+      alert('Confirme los datos ingresados');
+    }
+  };
 
-    const obtenerPublicaciones = async () => {
-        try {
-            const response = await obtenerListaPublicaciones();
-            setPublicaciones(response);
-        } catch (error) {
-            console.error('Error al obtener las publicaciones', error);
-        }
-    };
+  const handleShowDeleteModal = () => setShowDeleteModal(true);
+  const handleCloseDeleteModal = () => setShowDeleteModal(false);
+  const handleDeleteConfirmation = () => {
+    handleEliminarPublicacion(selectedPublicacion);
+    handleCloseDeleteModal();
+  };
 
-    const obtenerListaPublicaciones = async () => {
-        try {
-            const listaPublicaciones = await getPublicacionResultados();
-            return listaPublicaciones || [];
-        } catch (error) {
-            console.error('Error al obtener la lista de publicaciones', error);
-            return [];
-        }
-    };
+  const handleShowCancelModal = () => setShowCancelModal(true);
+  const handleCloseCancelModal = () => setShowCancelModal(false);
 
-    const handleEliminarPublicacion = async (id) => {
-        try {
-            const response = await axios.delete(`/publicacion_resultados/${id}`);
-            if (response.status === 200) {
-                alert(`Publicación con ID ${id} eliminada`);
-                navigate('/publicacion_resultados');
-            } else {
-                throw new Error('No se pudo eliminar la publicación');
-            }
-        } catch (error) {
-            console.error('Error al eliminar la publicación', error);
-            alert('Se eliminó la publicación');
-        }
-    };
-
-    const handleSelectChange = async (event) => {
-        setSelectedPublicacion(event.target.value);
-        try {
-            //obtener los detalles de la publicación seleccionada por su ID
-            const response = await getPublicacionResultadoById(event.target.value);
-            console.log('Datos de la publicacion',response);
-
-            // Actualiar el estado de la publicación seleccionada
-            setPublicacionData(response);
-        } catch (error) {
-            console.error('Error al obtener los detalles de la publicación', error);
-        }
-    };
-
-    const handleInputChange = (field, value) => {
-        setPublicacionData({ ...publicacionData, [field]: value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const { _id, ...PostData} = publicacionData;
-
-            const updatedPublication = await axios.put(`/publicacion_resultados/${_id}`, PostData);
-            console.log('Publicación actualizada', updatedPublication.data);
-
-            alert('Publicación actualizada con éxito');
-            navigate('/publicacion_resultados');
-        } catch (error) {
-            console.error('Error al actualizar la publicación', error);
-            alert('Error al actualizar la publicación, intente nuevamente o más tarde');
-        }
-    };
-
-    return (
+  return (
+    <div>
+      <h1>Modificar Publicacion Resultados</h1>
+      {publicacionData && (
         <div>
-            <h1>Modificar Publicacion Resultados</h1>
-            {publicacionData && (
-                <div>
-                    <label htmlFor="publicacionSelect">Seleccione una publicación:</label>
-                    <select
-                        id="publicacionSelect"
-                        value={selectedPublicacion}
-                        onChange={handleSelectChange}
-                    >
-                        <option value="">Seleccione una publicación</option>
-                        {publicaciones.map((publicacion) => (
-                            <option key={publicacion._id} value={publicacion._id}>
-                                {publicacion.Titulo}
-                            </option>
-                        ))}
-                    </select>
-                    {/* Paso 1: Imprimir en la consola los datos de la publicación seleccionada */}
-                    {console.log('¿Qué datos tiene la publicación seleccionada?', publicacionData)}
+          <label htmlFor="publicacionSelect">Seleccione una publicación:</label>
+          <select
+            id="publicacionSelect"
+            value={selectedPublicacion}
+            onChange={handleSelectChange}
+            className="form-select"
+          >
+            <option value="">Seleccione una publicación</option>
+            {publicaciones.map((publicacion) => (
+              <option key={publicacion._id} value={publicacion._id}>
+                {publicacion.Titulo}
+              </option>
+            ))}
+          </select>
 
-                    {/* Paso 3: Agrega aquí los otros campos de la publicación que necesitas editar */}
-                    <form onSubmit={handleSubmit} className="modify-publication-form">
-                        <div className="mb-3">
-                            <label htmlFor="Titulo" className="form-label">Titulo:</label>
-                            <input
-                                type="text"
-                                id="Titulo"
-                                value={publicacionData.Titulo}
-                                onChange={(e) => handleInputChange('Titulo', e.target.value)}
-                                className="form-control"
-                                placeholder="Título de la Publicación..."
-                            />
-                        </div>
+          <form onSubmit={handleSubmit} className="modify-publication-form">
+            <div className="mb-3">
+              <label htmlFor="Titulo" className="form-label">Titulo:</label>
+              <input
+                type="text"
+                id="Titulo"
+                value={publicacionData.Titulo || ''}
+                onChange={(e) => handleInputChange('Titulo', e.target.value)}
+                className="form-control"
+              />
+            </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="Descripcion" className="form-label">Descripción:</label>
-                            <textarea
-                                id="descripcion"
-                                value={publicacionData.Descripcion || ''}
-                                onChange={(e) => handleInputChange('Descripcion', e.target.value)}
-                                className="form-control"
-                                rows="5"
-                                placeholder='Ingrese una descripción a la publicación...'
-                            ></textarea>
-                        </div>
+            <div className="mb-3">
+              <label htmlFor="Descripcion" className="form-label">Descripción:</label>
+              <textarea
+                id="descripcion"
+                value={publicacionData.Descripcion || ''}
+                onChange={(e) => handleInputChange('Descripcion', e.target.value)}
+                className="form-control"
+                rows="5"
+              ></textarea>
+            </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="Organizacion" className="form-label">Organización:</label>
-                            <input
-                                type="text"
-                                id="Organizacion"
-                                value={publicacionData.Organizacion || ''}
-                                onChange={(e) => handleInputChange('Organizacion', e.target.value)}
-                                className="form-control"
-                                placeholder="Ingrese el nombre de la Organización..."
-                            />
-                        </div>
+            <div className="mb-3">
+              <label htmlFor="Organizacion" className="form-label">Organización:</label>
+              <input
+                type="text"
+                id="Organizacion"
+                value={publicacionData.Organizacion || ''}
+                onChange={(e) => handleInputChange('Organizacion', e.target.value)}
+                className="form-control"
+              />
+            </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="Representante" className="form-label">Representante:</label>
-                            <input
-                                type="text"
-                                id="Representante"
-                                placeholder="Ingrese el representante..."
-                                value={publicacionData.Representante}
-                                onChange={(e) => handleInputChange('Representante', e.target.value)}
-                                className="form-control"
-                            />
-                        </div>
+            <div className="mb-3">
+              <label htmlFor="Representante" className="form-label">Representante:</label>
+              <input
+                type="text"
+                id="Representante"
+                value={publicacionData.Representante || ''}
+                onChange={(e) => handleInputChange('Representante', e.target.value)}
+                className="form-control"
+              />
+            </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="Resultado" className="form-label">Resultado:</label>
-                            <input
-                                type="text"
-                                id="Resultado"
-                                value={publicacionData.Resultado || ''}
-                                placeholder="Beneficiario/No Beneficiario"
-                                className="form-control"
-                            />
-                        </div>
+            <div className="mb-3">
+              <label htmlFor="Resultado" className="form-label">Resultado:</label>
+              <select
+                className="form-select"
+                id="Resultado"
+                value={publicacionData.Resultado || ''}
+                onChange={(e) => handleInputChange('Resultado', e.target.value)}
+              >
+                <option value="" disabled>Selecciona una opción</option>
+                <option value="Beneficiario">Beneficiario</option>
+                <option value="No Beneficiario">No Beneficiario</option>
+              </select>
+            </div>
 
-                        <button type="submit" className="btn btn-primary">Modificar Publicación Resultados</button>
-                    </form>
+            <button type="submit" className="btn btn-primary">Modificar Publicación Resultados</button>
+          </form>
 
-                    <div className="modify-publication-actions">
-                        <button onClick={() => handleEliminarPublicacion(publicacionData._id)} className="btn btn-danger me-2">
-                            Eliminar Publicación Resultados
-                        </button>
-                        <button onClick={() => navigate('/publicacion_resultados')} className="btn btn-secondary me-2">
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
-            )}
+          <div className="modify-publication-actions">
+            <button onClick={handleShowDeleteModal} className="btn btn-danger">
+              Eliminar Publicación Resultados
+            </button>
+            <button onClick={handleShowCancelModal} className="btn btn-secondary">
+              Cancelar
+            </button>
+          </div>
         </div>
-    );
+      )}
+
+      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Eliminar Publicación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Está seguro de que desea eliminar esta publicación?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDeleteModal}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={handleDeleteConfirmation}>
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showCancelModal} onHide={handleCloseCancelModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Cancelar Modificación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Está seguro de que desea cancelar la modificación de esta publicación?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseCancelModal}>
+            No
+          </Button>
+          <Button variant="primary" onClick={() => navigate('/publicacion_resultados')}>
+            Sí
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
 
 export default ModificarPublicacionResultados;
+

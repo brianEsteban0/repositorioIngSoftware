@@ -79,32 +79,25 @@ async function createPublicacion_resultados(req, res) {
         if (!regexResultado.test(Resultado)) {
             return respondError(req, res, 400, "El Resultado Solo Acepta Beneficiario o No Beneficiario.");
         }
-
-        const publicacion = {
+        const publicacion = new Publicacion_resultados({
             Titulo,
             Descripcion,
             Organizacion,
             Representante,
             Resultado,
-        };
+        });
 
-        // Crea una nueva instancia de Publicacion_resultados utilizando los datos del cuerpo de la solicitud
-        const [publicaciones, errorPublicaciones] = await Publicacion_resultados(publicacion);
+        const savedPublicacion = await publicacion.save();
 
-        if (errorPublicaciones) {
-            return respondInternalError(req, res, 404, errorPublicaciones);
+        respondSuccess(req, res, 201, savedPublicacion);
+        } catch (error) {
+            handleError(error, "publicacion_resultados.controller -> createPublicacion_resultados");
+            respondError(req, res, 500, "No se creó la publicación");
         }
-
-        if (!publicaciones) {
-            return respondError(req, res, 400, "No se creó la publicación");
-        }
-
-        respondSuccess(req, res, 201, publicaciones);
-    } catch (error) {
-        handleError(error, "publicacion_resultados.controller -> createPublicacion_resultados");
-        respondError(req, res, 500, "No se creó la publicación");
     }
-}
+    module.exports = {
+        createPublicacion_resultados,
+    };
 
 // Actualiza una publicación de resultados
 async function updatePublicacion_resultados(req, res) {

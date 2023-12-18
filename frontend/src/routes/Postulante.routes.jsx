@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import {  getPublicacion  } from '../services/VerPublicaciones.service';
+import {  obtenerPublicacionById, getPublicacion    } from '../services/VerPublicaciones.service';
 import { useNavigate } from 'react-router-dom';
 
 function Postulacion() {
@@ -8,17 +8,25 @@ function Postulacion() {
   const [publicaciones, setPublicaciones] = useState([]);
 
   useEffect(() => {
-    getPublicacion().then((response) => {
-      setPublicaciones(response);
-      console.log(response);
-    });
+    obtenerPublicaciones();
   }, []);
 
-  const handlePostular = (id) => {
-    navigate(`/formulario-postulacion/${id}`);
+  const obtenerPublicaciones = async () => {
+    try {
+      const response = await getPublicacion();
+      setPublicaciones(response);
+    } catch (error) {
+      console.error('Error al obtener las publicaciones:', error);
+    }
   };
-  const postular = (publicacionId) => {
-    navigate(`/postulacion/formulario/${publicacionId}`);
+
+  const handlePostular = async (id) => {
+    try {
+      const publicacion = await obtenerPublicacionById(id);
+      navigate(`/postulacion/formulario/${publicacion._id}`);
+    } catch (error) {
+      console.error('Error al obtener la publicación:', error);
+    }
   };
 
   return (
@@ -35,7 +43,7 @@ function Postulacion() {
           </tr>
         </thead>
         <tbody>
-          {publicaciones?.map((publicacion) =>
+          {publicaciones.map((publicacion) =>
             publicacion.fecha_termino !== 'Plazo vencido' ? (
               <tr key={publicacion._id}>
                 <td>{publicacion.cupos}</td>
@@ -43,8 +51,9 @@ function Postulacion() {
                 <td>{publicacion.monto}</td>
                 <td>{publicacion.fecha_termino}</td>
                 <td>
-                  {/* Botón "Postular" para redirigir usando navigate */}
-                  <button className="btn btn-primary" onClick={() => postular(publicacion._id)}>Postular</button>
+                  <button className="btn btn-primary" onClick={() => handlePostular(publicacion._id)}>
+                    Postular
+                  </button>
                   <button className="btn btn-info">i</button>
                 </td>
               </tr>

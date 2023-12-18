@@ -81,17 +81,16 @@ const PublicacionResultadoForm = () => {
                         onChange={(e) => handleInputChange('Representante', e.target.value)}
                     />
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="Resultado" className="form-label">Resultado:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="Resultado"
-                        placeholder="Beneficiario/No Beneficiario"
-                        value={publicacionData.Resultado}
-                        onChange={(e) => handleInputChange('Rut_Representante', e.target.value)}
-                    />
-                </div>
+                <select
+    className="form-select"
+    id="Resultado"
+    value={publicacionData.Resultado}
+    onChange={(e) => handleInputChange('Resultado', e.target.value)}
+>
+    <option value="" disabled>Seleccionar Resultado</option>
+    <option value="Beneficiario">Beneficiario</option>
+    <option value="No Beneficiario">No Beneficiario</option>
+</select>
                 <div className="d-grid gap-2">
                     <button className="btn btn-primary" type="submit">Crear Publicacion de Resultados</button>
                     <button className="btn btn-secondary" onClick={() => navigate('/publicacion_resultado')}>Cancelar</button>

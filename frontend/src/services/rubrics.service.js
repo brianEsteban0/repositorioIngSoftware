@@ -43,7 +43,7 @@ export const updateRubrica = async (id, rubrica) => {
       const response = await axios.put(`/rubric/${id}`, rubrica);
       console.log(response);
       if (response.status === 200) {
-        return response.data;
+        return response;
       }
     } catch (error) {
       const errorMessage = error.response?.data.message || 'Error desconocido al editar la rubrica';

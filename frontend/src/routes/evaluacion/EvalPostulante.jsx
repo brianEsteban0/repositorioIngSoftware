@@ -94,9 +94,9 @@ function EvalPostulante() {
     // Puedes realizar otras acciones con resultadoData, por ejemplo, enviarlo a un servidor
     console.log("Resultado guardado:", resultadoData);
   }catch(error){
-    const errorMessage = error.response?.data.message || 'Error desconocido al editar la rubrica';
+    const errorMessage = error.response?.data.message || 'Error desconocido al editar la evaluaacion';
     console.error('Error al editar la rubrica', error);
-    alert('Error al editar la rubrica: ' + errorMessage);
+    alert('Error al evaluar: ' + errorMessage);
   }
 };
 

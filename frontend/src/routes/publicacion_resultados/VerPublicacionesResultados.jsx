@@ -100,13 +100,13 @@ function VerPublicacionesResultados() {
       </div>
 
       <div className="row justify-content-center" style={{ margin: '20px -5px'}}>
-        {publicacionesOrdenadas.map((publicacion) => (
-          <div
-            className="col-md-6 mb-3"
-            key={publicacion._id}
-            style={{ padding: '10px', cursor: 'pointer' }}
-            onClick={() => handleExpandirPublicacion(publicacion._id)}
-          >
+  {publicacionesOrdenadas && publicacionesOrdenadas.map((publicacion) => (
+    <div
+      className="col-md-6 mb-3"
+      key={publicacion._id}
+      style={{ padding: '10px', cursor: 'pointer' }}
+      onClick={() => handleExpandirPublicacion(publicacion._id)}
+    >
             <div className="card" style={{ border: '1px solid #E1E8ED', backgroundColor: '#FFFFFF', color: '#1C2938' }}>
               <div className="card-body d-flex flex-column">
                 <div>

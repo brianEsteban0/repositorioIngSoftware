@@ -101,10 +101,6 @@ const publicacionResultadosSchema = new mongoose.Schema(
             },
         ], */
     },
-    Rut_Representante: {
-        type: String,
-        required: true,
-    },
 });
 
 const PublicacionResultados = mongoose.model(

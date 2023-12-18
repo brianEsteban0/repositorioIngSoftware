@@ -10,6 +10,7 @@ function VerPublicaciones() {
   const [ordenamiento, setOrdenamiento] = useState(null);
   const [expandedPublication, setExpandedPublication] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     obtenerPublicaciones();
   }, []);

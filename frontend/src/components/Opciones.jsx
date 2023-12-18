@@ -44,6 +44,7 @@ function Opciones() {
           </button>
         </div>
       )}
+    {(user.roles[0].name === 'admin' || user.roles[0].name === 'evaluador') && (
     <div className="col-4 mb-3">
       <button
         key="evaluacion"
@@ -53,7 +54,7 @@ function Opciones() {
         Evaluación
       </button>
     </div>
-
+    )}
     <div className="col-4 mb-3">
       <button key="postular" 
       className="buton buton-block success"
@@ -70,6 +71,7 @@ function Opciones() {
       </button>
     </div>
 
+      {(user.roles[0].name === 'admin' || user.roles[0].name === 'evaluador') && (
     <div className="col-4 mb-3">
       <button
         key="publicacion_resultados"
@@ -78,6 +80,7 @@ function Opciones() {
       >Ganadores
       </button>
     </div>
+    )}
   </div>
   );
 }

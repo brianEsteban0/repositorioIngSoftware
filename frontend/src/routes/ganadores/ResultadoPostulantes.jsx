@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getResultado ,updateResultado} from "../../services/resultados.service";
+import {
+  getResultado,
+  updateResultado,
+} from "../../services/resultados.service";
 import { obtenerPublicacionById } from "../../services/VerPublicaciones.service";
 import { getRubricaById } from "../../services/rubrics.service";
 import {
   getPostulanteById,
   getEvaluacion,
 } from "../../services/evaluacion.service";
+import "./Resultados.css";
 
 function ResultadoPostulantes() {
   const id = useParams();
@@ -82,6 +86,7 @@ function ResultadoPostulantes() {
       e.preventDefault();
       updateResultado(id?.id, resultadoData);
       alert("Datos enviados correctamente");
+      navigate(`/resultados`);
     } catch (error) {
       alert("Error al enviar datos");
     }
@@ -91,36 +96,38 @@ function ResultadoPostulantes() {
       <h1>Resultado de Postulantes</h1>
       <div className="container">
         <div className="mb-3">
-          <table className="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Postulante</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Representante</td>
-                <td>{postulante?.Representante}</td>
-              </tr>
-              <tr>
-                <td>Rut</td>
-                <td>{postulante?.Rut_Representante}</td>
-              </tr>
-              <tr>
-                <td>Telefono</td>
-                <td>{postulante?.Telefono}</td>
-              </tr>
-              <tr>
-                <td>Descripcion</td>
-                <td>{postulante?.descripcion}</td>
-              </tr>
-            </tbody>
-            <div></div>
-          </table>
-          <div>
-            <table className="table table-dark table-striped">
-              <thead>
+          <div className="table-responsive">
+            {/* Primera tabla - Datos del Postulante */}
+            <table className="table table-striped">
+              <thead className="table-warning">
+                <tr>
+                  <th scope="col">Postulante</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Representante</td>
+                  <td>{postulante?.Representante}</td>
+                </tr>
+                <tr>
+                  <td>Rut</td>
+                  <td>{postulante?.Rut_Representante}</td>
+                </tr>
+                <tr>
+                  <td>Telefono</td>
+                  <td>{postulante?.Telefono}</td>
+                </tr>
+                <tr>
+                  <td>Descripcion</td>
+                  <td>{postulante?.descripcion}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            {/* Segunda tabla - Datos de la Publicación */}
+            <table className="table table-striped">
+              <thead className="table-info">
                 <tr>
                   <th scope="col">Publicacion</th>
                   <th scope="col"></th>
@@ -145,10 +152,12 @@ function ResultadoPostulantes() {
                 </tr>
               </tbody>
             </table>
-            <table className="table table-dark table-striped">
-              <thead>
+
+            {/* Tercera tabla - Datos de la Rubrica */}
+            <table className="table table-striped">
+              <thead className="table-primary">
                 <tr>
-                  <th scope="col">Rubrica</th>
+                  <th scope="col" >Rubrica</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -171,6 +180,7 @@ function ResultadoPostulantes() {
             </table>
           </div>
         </div>
+
         <form className="my-4" onSubmit={handleSubmit}>
           <div>
             <div>
@@ -218,7 +228,10 @@ function ResultadoPostulantes() {
             </div>
           </div>
           <div className="d-flex justify-content-end">
-            <button type="submit"  className="btn btn-primary btn-lg my-2 mx-3" onClick={() => navigate(`/resultados`)}>
+            <button
+              type="submit"
+              className="btn btn-primary btn-lg my-2 mx-3"
+            >
               Enviar
             </button>
           </div>

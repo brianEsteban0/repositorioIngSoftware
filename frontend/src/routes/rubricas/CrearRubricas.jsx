@@ -56,7 +56,7 @@ const RubricForm = () => {
       const response = await axios.post("/rubric", rubricData);
   
       // Verificar si la solicitud fue exitosa
-      if (response.status === 200) {
+      if (response.data.status === 200) {
         alert('Rubrica creada con éxito');
         navigate('/rubricas');
       } else {

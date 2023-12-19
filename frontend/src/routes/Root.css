@@ -22,4 +22,8 @@ html, body {
     height: 100% !important;
     margin: 0 !important;
 }
-  
+
+.custom-border {
+    border-top: none;
+    border-bottom: 80px solid #000;
+  }

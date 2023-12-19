@@ -24,26 +24,30 @@ function PageRoot() {
   const { user } = useAuth();
 
   return (
-    <div className="bg-success p-2 text-dark bg-opacity-25 background">
-      <div className="d-flex justify-content-between align-items-center principal">
-        <div className="titulo">
-          <h1 className="display-3">Postulacion Concursos Proyectos</h1>
-        </div>
-        <div className="mailbuton">
-          <div className="text-muted">Correo: {user.email}</div>
-          <div>
-            <button className="btn btn-secondary" onClick={() => navigate("/")}>
-              Inicio
-            </button>
-            <button className="btn btn-dark" onClick={handleLogout}>
-              Cerrar sesion
-            </button>
-          </div>
+    <div>
+    <div className="d-flex justify-content-between align-items-center principal bg-success text-dark bg-opacity-50">
+      <div className="titulo">
+        <h1 className="display-3 ">Postulacion Concursos Proyectos</h1>
+      </div>
+      <div className="mailbuton">
+        <div className="text-muted">Correo: {user.email}</div>
+        <div>
+          <button className="btn btn-secondary" onClick={() => navigate("/")}>
+            Inicio
+          </button>
+          <button className="btn btn-dark" onClick={handleLogout}>
+            Cerrar sesión
+          </button>
         </div>
       </div>
-
+      <hr className="custom-border"/>
+    </div>
+    
+    <div className="bg-secondary text-dark bg-opacity-10">
       <Outlet />
     </div>
+    
+  </div>
   );
 }
 

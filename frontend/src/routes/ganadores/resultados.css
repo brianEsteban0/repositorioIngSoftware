@@ -1,0 +1,12 @@
+/* Estilos personalizados para ajustar el ancho de las columnas de las tablas */
+.table th, .table td {
+    width: 50%; /* Puedes ajustar el porcentaje según sea necesario */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+  }
+
+.table{
+    margin-bottom: 0rem;
+}

@@ -154,6 +154,10 @@ const router = createBrowserRouter([
       {
         path: '/postulacion/formulario/:id',
         element: <Postulacion/>,
+      },
+      {
+        path: '/publicacion_resultados/postulantes/:id',
+        element: <ResultadoPostulantes/>,
       }
     ],
   },

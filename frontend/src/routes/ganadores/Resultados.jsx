@@ -37,7 +37,7 @@ function Resultados() {
     console.log(id);
     getPostulanteById(id).then((response) => {
         console.log(response.data);
-        (response.data === null)? alert("No hay postulante asociado a esta publicacion"): 
+        (response.data === null)? alert("No hay postulante asociado a esta publicacion"):
         navigate(`/evaluacion/ver-postulante/${response.data.Rut_Representante}`);
         }
     );

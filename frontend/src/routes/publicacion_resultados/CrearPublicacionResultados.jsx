@@ -36,6 +36,7 @@ const PublicacionResultadoForm = () => {
 
   const handleConfirm = async () => {
     try {
+      await axios.get('/resultadosPorPostulacion/:idPostulacion', publicacionData);
       await axios.post('/publicacion_resultados/', publicacionData);
       setSuccessMessage('Publicación creada con éxito');
       setShowSuccessModal(true);

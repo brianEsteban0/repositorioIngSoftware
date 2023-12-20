@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 const ResultadoService = require("../services/resultado.service.js");
 const { respondSuccess, respondError } = require("../utils/resHandler");
 const { handleError } = require("../utils/errorHandler");
@@ -41,7 +42,7 @@ async function createResultado(req, res) {
   async function getResultadoPostulacion(req, res) {
     try {
       const { params } = req;
-      const [resultado, errorResultado] = await ResultadoService.getResultadoPostulacion(params.id);
+      const [resultado, errorResultado] = await ResultadoService.getResultadoPostulacion(params.idPostulacion);
   
       if (errorResultado) return respondError(req, res, 404, errorResultado);
   

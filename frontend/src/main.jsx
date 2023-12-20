@@ -29,7 +29,7 @@ import FormularioPostulacion from './routes/Postulante.routes.jsx';
 
 import VerPostulante from './routes/evaluacion/VerPostulante.jsx';
 import PublicacionResultados from './routes/publicacion_resultados/PublicacionResultado.jsx';
-
+import InicioPubliResult from './routes/publicacion_resultados/InicioPubliResult.jsx';
 const publicacionesRoutes = [
   {
     path: '/publicaciones/ver',
@@ -108,7 +108,7 @@ const router = createBrowserRouter([
         element: <PublicacionForm />,
       },
       {
-        path: '/publicacion_resultados/crear',
+        path: '/publicacion_resultados/crear/:id',
         element: <PublicacionResultadoForm />,
       },
       {
@@ -154,6 +154,10 @@ const router = createBrowserRouter([
       {
         path: '/postulacion/formulario/:id',
         element: <Postulacion/>,
+      },
+      {
+        path: '/publicacion_resultados/PorPublicacion',
+        element: <InicioPubliResult/>,
       }
     ],
   },

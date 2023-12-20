@@ -42,7 +42,7 @@ function PublicacionResultados() {
               </p>
               <button
                 className="btn btn-outline-success btn-lg"
-                onClick={() => navigate('/publicacion_resultados/crear')}
+                onClick={() => navigate('/publicacion_resultados/PorPublicacion')}
               >
                 Ir a Crear Publicaciones
               </button>

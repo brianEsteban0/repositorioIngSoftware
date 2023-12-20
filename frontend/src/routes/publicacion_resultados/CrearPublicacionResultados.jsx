@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../services/root.service';
 import { Modal, Button, Alert } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getResultadosByPostulacion } from '../../services/resultados.service';
+import { getPostulanteById } from '../../services/evaluacion.service';
 
 const PublicacionResultadoForm = () => {
   const [publicacionData, setPublicacionData] = useState({
@@ -17,6 +21,17 @@ const PublicacionResultadoForm = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const { id } = useParams();
+  const [resultados, setResultados] = useState([]);
+  const [postulante, setPostulante] = useState([]);
+  const [resultadoData, setResultadoData] = useState([]);
+
+  useEffect(() => {
+    getResultadosByPostulacion(id).then((response) => {
+      setResultados(response.data);
+      console.log(response.data);
+    });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -61,11 +76,55 @@ const PublicacionResultadoForm = () => {
     setShowSuccessModal(false);
   };
 
+  const handleGanador = async (id , result) => {
+    try {
+      const response = await getPostulanteById(id);
+      setPostulante(response.data);
+      setResultadoData(result);
+      console.log(response.data);
+      console.log(result);
+    } catch (error) {
+      console.error('Error al seleccionar el ganador', error);
+      setErrorMessage('Error al seleccionar el ganador');
+      setShowErrorModal(true);
+    }
+}
+
   return (
     <div className="container my-5">
       <div className="row justify-content-center">
         <div className="col-md-8 col-lg-6">
           <h1 className="mb-4 text-center">Crear Publicación de Resultados</h1>
+          <table className="table ">
+      <thead>
+        <tr>
+          <th>Puntaje </th>
+          <th>Ganador</th>
+          <th></th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {resultados?.map(resultado=>{
+
+            return (
+              <tr key={resultado._id}>
+                <td>{resultado.puntaje_total}</td>
+                <td>{(resultado.ganador)? "Si" : "No" }</td>
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => { handleGanador(resultado.postulante, resultado); }}
+                  >
+                    Seleccionar Ganador
+                  </button>
+                </td>
+
+              </tr>
+            );
+        })}
+      </tbody>
+    </table>
           <form onSubmit={handleSubmit}>
             <div className='mb-3'>
               <label htmlFor="Titulo" className="form-label">Título:</label>
@@ -96,7 +155,7 @@ const PublicacionResultadoForm = () => {
                 className="form-control"
                 id="Organizacion"
                 placeholder="Ingrese el Nombre de la Organización..."
-                value={publicacionData.Organizacion}
+                value={postulante.Organizacion || ''}
                 onChange={(e) => handleInputChange('Organizacion', e.target.value)}
               />
             </div>
@@ -107,7 +166,7 @@ const PublicacionResultadoForm = () => {
                 className="form-control"
                 id="Representante"
                 placeholder="Ingrese el Nombre del Representante..."
-                value={publicacionData.Representante}
+                value={postulante.Representante || ''}
                 onChange={(e) => handleInputChange('Representante', e.target.value)}
               />
             </div>
@@ -116,12 +175,12 @@ const PublicacionResultadoForm = () => {
               <select
                 className="form-select"
                 id="Resultado"
-                value={publicacionData.Resultado}
+                value={resultadoData.ganador || ''}
                 onChange={(e) => handleInputChange('Resultado', e.target.value)}
               >
                 <option value="" disabled>Selecciona una opción</option>
-                <option value="Beneficiario">Beneficiario</option>
-                <option value="No Beneficiario">No Beneficiario</option>
+                <option value="true">Beneficiario</option>
+                <option value="false">No Beneficiario</option>
               </select>
             </div>
 

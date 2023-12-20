@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const Resultado = require("../models/resultado.models.js");
 const { handleError } = require("../utils/errorHandler");
 
@@ -50,7 +51,8 @@ async function createResultado(resultado) {
  */
 async function getResultadoPostulacion(postId) {
     try {
-      const resultadoFound = await Resultado.find({ publicacion: postId }).exec();
+      const resultadoFound = await Resultado.find({ postulacion: postId }).exec();
+      console.log(resultadoFound);
       if (!resultadoFound) return [null, "los postulantes aun no tienen su resultado"];
       return [resultadoFound, null];
     } catch (error) {
